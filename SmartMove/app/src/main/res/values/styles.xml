@@ -1,0 +1,54 @@
+<resources>
+    <style name="CGUtitre" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/smartloc_darkblue</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="CGUtexte">
+        <item name="android:textColor">@color/smartloc_darkblue</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:fontFamily">@font/urbanist_regular</item>
+    </style>
+    <style name="MAINtileTitle">
+        <item name="android:textColor">@color/smartloc_darkblue</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+    <style name="MAINtileTitle_light">
+        <item name="android:textColor">@color/smartloc_light</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="MAINtileSubtitle">
+        <item name="android:textColor">@color/smartloc_darkblue</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+    </style>
+
+    <style name="MAINtileCO2">
+        <item name="android:textColor">@color/smartloc_green</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+    </style>
+
+    <style name="DefiTitle">
+        <item name="android:textColor">@color/smartloc_dark</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+    </style>
+    <style name="DefiSubtitle">
+        <item name="android:textColor">@color/smartloc_dark</item>
+        <item name="android:textSize">15dip</item>
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+    </style>
+    <style name="DefiProgress">
+        <item name="android:textColor">@color/smartloc_dark</item>
+        <item name="android:textSize">12dip</item>
+        <item name="android:fontFamily">@font/urbanist</item>
+    </style>
+</resources>
