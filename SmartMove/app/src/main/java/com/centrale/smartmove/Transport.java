@@ -1,8 +1,11 @@
 package com.centrale.smartmove;
 
 public class Transport {
+
     String nameTransport;
     int consCO2;
+
+
 
     public void setNameTransport(String nameTransport) {
         this.nameTransport = nameTransport;
@@ -20,3 +23,4 @@ public class Transport {
         return nameTransport;
     }
 }
+

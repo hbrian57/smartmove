@@ -5,13 +5,20 @@ import java.util.Date;
 import java.util.List;
 
 public class LilTrip {
-    Transport transport;
+    Transport moyenTransport;
     List<Position> trace2D;
     Date InitialDate;
     Date FinalDate;
+    int distanceTotal;
+
+
+    public int calculTotalDistance(){
+    return distanceTotal;
+    }
+
 
     public void setTransport(Transport transport) {
-        this.transport = transport;
+        this.moyenTransport = transport;
     }
 
     public void setTrace2D(List<Position> trace2D) {
@@ -27,7 +34,7 @@ public class LilTrip {
     }
 
     public Transport getTransport() {
-        return transport;
+        return moyenTransport;
     }
 
     public List<Position> getTrace2D() {
@@ -41,4 +48,9 @@ public class LilTrip {
     public Date getFinalDate() {
         return FinalDate;
     }
+
+    public int getDistanceTotal() {
+        return distanceTotal;
+    }
+
 }
