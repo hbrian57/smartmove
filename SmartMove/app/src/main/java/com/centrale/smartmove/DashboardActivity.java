@@ -9,12 +9,20 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class DashboardActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class DashboardActivity extends AppCompatActivity implements DisplayHandler {
+
+    DisplayManager displayManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        displayManager = new DisplayManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ActivityCompat.requestPermissions(this,
@@ -31,5 +39,13 @@ public class DashboardActivity extends AppCompatActivity {
         VibrationEffect vibrationEffect1 = VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE);
         vibrator.cancel();
         vibrator.vibrate(vibrationEffect1);
+    }
+
+
+    @Override
+    public Map<Integer, View> getEditableObjects() {
+        Map<Integer,View> list = new HashMap<>();
+        list.put(R.id.impactText, findViewById(R.id.impactText));
+        return list;
     }
 }
