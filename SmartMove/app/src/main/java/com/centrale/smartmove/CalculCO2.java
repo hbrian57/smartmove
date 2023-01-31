@@ -2,11 +2,6 @@ package com.centrale.smartmove;
 
 public class CalculCO2 {
 
-    /**
-     * Method which enables to calculate the CO2 emission of a Trip
-     * @param t a trip
-     * @return an integer corresponding to the value of the CO2 emission
-     */
     public double calculCO2ForTrip(Trip t){
         double consoCO2 = 0;
         int i;
@@ -16,11 +11,6 @@ public class CalculCO2 {
         return consoCO2;
     }
 
-    /**
-     * Method which enables to calculate the CO2 emission of a LitTrip
-     * @param t a littrip
-     * @return an integer corresponding to the value of the CO2 emission
-     */
     public double calculCO2ForLitTrip(LilTrip t){
         double consoCO2 = 0;
         double multiplifacteurTransport;
