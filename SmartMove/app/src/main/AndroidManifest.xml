@@ -18,10 +18,12 @@
         android:theme="@style/Theme.SmartMove"
         tools:targetApi="31">
         <activity
-            android:name=".activityCarbonEquivalent"
-            android:exported="false"
-            android:label="@string/title_activity_carbon_equivalent"
-            android:theme="@style/Theme.SmartMove.NoActionBar" />
+            android:name=".activitycarbonEquivalent"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".BootstrapActivity"
             android:exported="true">

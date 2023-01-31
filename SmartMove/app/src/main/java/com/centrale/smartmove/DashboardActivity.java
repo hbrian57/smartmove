@@ -34,10 +34,10 @@ public class DashboardActivity extends AppCompatActivity {
         vibrator.cancel();
         vibrator.vibrate(vibrationEffect1);
     }
-    // bouton information clicable
+    // bouton information cliquable
     public void clickNew(View v)
     {
-        Intent intent1 = new Intent(DashboardActivity.this, activityCarbonEquivalent.class);
+        Intent intent1 = new Intent(DashboardActivity.this, activitycarbonEquivalent.class);
         startActivity(intent1);
         // Toast.makeText(this, "Show some text on the screen.", Toast.LENGTH_LONG).show();
     }
