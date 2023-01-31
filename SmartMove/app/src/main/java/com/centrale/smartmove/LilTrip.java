@@ -31,7 +31,7 @@ public class LilTrip {
      * @param moyenTransport mean of transport
      * @param trace2D list of all the position in 2D
      * @param InitialDate initial date of the littrip
-     * @param FinalDate final date of the littrip
+     * @param FinalDate Final date of the littrip
      * @param distanceTotal total distance of the littrip
      */
     public LilTrip(Transport moyenTransport, List<Position> trace2D, Date InitialDate, Date FinalDate, int distanceTotal) {
