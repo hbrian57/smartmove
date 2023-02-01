@@ -51,6 +51,8 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
+                android:clickable="true"
+                android:onClick="clickNew"
                 android:layout_height="20dip"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/info" />

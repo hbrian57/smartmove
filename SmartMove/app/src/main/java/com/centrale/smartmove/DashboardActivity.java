@@ -5,10 +5,12 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.View;
 import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -32,4 +34,12 @@ public class DashboardActivity extends AppCompatActivity {
         vibrator.cancel();
         vibrator.vibrate(vibrationEffect1);
     }
+    // bouton information clicable
+    public void clickNew(View v)
+    {
+        Intent intent1 = new Intent(DashboardActivity.this, activityCarbonEquivalent.class);
+        startActivity(intent1);
+        // Toast.makeText(this, "Show some text on the screen.", Toast.LENGTH_LONG).show();
+    }
+
 }
