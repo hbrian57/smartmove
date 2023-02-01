@@ -3,7 +3,7 @@ package com.centrale.smartmove;
 
 import java.util.List;
 
-public class TripSegment {
+public class TripSegment implements Savable {
     /**
      * Mean of transport
      */
@@ -54,6 +54,10 @@ public class TripSegment {
         return distanceTotal;
     }
 
+    public Position getFirstPosition() {
+        return positionList.get(0);
+    }
+
     /**
      * Method which enables to calculate the CO2 emission of a LitTrip
      * @return an integer corresponding to the value of the CO2 emission
@@ -63,4 +67,8 @@ public class TripSegment {
         return transportTypeCO2Parameter*this.getDistanceTotal();
     }
 
+    @Override
+    public String getSaveFormat() {
+        return null; //TODO
+    }
 }

@@ -2,7 +2,7 @@ package com.centrale.smartmove;
 
 import java.util.ArrayList;
 
-public class Trip {
+public class Trip implements Savable{
 
     /**
      * Vector with all the little trips contained in the trip
@@ -21,15 +21,24 @@ public class Trip {
         return tripSegments;
     }
 
+    public TripSegment getFirstSegment() {
+        return tripSegments.get(0);
+    }
     /**
      * Method which calculates the CO2 emission of a Trip
      * @return a double corresponding to the value of the CO2 emission
      */
-    public double calculateCO2Footprint(Trip t){
+    public double getTripCO2Footprint() {
         double sumCarbonFootprint = 0;
-        for(TripSegment segment : tripSegments) {
+        for (TripSegment segment : tripSegments) {
             sumCarbonFootprint += segment.calculateCO2footprint();
         }
         return sumCarbonFootprint;
+    }
+
+
+    @Override
+    public String getSaveFormat() {
+        return null; //TODO
     }
 }

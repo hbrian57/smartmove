@@ -2,7 +2,7 @@ package com.centrale.smartmove;
 
 import java.util.Date;
 
-public class Position {
+public class Position implements Savable {
 
     /**
      * Double corresponding to the x in a 3D plan
@@ -52,5 +52,10 @@ public class Position {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String getSaveFormat() {
+        return null; //TODO
     }
 }
