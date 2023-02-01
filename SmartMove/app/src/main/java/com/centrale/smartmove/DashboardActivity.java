@@ -13,10 +13,16 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.Toast;
 
-public class DashboardActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class DashboardActivity extends AppCompatActivity implements DisplayHandler {
+
+    DisplayManager displayManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        displayManager = new DisplayManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ActivityCompat.requestPermissions(this,
@@ -34,12 +40,12 @@ public class DashboardActivity extends AppCompatActivity {
         vibrator.cancel();
         vibrator.vibrate(vibrationEffect1);
     }
-    // bouton information cliquable
-    public void clickNew(View v)
-    {
-        Intent intent1 = new Intent(DashboardActivity.this, activitycarbonEquivalent.class);
-        startActivity(intent1);
-        // Toast.makeText(this, "Show some text on the screen.", Toast.LENGTH_LONG).show();
-    }
 
+
+    @Override
+    public Map<Integer, View> getEditableObjects() {
+        Map<Integer,View> list = new HashMap<>();
+        list.put(R.id.impactText, findViewById(R.id.impactText));
+        return list;
+    }
 }
