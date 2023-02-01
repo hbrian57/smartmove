@@ -5,20 +5,20 @@ import java.util.Vector;
 public class Week {
 
     /**
-     * integer corresponding to the number of the week
+     * Integer corresponding to the number of the week
      */
     int idWeek;
     /**
-     * vector with all the trips of that week
+     * Vector with all the trips of that week
      */
     Vector<Trip> trips;
     /**
-     * total consumption of CO2 of that week
+     * Total consumption of CO2 of that week
      */
     int consWeek;
 
     /**
-     * constructor of a week with all the parameters
+     * Constructor of a week with all its parameters
      * @param id number of the week
      * @param tr vector with all the trips
      * @param cons consumption of CO2 during that week

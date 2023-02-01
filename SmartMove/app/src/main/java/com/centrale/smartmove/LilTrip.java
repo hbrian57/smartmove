@@ -27,7 +27,7 @@ public class LilTrip {
     int distanceTotal;
 
     /**
-     * Construcor of a LilTrip using all its attributes
+     * Constructor of a a segment of Trip (a LitTrip) using all its attributes
      * @param moyenTransport mean of transport
      * @param trace2D list of all the position in 2D
      * @param InitialDate initial date of the littrip

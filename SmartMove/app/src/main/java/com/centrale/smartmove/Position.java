@@ -5,20 +5,20 @@ import java.util.Date;
 public class Position {
 
     /**
-     * double corresponding to the x in a 3D plan
+     * Double corresponding to the x in a 3D plan
      */
     private double x;
 
     /**
-     * double corresponding to the y in a 3D plan
+     * Double corresponding to the y in a 3D plan
      */
     private double y;
     /**
-     * double corresponding to the z in a 3D plan
+     * Double corresponding to the z in a 3D plan
      */
     private double z;
     /**
-     * date corresponding to exact moment the position is taken
+     * Date corresponding to exact moment the position is taken
      */
     Date date;
 

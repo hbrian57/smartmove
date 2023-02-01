@@ -4,7 +4,7 @@ public class CalculCO2 {
 
     /**
      * Method which enables to calculate the CO2 emission of a Trip
-     * @param t a trip
+     * @param t is a trip
      * @return an integer corresponding to the value of the CO2 emission
      */
     public double calculCO2ForTrip(Trip t){
@@ -18,7 +18,7 @@ public class CalculCO2 {
 
     /**
      * Method which enables to calculate the CO2 emission of a LitTrip
-     * @param t a littrip
+     * @param t is a segment of a trip (a LitTrip)
      * @return an integer corresponding to the value of the CO2 emission
      */
     public double calculCO2ForLitTrip(LilTrip t){
