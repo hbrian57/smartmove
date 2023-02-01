@@ -1,55 +1,47 @@
 package com.centrale.smartmove;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-public class Week {
+public class Week implements Savable{
 
     /**
-     * Integer corresponding to the number of the week
+     * Calendar object to compute Date & Time transformations.
      */
-    int idWeek;
+    Calendar calendar;
+
     /**
      * Vector with all the trips of that week
      */
-    Vector<Trip> trips;
-    /**
-     * Total consumption of CO2 of that week
+    ArrayList<Trip> tripList;
+
+
+    /** Constructor that creates a week based on a new trip
+     * @param trip first trip of the new week
      */
-    int consWeek;
+    public Week(Trip trip) {
+        Date firstDate = trip.getFirstSegment().getFirstPosition().getDate();
+        calendar.setTime(firstDate);
+        tripList.add(trip);
 
-    /**
-     * Constructor of a week with all its parameters
-     * @param id number of the week
-     * @param tr vector with all the trips
-     * @param cons consumption of CO2 during that week
-     */
-    public Week(int id,Vector<Trip> tr, int cons){
-        this.consWeek=cons;
-        this.idWeek= id;
-        this.trips=tr;
     }
 
-    public void setIdWeek(int idWeek) {
-        this.idWeek = idWeek;
+    public double getTotalCO2Footprint() {
+        double sumCO2Footprint = 0;
+        for (Trip trip : tripList) {
+            sumCO2Footprint += trip.getTripCO2Footprint();
+        }
+        return sumCO2Footprint;
     }
 
-    public void setTrips(Vector<Trip> trips) {
-        this.trips = trips;
-    }
-
-    public void setConsWeek(int consWeek) {
-        this.consWeek = consWeek;
-    }
-
-    public int getIdWeek() {
-        return idWeek;
-    }
-
-    public Vector<Trip> getTrips() {
-        return trips;
-    }
-
-    public int getConsWeek() {
-        return consWeek;
+    @Override
+    public String getSaveFormat() {
+        String saveFormat = "WEEK ";
+        saveFormat += calendar.toString() + " {";
+        for (Trip t:tripList) {
+            saveFormat += "TRIP " + t.getSaveFormat();
+        }
+        return saveFormat;
     }
 }
