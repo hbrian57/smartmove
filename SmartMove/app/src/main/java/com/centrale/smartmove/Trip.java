@@ -1,24 +1,35 @@
 package com.centrale.smartmove;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Trip {
 
     /**
      * Vector with all the little trips contained in the trip
      */
-    Vector<LilTrip> listLilTrips;
+    ArrayList<TripSegment> tripSegments;
 
     /**
      * Constructor of a trip with all the little trips contained in this trip as a parameter
-     * @param listLT list of the little trips contained in this trip
+     * @param listSegments list of the little trips contained in this trip
      */
-    public Trip(Vector<LilTrip> listLT) {
-        this.listLilTrips=listLT;
+    public Trip(ArrayList<TripSegment> listSegments) {
+        this.tripSegments = listSegments;
     }
 
-    public Vector<com.centrale.smartmove.LilTrip> getListLilTrips() {
-        return listLilTrips;
+    public ArrayList<TripSegment> getListOfTripSegments() {
+        return tripSegments;
     }
 
+    /**
+     * Method which calculates the CO2 emission of a Trip
+     * @return a double corresponding to the value of the CO2 emission
+     */
+    public double calculateCO2Footprint(Trip t){
+        double sumCarbonFootprint = 0;
+        for(TripSegment segment : tripSegments) {
+            sumCarbonFootprint += segment.calculateCO2footprint();
+        }
+        return sumCarbonFootprint;
     }
+}
