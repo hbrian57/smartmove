@@ -2,7 +2,7 @@ package com.centrale.smartmove;
 
 import java.util.Date;
 
-public class Position implements Savable {
+public class TimestampedPosition implements Savable {
 
     /**
      * Double corresponding to the x in a 3D plan
@@ -20,7 +20,7 @@ public class Position implements Savable {
     /**
      * Date corresponding to exact moment the position is taken
      */
-    Date date;
+    Date datePos;
 
     public double getX() {
         return x;
@@ -34,8 +34,8 @@ public class Position implements Savable {
         return z;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDatePos() {
+        return datePos;
     }
 
     public void setX(double x) {
@@ -50,12 +50,24 @@ public class Position implements Savable {
         this.z = z;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDatePos(Date datePos) {
+        this.datePos = datePos;
     }
 
     @Override
     public String getSaveFormat() {
         return null; //TODO
+    }
+
+    /**
+     * Sets the position of the point to the given coordinates.
+     * @param x
+     * @param y
+     * @param z
+     */
+    public void setTimestampedPosition(double x,double y,double z){
+        this.x=x;
+        this.y=y;
+        this.z=z;
     }
 }

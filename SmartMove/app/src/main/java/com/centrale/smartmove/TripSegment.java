@@ -11,7 +11,7 @@ public class TripSegment implements Savable {
     /**
      * List of the positions taken during all the LitTrip
      */
-    List<Position> positionList;
+    List<TimestampedPosition> timestampedPositionList;
     /**
      * Total distance of the LitTrip
      */
@@ -20,12 +20,12 @@ public class TripSegment implements Savable {
     /**
      * Constructor of a a segment of Trip (a LitTrip) using all its attributes
      * @param transportTypeUsed mean of transport
-     * @param positions list of all the position in 2D
+     * @param timestampedPositions list of all the position in 2D
      * @param distanceTotal total distance of the littrip
      */
-    public TripSegment(TransportType transportTypeUsed, List<Position> positions, int distanceTotal) {
+    public TripSegment(TransportType transportTypeUsed, List<TimestampedPosition> timestampedPositions, int distanceTotal) {
         this.transportType = transportTypeUsed;
-        this.positionList = positions;
+        this.timestampedPositionList = timestampedPositions;
         this.distanceTotal = distanceTotal;
     }
 
@@ -38,24 +38,24 @@ public class TripSegment implements Savable {
     }
 
 
-    public void setPositionList(List<Position> positionList) {
-        this.positionList = positionList;
+    public void setPositionList(List<TimestampedPosition> timestampedPositionList) {
+        this.timestampedPositionList = timestampedPositionList;
     }
 
     public TransportType getTransportType() {
         return transportType;
     }
 
-    public List<Position> getPositionList() {
-        return positionList;
+    public List<TimestampedPosition> getPositionList() {
+        return timestampedPositionList;
     }
 
     public int getDistanceTotal() {
         return distanceTotal;
     }
 
-    public Position getFirstPosition() {
-        return positionList.get(0);
+    public TimestampedPosition getFirstPosition() {
+        return timestampedPositionList.get(0);
     }
 
     /**

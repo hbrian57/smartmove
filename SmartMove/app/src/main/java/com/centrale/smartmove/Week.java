@@ -21,7 +21,7 @@ public class Week implements Savable{
      * @param trip first trip of the new week
      */
     public Week(Trip trip) {
-        Date firstDate = trip.getFirstSegment().getFirstPosition().getDate();
+        Date firstDate = trip.getFirstSegment().getFirstPosition().getDatePos();
         calendar.setTime(firstDate);
         tripList.add(trip);
 
