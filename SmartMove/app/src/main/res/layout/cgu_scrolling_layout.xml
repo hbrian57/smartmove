@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/smartloc_light"
+    tools:context=".CGUActivity">
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".CGUActivity"
+        tools:showIn="@layout/cgu_scrolling_layout"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+
+            <!-- <TextView
+                android:id="@+id/text_cgu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/cgu_text"
+                app:layout_constraintBottom_toTopOf="@+id/cbaccept"/> -->
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/layoutCGU">
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cbaccept"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:checked="false"
+                android:onClick="onCheckBoxClicked"
+                android:text="@string/cbaccept"
+                android:textSize="24sp"
+                android:textColor="@color/smartloc_darkblue"
+                app:checkedState="unchecked"
+                app:layout_constraintBottom_toTopOf="@+id/btvalidate"
+                app:layout_constraintTop_toBottomOf="@+id/text_cgu" />
+
+            <Button
+                android:id="@+id/btvalidate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/smartloc_lightblue"
+                android:contextClickable="false"
+                android:onClick="onButtonClicked"
+                android:text="@string/btvalidate"
+
+                android:textColor="@color/smartloc_light"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/cbaccept"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="Suspicious0dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

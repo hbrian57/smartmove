@@ -26,7 +26,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".BootstrapActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".CGUActivity"
             android:exported="true"
             android:theme="@style/Theme.SmartMove.NoActionBar">
             <meta-data
