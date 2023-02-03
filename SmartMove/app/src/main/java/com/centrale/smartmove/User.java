@@ -9,9 +9,17 @@ import java.util.ArrayList;
 
 public class User implements Savable{
     ArrayList<Week> weeks;
+    ChallengeGenerator coach;
+    ArrayList<Challenge> onGoingChallenge;
+    ArrayList<Trip> userTrips;
+
 
     public ArrayList<Week> getWeeks() {
         return weeks;
+    }
+    public void updateChallenges(){
+    }
+    public void getNewChallenge(){
     }
 
     @Override
