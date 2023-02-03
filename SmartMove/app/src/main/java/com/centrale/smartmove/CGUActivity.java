@@ -14,9 +14,12 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.centrale.smartmove.databinding.CguScrollingLayoutBinding;
+
+
 public class CGUActivity extends AppCompatActivity {
 
-    private ActivityScrollingBinding binding;
+    private CguScrollingLayoutBinding binding;
     private static final String LOG_TAG = CGUActivity.class.getSimpleName();
     Button btValidate;
     CheckBox cbAccept;
@@ -28,7 +31,7 @@ public class CGUActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
+        binding = CguScrollingLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         cbAccept=(CheckBox) findViewById(R.id.cbaccept);
         btValidate=(Button) findViewById(R.id.btvalidate);
