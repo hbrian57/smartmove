@@ -11,6 +11,13 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <!-- Strings used for transportType displating -->
+    <string name="transportTypeBike">À vélo</string>
+    <string name="transportTypeCar">En voiture</string>
+    <string name="transportTypeFoot">À pied</string>
+
+
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 

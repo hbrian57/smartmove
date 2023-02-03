@@ -1,5 +1,9 @@
 package com.centrale.smartmove;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,13 +39,23 @@ public class Week implements Savable{
         return sumCO2Footprint;
     }
 
+    public String getWeekID() {
+        return calendar.get(Calendar.WEEK_OF_YEAR) + ":" + calendar.get(Calendar.YEAR);
+    }
+
     @Override
-    public String getSaveFormat() {
-        String saveFormat = "WEEK ";
-        saveFormat += calendar.toString() + " {";
-        for (Trip t:tripList) {
-            saveFormat += "TRIP " + t.getSaveFormat();
+    public JSONObject getSaveFormat() {
+        JSONObject JSONWeek = new JSONObject();
+        JSONArray JSONTrips = new JSONArray();
+        for (Trip trip : tripList) {
+            JSONTrips.put(trip.getSaveFormat());
         }
-        return saveFormat;
+        try {
+            JSONWeek.put("trips", JSONTrips);
+            JSONWeek.put("weekID", getWeekID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return JSONWeek;
     }
 }

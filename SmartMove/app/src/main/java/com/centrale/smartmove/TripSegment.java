@@ -1,6 +1,10 @@
 package com.centrale.smartmove;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -63,7 +67,19 @@ public class TripSegment implements Savable {
     }
 
     @Override
-    public String getSaveFormat() {
-        return null; //TODO
+    public JSONObject getSaveFormat() {
+        JSONObject JSONTripSegment = new JSONObject();
+
+        try {
+            JSONTripSegment.put("transportType", transportType.name());
+            JSONArray JSONPositionList = new JSONArray();
+            for (TimestampedPosition pos : timestampedPositionList) {
+                JSONPositionList.put(pos.getSaveFormat());
+            }
+            JSONTripSegment.put("positions", JSONPositionList);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return JSONTripSegment;
     }
 }

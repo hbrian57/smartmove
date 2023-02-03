@@ -1,5 +1,8 @@
 package com.centrale.smartmove;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 public class TimestampedPosition implements Savable {
@@ -62,8 +65,19 @@ public class TimestampedPosition implements Savable {
     }
 
     @Override
-    public String getSaveFormat() {
-        return null; //TODO
+    public JSONObject getSaveFormat() {
+        JSONObject JSONTimestampedPosition = new JSONObject();
+        try {
+            JSONTimestampedPosition.put("timestamp", datePos);
+            JSONObject JSONPosition = new JSONObject();
+            JSONPosition.put("x", x);
+            JSONPosition.put("y", y);
+            JSONPosition.put("z", z);
+            JSONTimestampedPosition.put("position", JSONPosition);
+        }  catch (JSONException e) {
+            e.printStackTrace(); //TODO : Handle the exception properly
+        }
+        return JSONTimestampedPosition;
     }
 
     /**

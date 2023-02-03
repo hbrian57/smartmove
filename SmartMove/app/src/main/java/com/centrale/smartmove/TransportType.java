@@ -1,10 +1,18 @@
 package com.centrale.smartmove;
 
+import android.content.res.Resources;
+
+import org.json.JSONObject;
+
 public enum TransportType {
-    BIKE("Vélo",0.5f), CAR("Voiture",5f), FOOT("À Pied", 0.1f);
+    BIKE(App.getAppContext().getResources().getString(R.string.transportTypeBike),0.5f),
+    CAR(App.getAppContext().getResources().getString(R.string.transportTypeCar),5f),
+    FOOT(App.getAppContext().getResources().getString(R.string.transportTypeFoot), 0.1f);
 
     /** String corresponding to the name of the transport */
     String nameTransport;
+
+
 
     /** Float corresponding to the consumption of CO2 of the transport */
     float CO2param;
@@ -14,9 +22,9 @@ public enum TransportType {
      * @param CO2parameter integer corresponding to the consumption of CO2 of the transport */
 
     private TransportType (String name, float CO2parameter){
-    this.nameTransport= name;
-    this.CO2param= CO2parameter;
-}
+        this.nameTransport= name;
+        this.CO2param= CO2parameter;
+    }
 
     public float getCO2param() {
         return CO2param;
@@ -25,6 +33,7 @@ public enum TransportType {
     public String getNameTransport() {
         return nameTransport;
     }
+
 
 }
 

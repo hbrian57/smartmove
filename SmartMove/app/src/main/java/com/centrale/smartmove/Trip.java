@@ -1,5 +1,9 @@
 package com.centrale.smartmove;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Trip implements Savable{
@@ -38,7 +42,17 @@ public class Trip implements Savable{
 
 
     @Override
-    public String getSaveFormat() {
-        return null; //TODO
+    public JSONObject getSaveFormat() {
+        JSONObject JSONTrip = new JSONObject();
+        JSONArray JSONSegments = new JSONArray();
+        for (TripSegment segment : tripSegments) {
+            JSONSegments.put(segment.getSaveFormat());
+        }
+        try {
+            JSONTrip.put("tripSegments", JSONSegments);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return JSONTrip;
     }
 }
