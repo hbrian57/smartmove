@@ -54,6 +54,13 @@ public class TimestampedPosition implements Savable {
         this.datePos = datePos;
     }
 
+    public double calculateDistance(TimestampedPosition targetPosition) {
+        double dx = this.x - targetPosition.x;
+        double dy = this.y - targetPosition.y;
+        double dz = this.z - targetPosition.z;
+        return Math.sqrt(dx*dx+dy*dy+dz*dz);
+    }
+
     @Override
     public String getSaveFormat() {
         return null; //TODO

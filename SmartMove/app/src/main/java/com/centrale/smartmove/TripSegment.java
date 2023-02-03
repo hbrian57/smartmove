@@ -1,7 +1,9 @@
 package com.centrale.smartmove;
 
 
-import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 
 public class TripSegment implements Savable {
     /**
@@ -11,47 +13,40 @@ public class TripSegment implements Savable {
     /**
      * List of the positions taken during all the LitTrip
      */
-    List<TimestampedPosition> timestampedPositionList;
-    /**
-     * Total distance of the LitTrip
-     */
-    int distanceTotal;
+    LinkedList<TimestampedPosition> timestampedPositionList;
+
 
     /**
      * Constructor of a a segment of Trip (a LitTrip) using all its attributes
      * @param transportTypeUsed mean of transport
      * @param timestampedPositions list of all the position in 2D
-     * @param distanceTotal total distance of the littrip
      */
-    public TripSegment(TransportType transportTypeUsed, List<TimestampedPosition> timestampedPositions, int distanceTotal) {
+    public TripSegment(TransportType transportTypeUsed, LinkedList<TimestampedPosition> timestampedPositions) {
         this.transportType = transportTypeUsed;
         this.timestampedPositionList = timestampedPositions;
-        this.distanceTotal = distanceTotal;
     }
 
     /**
      * Method which calculates the total distance of the LitTrip
      * @return an integer corresponding to the total distance in m
      */
-    public int calculateTotalDistance(){
-    return distanceTotal;
+    public double calculateTotalDistance(){
+        double totalDistance = 0;
+        Iterator<TimestampedPosition> iteratorPositions = timestampedPositionList.iterator();
+        TimestampedPosition initialPos = iteratorPositions.next();
+        while (iteratorPositions.hasNext()) {
+            totalDistance += initialPos.calculateDistance(iteratorPositions.next());
+        }
+        return totalDistance;
     }
 
-
-    public void setPositionList(List<TimestampedPosition> timestampedPositionList) {
-        this.timestampedPositionList = timestampedPositionList;
-    }
 
     public TransportType getTransportType() {
         return transportType;
     }
 
-    public List<TimestampedPosition> getPositionList() {
+    public LinkedList<TimestampedPosition> getPositionList() {
         return timestampedPositionList;
-    }
-
-    public int getDistanceTotal() {
-        return distanceTotal;
     }
 
     public TimestampedPosition getFirstPosition() {
@@ -64,7 +59,7 @@ public class TripSegment implements Savable {
      */
     public double calculateCO2footprint(){
         float transportTypeCO2Parameter = transportType.getCO2param();
-        return transportTypeCO2Parameter*this.getDistanceTotal();
+        return transportTypeCO2Parameter*this.calculateTotalDistance();
     }
 
     @Override
