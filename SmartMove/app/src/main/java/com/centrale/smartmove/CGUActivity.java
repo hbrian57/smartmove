@@ -1,29 +1,26 @@
 package com.centrale.smartmove;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import com.centrale.smartmove.databinding.ActivityScrollingBinding;
+import com.centrale.smartmove.databinding.CguScrollingLayoutBinding;
 
-public class ScrollingActivity extends AppCompatActivity {
 
-    private ActivityScrollingBinding binding;
-    private static final String LOG_TAG = ScrollingActivity.class.getSimpleName();
+public class CGUActivity extends AppCompatActivity {
+
+    private CguScrollingLayoutBinding binding;
+    private static final String LOG_TAG = CGUActivity.class.getSimpleName();
     Button btValidate;
     CheckBox cbAccept;
     LinearLayout texteCGU;
@@ -34,7 +31,7 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
+        binding = CguScrollingLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         cbAccept=(CheckBox) findViewById(R.id.cbaccept);
         btValidate=(Button) findViewById(R.id.btvalidate);

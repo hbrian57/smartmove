@@ -1,55 +1,61 @@
 package com.centrale.smartmove;
 
-import java.util.Vector;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class Week {
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-    /**
-     * integer corresponding to the number of the week
-     */
-    int idWeek;
-    /**
-     * vector with all the trips of that week
-     */
-    Vector<Trip> trips;
-    /**
-     * total consumption of CO2 of that week
-     */
-    int consWeek;
+public class Week implements Savable{
 
     /**
-     * constructor of a week with all the parameters
-     * @param id number of the week
-     * @param tr vector with all the trips
-     * @param cons consumption of CO2 during that week
+     * Calendar object to compute Date & Time transformations.
      */
-    public Week(int id,Vector<Trip> tr, int cons){
-        this.consWeek=cons;
-        this.idWeek= id;
-        this.trips=tr;
+    Calendar calendar;
+
+    /**
+     * Vector with all the trips of that week
+     */
+    ArrayList<Trip> tripList;
+
+
+    /** Constructor that creates a week based on a new trip
+     * @param trip first trip of the new week
+     */
+    public Week(Trip trip) {
+        Date firstDate = trip.getFirstSegment().getFirstPosition().getDatePos();
+        calendar.setTime(firstDate);
+        tripList.add(trip);
+
     }
 
-    public void setIdWeek(int idWeek) {
-        this.idWeek = idWeek;
+    public double getTotalCO2Footprint() {
+        double sumCO2Footprint = 0;
+        for (Trip trip : tripList) {
+            sumCO2Footprint += trip.getTripCO2Footprint();
+        }
+        return sumCO2Footprint;
     }
 
-    public void setTrips(Vector<Trip> trips) {
-        this.trips = trips;
+    public String getWeekID() {
+        return calendar.get(Calendar.WEEK_OF_YEAR) + ":" + calendar.get(Calendar.YEAR);
     }
 
-    public void setConsWeek(int consWeek) {
-        this.consWeek = consWeek;
-    }
-
-    public int getIdWeek() {
-        return idWeek;
-    }
-
-    public Vector<Trip> getTrips() {
-        return trips;
-    }
-
-    public int getConsWeek() {
-        return consWeek;
+    @Override
+    public JSONObject getSaveFormat() {
+        JSONObject JSONWeek = new JSONObject();
+        JSONArray JSONTrips = new JSONArray();
+        for (Trip trip : tripList) {
+            JSONTrips.put(trip.getSaveFormat());
+        }
+        try {
+            JSONWeek.put("trips", JSONTrips);
+            JSONWeek.put("weekID", getWeekID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return JSONWeek;
     }
 }
