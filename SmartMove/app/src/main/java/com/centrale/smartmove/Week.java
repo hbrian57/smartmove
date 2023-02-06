@@ -30,7 +30,7 @@ public class Week implements Savable{
         tripList.add(trip);
 
     }
-
+    
     public double getTotalCO2Footprint() {
         double sumCO2Footprint = 0;
         for (Trip trip : tripList) {
