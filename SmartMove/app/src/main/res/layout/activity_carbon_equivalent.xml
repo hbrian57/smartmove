@@ -60,7 +60,7 @@
 
 
                         <TextView
-                            android:id="@+id/impactText"
+                            android:id="@+id/phraseEq"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Cette semaine, ma conso carbone est de ... cela équivaut à : "
@@ -69,10 +69,16 @@
 
 
 
+
+
+
+
                     </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
+
         </ScrollView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
