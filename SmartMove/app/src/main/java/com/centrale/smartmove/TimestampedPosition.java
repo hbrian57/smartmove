@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+
 public class TimestampedPosition implements Savable {
 
     /**
@@ -91,4 +92,6 @@ public class TimestampedPosition implements Savable {
         this.y=y;
         this.z=z;
     }
+
+
 }

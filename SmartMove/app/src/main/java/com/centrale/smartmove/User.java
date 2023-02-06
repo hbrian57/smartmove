@@ -11,7 +11,7 @@ public class User implements Savable{
     ArrayList<Week> weeks;
     ChallengeGenerator coach;
     ArrayList<Challenge> onGoingChallenge;
-    ArrayList<Trip> userTrips;
+    static ArrayList<Trip> userTrips;
 
 
     public ArrayList<Week> getWeeks() {
@@ -20,6 +20,10 @@ public class User implements Savable{
     public void updateChallenges(){
     }
     public void getNewChallenge(){
+    }
+
+    public static ArrayList<Trip> getUserTrips() {
+        return userTrips;
     }
 
     @Override
