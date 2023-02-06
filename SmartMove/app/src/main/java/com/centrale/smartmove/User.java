@@ -19,8 +19,7 @@ public class User implements Savable{
     }
     public void updateChallenges(){
     }
-    public void getNewChallenge(){
-    }
+
 
     @Override
     public JSONObject getSaveFormat() {
@@ -37,4 +36,9 @@ public class User implements Savable{
         return JSONUser;
     }
 
+    public void getNewChallenge(){
+        Challenge challenge;
+        challenge = coach.getRandomChallenge();
+        onGoingChallenge.add(challenge);
+    }
 }
