@@ -20,7 +20,6 @@ public class Week implements Savable{
      */
     ArrayList<Trip> tripList;
 
-
     /** Constructor that creates a week based on a new trip
      * @param trip first trip of the new week
      */

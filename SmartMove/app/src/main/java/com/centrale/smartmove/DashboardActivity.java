@@ -50,6 +50,7 @@ public class DashboardActivity extends AppCompatActivity implements DisplayHandl
     }
 
     public void clickNew(View v){
-        setContentView(R.layout.activity_carbon_equivalent);
+        Intent intent = new Intent(this,ActivityCarbonEquivalent.class);
+        startActivity(intent);;
     }
 }
