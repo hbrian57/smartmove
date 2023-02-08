@@ -27,8 +27,9 @@ public class Week implements Savable{
         Date firstDate = trip.getFirstSegment().getFirstPosition().getDatePos();
         calendar.setTime(firstDate);
         tripList.add(trip);
-
     }
+
+
 
     public double getTotalCO2Footprint() {
         double sumCO2Footprint = 0;
