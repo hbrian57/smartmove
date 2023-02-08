@@ -19,22 +19,22 @@ public class Challenge {
         double total;
         String progression;
         Double nbDefi;
-        switch (goal.getFormatedGoal()) {
+        switch (this.goal.getFormatedGoal()) {
             case "defiDistance":
-                distDefi = goal.type.getDistance();
-                total = getProgressionDouble() * distDefi / 100;
+                distDefi = this.goal.type.getDistance();
+                total = this.getProgressionDouble() * distDefi / 100;
                 progression = total + " parcourue sur " + distDefi;
             break;
             case "defiNumerique":
-                nbDefi = goal.type.getNumberOfTrips();
-                total = getProgressionDouble() * nbDefi / 100;
+                nbDefi = this.goal.type.getNumberOfTrips();
+                total = this.getProgressionDouble() * nbDefi / 100;
                 if(total>1){
                     progression = total + " trajets parcourue sur " + nbDefi;
                 }
                 else{progression = total + " trajet parcourue sur " + nbDefi;}
             break;
             default:
-                throw new IllegalStateException("Unexpected value: " + goal.getFormatedGoal());
+                throw new IllegalStateException("Unexpected value: " + this.goal.getFormatedGoal());
         }
         return progression;
     }
@@ -42,14 +42,15 @@ public class Challenge {
         public Double getProgressionDouble() {
             Double progression;
             double total;
-            switch (goal.getFormatedGoal()){
+            Double nbDefi;
+            switch (this.goal.getFormatedGoal()){
                 case "defiDistance":
                     total=0;
-                    Double distDefi = goal.type.getDistance();
+                    Double distDefi = this.goal.type.getDistance();
                     for (Trip t : User.getUserTrips()){
                         for (TripSegment ts : t.getListOfTripSegments()) {
                             if ( ((ts.getFirstPosition().getDatePos()).after(debutChallenge))
-                                    || (ts.getTransportType() == goal.getType().getTransportUsed()) ){
+                                    || (ts.getTransportType() == this.goal.getType().getTransportUsed()) ){
                                 total += ts.calculateTotalDistance();
                             }
                         }
@@ -58,22 +59,22 @@ public class Challenge {
                 break;
                 case "defiNumerique":
                     total = 0;
-                    Double nbDefi = goal.type.getNumberOfTrips();
+                    nbDefi = this.goal.type.getNumberOfTrips();
                     for (Trip t : User.getUserTrips()){
-                        if(t.getTripTransportType() == goal.getType().getTransportUsed()){
+                        if(t.getTripTransportType() == this.goal.getType().getTransportUsed()){
                             total += 1;
                         }
                     }
                     progression = total*100/nbDefi;
                 break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + goal.getFormatedGoal());
+                    throw new IllegalStateException("Unexpected value: " + this.goal.getFormatedGoal());
             }
             return progression;
         }
 
         public boolean isCompleted () {
-            if (getProgressionDouble() < 100) {return false;}
+            if (this.getProgressionDouble() < 100) {return false;}
             else{return true;}
         }
 
