@@ -5,7 +5,13 @@ public class ChallengeGoal {
     Double goalFinal;
 
     public String getFormatedGoal(){
-        return null;
+        String defiDeType;
+        if(type.getNumberOfTrips()<=0){
+            defiDeType = "defiDistance";
+            return defiDeType; }
+        else{ defiDeType = "defiNumerique";
+            return defiDeType;
+        }
     }
 
     public GoalType getType() {

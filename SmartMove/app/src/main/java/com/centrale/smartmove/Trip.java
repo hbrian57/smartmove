@@ -28,6 +28,8 @@ public class Trip implements Savable{
     public TripSegment getFirstSegment() {
         return tripSegments.get(0);
     }
+
+    public TransportType getTripTransportType(){ return getFirstSegment().getTransportType(); }
     /**
      * Method which calculates the CO2 emission of a Trip
      * @return a double corresponding to the value of the CO2 emission
