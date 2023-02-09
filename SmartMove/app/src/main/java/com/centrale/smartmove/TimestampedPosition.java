@@ -26,33 +26,18 @@ public class TimestampedPosition implements Savable {
     /**
      * Date corresponding to exact moment the position is taken
      */
-    Date datePos;
+    Date dateOfCapture;
 
-    public double getLatitude() {
-        return latitude;
-    }
 
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public Date getDatePos() {
-        return datePos;
-    }
-
-    public TimestampedPosition(double lat, double longi, double hei){
-        this.height=hei;
-        this.longitude=longi;
-        this.latitude=lat;
+    public TimestampedPosition(double lat, double longi, double hei) {
+        this.height = hei;
+        this.longitude = longi;
+        this.latitude = lat;
     }
 
 
     public void setDatePos(Date datePos) {
-        this.datePos = datePos;
+        this.dateOfCapture = datePos;
     }
 
     public double calculateDistance(TimestampedPosition targetPosition) {
@@ -74,28 +59,19 @@ public class TimestampedPosition implements Savable {
     public JSONObject getSaveFormat() {
         JSONObject JSONTimestampedPosition = new JSONObject();
         try {
-            JSONTimestampedPosition.put("timestamp", datePos);
+            JSONTimestampedPosition.put("timestamp", dateOfCapture);
             JSONObject JSONPosition = new JSONObject();
             JSONPosition.put("latitude", latitude);
             JSONPosition.put("longitude", longitude);
             JSONPosition.put("height", height);
             JSONTimestampedPosition.put("position", JSONPosition);
-        }  catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace(); //TODO : Handle the exception properly
         }
         return JSONTimestampedPosition;
     }
 
-    /**
-     * Sets the position of the point to the given coordinates.
-     * @param lat latitude
-     * @param longi longitude
-     * @param hei height
-     */
-    public void setTimestampedPosition(double lat,double longi,double hei){
-        this.longitude=longi;
-        this.latitude=lat;
-        this.height=hei;
+    public Date getDatePos() {
+        return this.dateOfCapture;
     }
 }
-
