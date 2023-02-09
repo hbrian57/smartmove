@@ -1,7 +1,7 @@
 package com.centrale.smartmove;
 
 import java.util.Date;
-
+import java.lang.Double;
 
 
 public class Challenge {
@@ -16,18 +16,22 @@ public class Challenge {
 
     public String getProgressionString() {
         Double distDefi;
-        double total;
+        Double total;
         String progression;
         Double nbDefi;
         switch (this.goal.getFormatedGoal()) {
             case "defiDistance":
                 distDefi = this.goal.type.getDistance();
                 total = this.getProgressionDouble() * distDefi / 100;
+                distDefi.toString();
+                total.toString();
                 progression = total + " parcourue sur " + distDefi;
             break;
             case "defiNumerique":
                 nbDefi = this.goal.type.getNumberOfTrips();
                 total = this.getProgressionDouble() * nbDefi / 100;
+                nbDefi.toString();
+                total.toString();
                 if(total>1){
                     progression = total + " trajets parcourue sur " + nbDefi;
                 }
@@ -40,10 +44,6 @@ public class Challenge {
     }
 
         public Double getProgressionDouble() {
-            Double progression;
-            double total= User.updateChallenges();
-            Double distDefi = this.goal.type.getDistance();
-            progression = total * 100 / distDefi;
             return progression;
         }
 

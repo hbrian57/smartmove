@@ -18,7 +18,7 @@ public class User implements Savable {
         return weeks;
     }
 
-    public double updateChallenges() {
+    public void updateChallenges() {
         double total = 0;
         for (int k = 0; k <= this.onGoingChallenge.size(); k++) {
             Double progression;
@@ -35,7 +35,7 @@ public class User implements Savable {
                             }
                         }
                     }
-
+                    this.getOnGoingChallenge().get(k).progression = total * 100 / distDefi;
                     break;
                 case "defiNumerique":
                     total = 0;
@@ -45,13 +45,12 @@ public class User implements Savable {
                             total += 1;
                         }
                     }
-
+                    this.getOnGoingChallenge().get(k).progression = total * 100 / nbDefi;
                     break;
                 default:
                    throw new IllegalStateException("Unexpected value: " + this.getOnGoingChallenge().get(k).goal.getFormatedGoal());
             }
         }
-        return total;
     }
 
     public void getNewChallenge() {
