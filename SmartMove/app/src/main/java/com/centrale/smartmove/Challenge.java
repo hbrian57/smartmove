@@ -41,35 +41,9 @@ public class Challenge {
 
         public Double getProgressionDouble() {
             Double progression;
-            double total;
-            Double nbDefi;
-            switch (this.goal.getFormatedGoal()){
-                case "defiDistance":
-                    total=0;
-                    Double distDefi = this.goal.type.getDistance();
-                    for (Trip t : User.getUserTrips()){
-                        for (TripSegment ts : t.getListOfTripSegments()) {
-                            if ( ((ts.getFirstPosition().getDatePos()).after(debutChallenge))
-                                    || (ts.getTransportType() == this.goal.getType().getTransportUsed()) ){
-                                total += ts.calculateTotalDistance();
-                            }
-                        }
-                    }
-                    progression = total*100/distDefi;
-                break;
-                case "defiNumerique":
-                    total = 0;
-                    nbDefi = this.goal.type.getNumberOfTrips();
-                    for (Trip t : User.getUserTrips()){
-                        if(t.getTripTransportType() == this.goal.getType().getTransportUsed()){
-                            total += 1;
-                        }
-                    }
-                    progression = total*100/nbDefi;
-                break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + this.goal.getFormatedGoal());
-            }
+            double total= User.updateChallenges();
+            Double distDefi = this.goal.type.getDistance();
+            progression = total * 100 / distDefi;
             return progression;
         }
 
