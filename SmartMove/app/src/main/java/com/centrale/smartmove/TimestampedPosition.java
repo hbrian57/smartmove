@@ -36,11 +36,20 @@ public class TimestampedPosition implements Savable {
         return longitude;
     }
 
-
+    public double getHeight() {
+        return height;
+    }
 
     public Date getDatePos() {
         return datePos;
     }
+
+    public TimestampedPosition(double lat, double longi, double hei){
+        this.height=hei;
+        this.longitude=longi;
+        this.latitude=lat;
+    }
+
 
     public void setDatePos(Date datePos) {
         this.datePos = datePos;
