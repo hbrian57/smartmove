@@ -1,8 +1,11 @@
 package com.centrale.smartmove;
 
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,7 +74,12 @@ public class ActivityCarbonEquivalent extends AppCompatActivity{
 
     }
 
+    public void viewCalculationExplanation(View v){
+        String url = "https://gitlab.univ-eiffel.fr/teamgeoloc/smartloc/-/wikis/What-is-Smartmove";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);;
+    }
+    };
 
 
 
-}
