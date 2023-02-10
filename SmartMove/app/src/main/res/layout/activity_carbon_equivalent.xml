@@ -80,15 +80,25 @@
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="20dip" />
+
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/textViewLinkToCalculation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/explication_du_r_sultat"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#192365"
+                        android:textStyle="italic"
+                        />
+
+                    <TextView
+                        android:id="@+id/textViewComparaison"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:text="@string/comparaison"
                         android:textAppearance="@style/MAINtileCO2"
                         android:textColor="#1E88E5" />
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
