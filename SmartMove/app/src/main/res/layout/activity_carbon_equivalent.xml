@@ -91,7 +91,7 @@
                         android:textAlignment="viewEnd"
                         android:textColor="#192365"
                         android:textStyle="italic"
-                        />
+                        android:onClick="viewCalculationExplanation"/>
 
                     <TextView
                         android:id="@+id/textViewComparaison"
