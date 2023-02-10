@@ -1,7 +1,9 @@
 package com.centrale.smartmove;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +18,9 @@ public class ActivityCarbonEquivalent extends AppCompatActivity{
     Week currentWeek ;
     ArrayList<Equivalent> listCarbonEquivalent=null;
     String displaySentence;
+    Drawable displayImage;
     TextView textView;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +28,9 @@ public class ActivityCarbonEquivalent extends AppCompatActivity{
         setContentView(R.layout.activity_carbon_equivalent);
         this.calculateAndDisplayEquivalent();
         this.textView = findViewById(R.id.comparaison);
+        this.imageView = findViewById(R.id.comparaisonImage);
         textView.setText(displaySentence);
+        this.imageView.setImageDrawable(displayImage);
     }
 
     public void getListImage() {
@@ -61,6 +67,7 @@ public class ActivityCarbonEquivalent extends AppCompatActivity{
         Equivalent exampleEq = listCarbonEquivalent.get(rand.nextInt(listCarbonEquivalent.size()));
         double ratio = exampleEq.getRatioEq()*co2EqOfCurrentWeek;
         this.displaySentence = "Cette semaine, ma conso de CO2 équivaut à  "+ratio+" "+ exampleEq.getSentenceEq()+".";
+        this.displayImage=exampleEq.imageEq;
 
     }
 
