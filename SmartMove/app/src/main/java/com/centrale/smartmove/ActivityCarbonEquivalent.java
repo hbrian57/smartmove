@@ -27,7 +27,7 @@ public class ActivityCarbonEquivalent extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_equivalent);
         this.calculateAndDisplayEquivalent();
-        this.textView = findViewById(R.id.comparaison);
+        this.textView = findViewById(R.id.comparaison_explication_phrase);
         this.imageView = findViewById(R.id.comparaisonImage);
         textView.setText(displaySentence);
         this.imageView.setImageDrawable(displayImage);
