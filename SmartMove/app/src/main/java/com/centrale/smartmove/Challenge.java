@@ -14,13 +14,35 @@ import android.os.Build;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import java.util.Date;
+
 
 public class Challenge {
     String title;
     String description;
     Double progression;
     ChallengeGoal goal;
+    Date challengeBeginnig;
 
+    public void setChallengeBeginnig(Date challengeBeginnig) {
+        this.challengeBeginnig = challengeBeginnig;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setProgression(Double progression) {
+        this.progression = progression;
+    }
+
+    public void setGoal(ChallengeGoal goal) {
+        this.goal = goal;
+    }
 
     public String getPorgressionString() {
         return null;
