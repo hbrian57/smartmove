@@ -18,7 +18,7 @@ public class User implements Savable {
         return weeks;
     }
 
-    public void updateChallenges() {
+    public void updateChallenges() throws Exception {
         double total = 0;
         for (int k = 0; k <= this.onGoingChallenge.size(); k++) {
             Double progression;
