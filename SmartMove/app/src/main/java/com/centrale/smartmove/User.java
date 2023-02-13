@@ -18,6 +18,10 @@ public class User implements Savable {
         return weeks;
     }
 
+    /**
+     * method that allows to update the progress of all the user's challenges according to his travels
+     * @throws Exception
+     */
     public void updateChallenges() throws Exception {
         double total = 0;
         for (int k = 0; k <= this.onGoingChallenge.size(); k++) {
@@ -56,7 +60,10 @@ public class User implements Savable {
     public void getNewChallenge() {
     }
 
-
+    /**
+     * method which allows to save all the Week of User in a JSON file
+     * @return the JSON file of the backup
+     */
     @Override
     public JSONObject getSaveFormat() {
         JSONObject JSONUser = new JSONObject();

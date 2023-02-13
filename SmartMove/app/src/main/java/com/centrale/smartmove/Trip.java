@@ -50,7 +50,10 @@ public class Trip implements Savable{
         return sumCarbonFootprint;
     }
 
-
+    /**
+     * allows to save in JSON format directly on the device all the tripSegment in Trip
+     * @return the JSON file of the backup
+     */
     @Override
     public JSONObject getSaveFormat() {
         JSONObject JSONTrip = new JSONObject();

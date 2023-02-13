@@ -14,6 +14,10 @@ public class Challenge {
     public void notifyUser() {
     }
 
+    /**
+     * method to display the progress of a Challenge as a sentence
+     * @return the String that corresponds to the sentence that treads the progression
+     */
     public String getProgressionString() {
         Double distDefi;
         Double total;
@@ -43,11 +47,20 @@ public class Challenge {
         return progression;
     }
 
-        public Double getProgressionDouble() {
+    /**
+     * method to display the progress of a Challenge as a Double
+     * @return the Double that corresponds to the progression
+     */
+    public Double getProgressionDouble() {
             return progression;
         }
 
-        public boolean isCompleted () {
+    /**
+     * method to know if a challenge is finished
+     * @return a boolean which corresponds to the completed (true) or uncompleted (false)
+     * state of the Challenge
+     */
+    public boolean isCompleted () {
             if (this.getProgressionDouble() < 100) {return false;}
             else{return true;}
         }
