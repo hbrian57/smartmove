@@ -34,7 +34,7 @@ public class TripSegment implements Savable {
      * Method which calculates the total distance of the LitTrip
      * @return an integer corresponding to the total distance in m
      */
-    public double calculateTotalDistance(){
+    public double calculateTotalDistance() throws Exception{
         double totalDistance = 0;
         Iterator<TimestampedPosition> iteratorPositions = timestampedPositionList.iterator();
         TimestampedPosition initialPos = iteratorPositions.next();
@@ -61,7 +61,7 @@ public class TripSegment implements Savable {
      * Method which enables to calculate the CO2 emission of a LitTrip
      * @return an integer corresponding to the value of the CO2 emission
      */
-    public double calculateCO2footprint(){
+    public double calculateCO2footprint() throws Exception{
         float transportTypeCO2Parameter = transportType.getCO2param();
         return transportTypeCO2Parameter*this.calculateTotalDistance();
     }
