@@ -34,7 +34,7 @@ public class User implements Savable {
                     for (Trip t : this.getUserTrips()) {
                         for (TripSegment ts : t.getListOfTripSegments()) {
                             if (((ts.getFirstPosition().getDatePos()).after(this.getOnGoingChallenge().get(k).debutChallenge))
-                                    || (ts.getTransportType() == this.getOnGoingChallenge().get(k).goal.getType().getTransportUsed())) {
+                                    && (ts.getTransportType() == this.getOnGoingChallenge().get(k).goal.getType().getTransportUsed())) {
                                 total += ts.calculateTotalDistance();
                             }
                         }
@@ -45,17 +45,24 @@ public class User implements Savable {
                     total = 0;
                     nbDefi = this.getOnGoingChallenge().get(k).goal.type.getNumberOfTrips();
                     for (Trip t : this.getUserTrips()) {
-                        if (t.getTripTransportType() == this.getOnGoingChallenge().get(k).goal.getType().getTransportUsed()) {
-                            total += 1;
+                        if (!t.getListOfTripSegments().isEmpty()) {
+                            if (t.getListOfTripSegments().get(0).getTransportType() == this.getOnGoingChallenge().get(k).goal.getType().getTransportUsed()){total += 1;}
+                            for (int j = 1; j < t.getListOfTripSegments().size(); j++) {
+                                if ((t.getListOfTripSegments().get(j).getTransportType() == this.getOnGoingChallenge().get(k).goal.getType().getTransportUsed()) &&
+                                        ( (t.getListOfTripSegments().get(j-1).getTransportType() != t.getListOfTripSegments().get(j).getTransportType()))){
+                                    total += 1;
+                                }
+                            }
                         }
                     }
                     this.getOnGoingChallenge().get(k).progression = total * 100 / nbDefi;
                     break;
                 default:
-                   throw new IllegalStateException("Unexpected value: " + this.getOnGoingChallenge().get(k).goal.getFormatedGoal());
+                    throw new IllegalStateException("Unexpected value: " + this.getOnGoingChallenge().get(k).goal.getFormatedGoal());
             }
         }
     }
+
 
     public void getNewChallenge() {
     }

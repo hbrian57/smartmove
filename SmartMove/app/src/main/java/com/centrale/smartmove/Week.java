@@ -40,6 +40,7 @@ public class Week implements Savable {
     public Week(){
         Date firstDate = new Date(System.currentTimeMillis());
         calendar.setTime(firstDate);
+        tripList = null;
     }
 
     /**
