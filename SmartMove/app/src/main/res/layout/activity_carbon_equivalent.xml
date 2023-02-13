@@ -89,7 +89,7 @@
                         android:layout_marginLeft="10dip"
                         android:layout_marginRight="2dip"
                         android:textAlignment="viewEnd"
-                        android:textColor="#192365"
+                        android:textColor="#0e4194"
                         android:textStyle="italic"
                         android:onClick="viewCalculationExplanation"/>
 
@@ -102,7 +102,7 @@
                         android:layout_marginRight="10dip"
                         android:text="@string/comparaison"
                         android:textAppearance="@style/MAINtileCO2"
-                        android:textColor="#1E88E5" />
+                        android:textColor="#00a6e6" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                             android:layout_marginRight="10dip"
                             android:gravity="center_horizontal"
                             android:textAppearance="@style/MAINtileCO2"
-                            android:textColor="#3949AB" />
+                            android:textColor="#0e4194" />
 
 
 
