@@ -1,5 +1,7 @@
 package com.centrale.smartmove;
 
+import static java.sql.Types.NULL;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,12 +46,17 @@ public class TimestampedPosition implements Savable {
      * Fonction calculant la distance entre deux positions
      * @param targetPosition la position avec laquelle on veut calculer la distance
      * @return une distance en mètre
-     * @throws Exception si la latitute ou la longitude sont supérieures à 90° cela renvoie une exceptiion
+     * @throws Exception si la latitude ou la longitude sont supérieures à 90° cela renvoie une exception
+     * @throws Exception si latitude ou la longitude <0°
+     * @throws Exception si une des coordonnées est vide
      */
     public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
-        if((targetPosition.latitude>90) || (this.latitude>90) || (targetPosition.longitude>90) || (this.longitude>90)) {
-            throw new Exception("Impossible que le degré soit supérieur à 90°");
-        }
+        if((targetPosition.latitude>90) || (this.latitude>90) || (targetPosition.longitude>90) || (this.longitude>90))
+        {throw new Exception("Impossible que le degré soit supérieur à 90°");}
+        if((targetPosition.latitude<0) || (this.latitude<0) || (targetPosition.longitude<0) || (this.longitude<0))
+        {throw new Exception("Impossible que le degré soit inférieur à 0°");}
+        if((targetPosition.latitude==NULL) || (this.latitude==NULL) || (targetPosition.longitude==NULL) || (this.longitude==NULL))
+        { throw new Exception("Impossible avec une position dont une coordonnée est vide (latitude ou longitude)");}
     final int R = 6371; // Radius of the earth
     double latDistance = Math.toRadians(targetPosition.latitude - this.latitude);
     double lonDistance = Math.toRadians(targetPosition.longitude - this.longitude);
