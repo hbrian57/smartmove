@@ -4,11 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Week implements Savable{
+public class Week implements Savable {
 
     /**
      * Calendar object to compute Date & Time transformations.
@@ -31,6 +34,11 @@ public class Week implements Savable{
 
     }
 
+    public Week(){
+        Date firstDate = new Date(System.currentTimeMillis());
+        calendar.setTime(firstDate);
+    }
+
     public double getTotalCO2Footprint(){
         double sumCO2Footprint = 0;
         for (Trip trip : tripList) {
@@ -41,6 +49,10 @@ public class Week implements Savable{
 
     public String getWeekID() {
         return calendar.get(Calendar.WEEK_OF_YEAR) + ":" + calendar.get(Calendar.YEAR);
+    }
+
+    public void addNewTrip(Trip t){
+        this.tripList.add(t);
     }
 
     @Override
