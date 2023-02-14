@@ -20,7 +20,7 @@
             style="@style/MAINtileTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mon impact écologique"
+            android:text="@string/impact_eco"
             android:textAllCaps="false"
             android:textAppearance="@style/CGUtitre" />
 
@@ -45,7 +45,7 @@
                 android:id="@+id/impactText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1,2 tonnes de CO2eq"
+                android:text="@string/qttCO2"
                 android:textAppearance="@style/MAINtileCO2" />
 
             <ImageView
