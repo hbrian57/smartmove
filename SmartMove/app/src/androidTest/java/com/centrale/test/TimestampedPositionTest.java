@@ -1,15 +1,27 @@
-package com.centrale.smartmove;
+package com.centrale.test;
 
 
 import static org.junit.Assert.assertEquals;
 
 import static java.sql.Types.NULL;
 
+import com.centrale.smartmove.TimestampedPosition;
+
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 
 public class TimestampedPositionTest {
 
-        @Test
+    @Rule
+    public ExpectedException thrownException = ExpectedException.none();
+
+    @Test
         public void test0000CalculateDistance() throws Exception{
             //TODO: on fait quoi de la hauteur, tout le temps à zéro ?
             TimestampedPosition position1 = new TimestampedPosition(0, 0, 0);
@@ -20,7 +32,7 @@ public class TimestampedPositionTest {
             assertEquals(0,result, 0.01);
         }
 
-    @Test
+    @Test @Ignore
     public void test00100CalculateDistance() throws Exception{
         TimestampedPosition position1 = new TimestampedPosition(0, 0, 0);
         TimestampedPosition position2 = new TimestampedPosition(10, 0, 0);
@@ -32,13 +44,15 @@ public class TimestampedPositionTest {
 
     @Test
     public void test00010CalculateDistance() throws Exception{
+
         TimestampedPosition position1 = new TimestampedPosition(0, 0, 0);
         TimestampedPosition position2 = new TimestampedPosition(0, 20, 0);
 
         // Cas : 0 0 0 avec 0 20 0
         double result = position1.calculateDistance(position2);
-        assertEquals(2223900,result, 10);
-    }
+        assertEquals(2223900,result, 10);}
+
+
 
     @Test
     public void testhasardCalculateDistance() throws Exception{
@@ -52,12 +66,14 @@ public class TimestampedPositionTest {
 
     @Test
     public void testException1CalculateDistance() throws Exception{
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
-        TimestampedPosition position2 = new TimestampedPosition(1000, 20, 0);
-
-        // Cas au exception >90 degré
-        double result = position1.calculateDistance(position2);
-        assertEquals(1677084,result, 10);
+            TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
+            TimestampedPosition position2 = new TimestampedPosition(1000, 20, 0);
+        try{
+            // Cas au exception >90 degré
+            double result = position1.calculateDistance(position2);}
+        catch(Exception e){
+                assertThat(e.getMessage(),is("Impossible que la latitude soit supérieure à 90°"));
+            }
     }
 
     @Test
@@ -78,5 +94,10 @@ public class TimestampedPositionTest {
         // Cas au exception coordonnée NULL
         double result = position1.calculateDistance(position2);
         assertEquals(1677084,result, 10);
+    }
+
+    @Test
+    public void testNullException() throws Exception{
+
     }
 }

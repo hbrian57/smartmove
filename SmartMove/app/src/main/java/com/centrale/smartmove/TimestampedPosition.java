@@ -1,7 +1,5 @@
 package com.centrale.smartmove;
 
-import static java.sql.Types.NULL;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,7 +18,7 @@ public class TimestampedPosition implements Savable {
     private double longitude;
 
     /**
-     *
+     * Double corresponding to the altitude
      */
 
     private double height;
@@ -46,15 +44,21 @@ public class TimestampedPosition implements Savable {
      * Fonction calculant la distance entre deux positions
      * @param targetPosition la position avec laquelle on veut calculer la distance
      * @return une distance en mètre
-     * @throws Exception si la latitude ou la longitude sont supérieures à 90° cela renvoie une exception
-     * @throws Exception si latitude ou la longitude <0°
+     * @throws Exception si la latitude est supérieure à 180°
+     * @throws Exception si la longitude est inférieure à -90°
+     * @throws Exception si la longitude est supérieure à 90°
+     * @throws Exception si la latitude est inférieure à -180°
      * @throws Exception si une des coordonnées est vide
      */
     public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
-        if((targetPosition.latitude>90) || (this.latitude>90) || (targetPosition.longitude>90) || (this.longitude>90))
-        {throw new Exception("Impossible que le degré soit supérieur à 90°");}
-        if((targetPosition.latitude<0) || (this.latitude<0) || (targetPosition.longitude<0) || (this.longitude<0))
-        {throw new Exception("Impossible que le degré soit inférieur à 0°");}
+        if((targetPosition.latitude>90) || (this.latitude>90))
+        {throw new Exception("Impossible que la latitude soit supérieure à 90°");}
+        if((targetPosition.longitude>180) || (this.longitude>180))
+        {throw new Exception("Impossible que la longitude soit supérieure à 180°");}
+        if((targetPosition.latitude<-90) || (this.latitude<-90))
+        {throw new Exception("Impossible que la latitude soit inférieure à -90°");}
+        if((targetPosition.longitude<-180) || (this.longitude<-180))
+        {throw new Exception("Impossible que la longitude soit inférieure à -180°");}
         /** //TODO: faire l'exception quand c'est NULL, mais là ne fonctionne pas car NULL=O, je ne sais pas comment faire
         if((targetPosition.latitude==NULL) || (this.latitude==NULL) || (targetPosition.longitude==NULL) || (this.longitude==NULL))
         { throw new Exception("Impossible avec une position dont une coordonnée est vide (latitude ou longitude)");}*/
