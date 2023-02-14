@@ -4,10 +4,11 @@ import android.content.res.Resources;
 
 import org.json.JSONObject;
 
-public enum TransportType {
-    BIKE(App.getAppContext().getResources().getString(R.string.transportTypeBike),0.5f),
-    CAR(App.getAppContext().getResources().getString(R.string.transportTypeCar),5f),
-    FOOT(App.getAppContext().getResources().getString(R.string.transportTypeFoot), 0.1f);
+
+    public enum TransportType {
+        BIKE("Bike", 0.5f),
+        CAR("Car", 5f),
+        FOOT("Foot", 0.1f);
 
     /** String corresponding to the name of the transport */
     String nameTransport;

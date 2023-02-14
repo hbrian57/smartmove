@@ -55,8 +55,9 @@ public class TimestampedPosition implements Savable {
         {throw new Exception("Impossible que le degré soit supérieur à 90°");}
         if((targetPosition.latitude<0) || (this.latitude<0) || (targetPosition.longitude<0) || (this.longitude<0))
         {throw new Exception("Impossible que le degré soit inférieur à 0°");}
+        /** //TODO: faire l'exception quand c'est NULL, mais là ne fonctionne pas car NULL=O, je ne sais pas comment faire
         if((targetPosition.latitude==NULL) || (this.latitude==NULL) || (targetPosition.longitude==NULL) || (this.longitude==NULL))
-        { throw new Exception("Impossible avec une position dont une coordonnée est vide (latitude ou longitude)");}
+        { throw new Exception("Impossible avec une position dont une coordonnée est vide (latitude ou longitude)");}*/
     final int R = 6371; // Radius of the earth
     double latDistance = Math.toRadians(targetPosition.latitude - this.latitude);
     double lonDistance = Math.toRadians(targetPosition.longitude - this.longitude);

@@ -4,7 +4,7 @@ package com.centrale.smartmove;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import static java.sql.Types.NULL;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -21,9 +21,18 @@ public class TripSegment implements Savable {
 
 
     /**
+     * Constructor without any position, with just the transport type used
+     * @param transportTypeUsed mean of transport
+     */
+    public TripSegment(TransportType transportTypeUsed){
+        this.transportType=transportTypeUsed;
+    }
+
+
+    /**
      * Constructor of a a segment of Trip (a LitTrip) using all its attributes
      * @param transportTypeUsed mean of transport
-     * @param timestampedPositions list of all the position in 2D
+     * @param timestampedPositions list of all the position
      */
     public TripSegment(TransportType transportTypeUsed, LinkedList<TimestampedPosition> timestampedPositions) {
         this.transportType = transportTypeUsed;
@@ -34,12 +43,11 @@ public class TripSegment implements Savable {
      * Method which calculates the total distance of the LitTrip
      * @return an integer corresponding to the total distance in m
      */
-    public double calculateTotalDistance() throws Exception{
+    //TODO: faire l'exception, je ne sais pas laquelle c'est ? Je croyais c'était liste VIDE mais comme on pose totalDistance = 0 ca marche
+    public double calculateTotalDistance() throws Exception {
         double totalDistance = 0;
-        Iterator<TimestampedPosition> iteratorPositions = timestampedPositionList.iterator();
-        TimestampedPosition initialPos = iteratorPositions.next();
-        while (iteratorPositions.hasNext()) {
-            totalDistance += initialPos.calculateDistance(iteratorPositions.next());
+        for (int i = 0; i < timestampedPositionList.size() - 1; i++) {
+            totalDistance += timestampedPositionList.get(i).calculateDistance(timestampedPositionList.get(i + 1));
         }
         return totalDistance;
     }
@@ -82,4 +90,6 @@ public class TripSegment implements Savable {
         }
         return JSONTripSegment;
     }
+
+
 }
