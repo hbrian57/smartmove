@@ -52,7 +52,7 @@ public class Challenge {
      * @return the Double that corresponds to the progression
      */
     public Double getProgressionDouble() {
-            return progression;
+            return this.progression;
         }
 
     /**
@@ -83,6 +83,15 @@ public class Challenge {
 
         public Date getDebutChallenge () {
             return debutChallenge;
+        }
+
+
+        Challenge(String Title,String Description, Double Progression,ChallengeGoal Goal,Date DebutChallenge){
+        this.title=title;
+        this.description=Description;
+        this.progression=Progression;
+        this.goal=Goal;
+        this.debutChallenge=DebutChallenge;
         }
     }
 

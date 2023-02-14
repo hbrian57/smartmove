@@ -29,4 +29,9 @@ public class ChallengeGoal {
     public void setGoalFinal(Double goalFinal) {
         this.goalFinal = goalFinal;
     }
+
+    ChallengeGoal(GoalType type,Double goalFinal){
+        this.type=type;
+        this.goalFinal=goalFinal;
+    }
 }

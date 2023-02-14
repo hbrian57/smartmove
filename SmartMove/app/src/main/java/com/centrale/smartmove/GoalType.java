@@ -1,7 +1,7 @@
 package com.centrale.smartmove;
 
 public enum GoalType {
-    EXEMPLE(10.2,23.4,TransportType.BIKE);
+    EXEMPLE(0.0,23.0,TransportType.FOOT);
     private Double numberOfTrips;
     private Double distance;
 
