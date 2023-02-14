@@ -71,7 +71,7 @@
                             android:id="@+id/impactText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1,2 tonnes de CO2eq"
+                            android:text="@string/_1_2_tonnes_de_co2eq"
                             android:textAppearance="@style/MAINtileCO2" />
 
                         />

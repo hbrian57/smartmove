@@ -26,9 +26,10 @@
     <string name="explication_du_r_sultat">Explication du résultat :</string>
     <string name="impact_eco">Mon impact écologique</string>
     <string name="qttCO2">1,7 tonnes de CO2</string>
-    <string name="name_defis">J'viens en bus !</string>
+    <string name="name_defis">J\'viens en bus !</string>
     <string name="avancee_defis">4,3/10km</string>
     <string name="explication_defis">Parcourir 10km en transports en commun</string>
     <string name="obj">OBJECTIFS</string>
+    <string name="_1_2_tonnes_de_co2eq">1,2 tonnes de CO2eq</string>
 
 </resources>

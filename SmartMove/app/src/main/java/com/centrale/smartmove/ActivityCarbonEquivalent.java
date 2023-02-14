@@ -39,8 +39,6 @@ public class ActivityCarbonEquivalent extends AppCompatActivity{
     public void getListImage() {
         if (listCarbonEquivalent==null){
             this.listCarbonEquivalent=new ArrayList<>();
-            /*Equivalent e1= new Equivalent("jeans en coton",0.043, ContextCompat.getDrawable(this, R.drawable.bouteille));
-            this.listCarbonEquivalent.add(e1);*/
             Equivalent e2= new Equivalent("repas végétariens",1.961, ContextCompat.getDrawable(this, R.drawable.repavege));
             this.listCarbonEquivalent.add(e2);
             Equivalent e3= new Equivalent("kms en TGV",578.035, ContextCompat.getDrawable(this, R.drawable.tgv));
