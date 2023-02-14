@@ -64,18 +64,29 @@ public class TimestampedPositionTest {
         assertEquals(1677084,result, 10);
     }
 
+    // Cas où une des latitudes est>90 degré
     @Test
-    public void testException1CalculateDistance() throws Exception{
+    public void testExceptionLatSup() throws Exception{
             TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
             TimestampedPosition position2 = new TimestampedPosition(1000, 20, 0);
         try{
-            // Cas au exception >90 degré
             double result = position1.calculateDistance(position2);}
         catch(Exception e){
                 assertThat(e.getMessage(),is("Impossible que la latitude soit supérieure à 90°"));
             }
     }
 
+    // Cas où une des latitudes est<-90 degré
+    @Test
+    public void testExceptionLatInf() throws Exception{
+        TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
+        TimestampedPosition position2 = new TimestampedPosition(-100, 20, 0);
+        try{
+            double result = position1.calculateDistance(position2);}
+        catch(Exception e){
+            assertThat(e.getMessage(),is("Impossible que la latitude soit inférieure à -90°"));
+        }
+    }
     @Test
     public void testException2CalculateDistance() throws Exception{
         TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
