@@ -26,6 +26,13 @@ public class TimestampedPosition implements Savable {
      */
     Date datePos;
 
+    public TimestampedPosition() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.datePos=null;
+    }
+
     public double getX() {
         return x;
     }

@@ -24,7 +24,7 @@ public class User implements Savable {
      */
     public void updateChallenges() throws Exception {
         double total = 0;
-        for (int k = 0; k <= this.onGoingChallenge.size(); k++) {
+        for (int k = 0; k < this.onGoingChallenge.size(); k++) {
             Double progression;
             Double nbDefi;
             switch (this.getOnGoingChallenge().get(k).goal.getFormatedGoal()) {
@@ -94,4 +94,19 @@ public class User implements Savable {
     public ArrayList<Trip> getUserTrips() {
         return userTrips;
     }
+
+    User(){
+        this.weeks=null;
+        this.coach=null;
+        this.onGoingChallenge=null;
+        this.userTrips=null;
+    }
+
+    User(ArrayList<Week> w, ChallengeGenerator c, ArrayList<Challenge> o, ArrayList<Trip> u){
+        this.weeks=w ;
+        this.coach=c;
+        this.onGoingChallenge=o;
+        this.userTrips=u;
+    }
+
 }
