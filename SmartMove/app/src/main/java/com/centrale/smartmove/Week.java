@@ -28,10 +28,8 @@ public class Week implements Savable{
         calendar.setTime(firstDate);
         tripList.add(trip);
     }
-
-
-
-    public double getTotalCO2Footprint() {
+    
+    public double getTotalCO2Footprint() throws Exception{
         double sumCO2Footprint = 0;
         for (Trip trip : tripList) {
             sumCO2Footprint += trip.getTripCO2Footprint();
@@ -42,6 +40,7 @@ public class Week implements Savable{
     public String getWeekID() {
         return calendar.get(Calendar.WEEK_OF_YEAR) + ":" + calendar.get(Calendar.YEAR);
     }
+
 
     @Override
     public JSONObject getSaveFormat() {
