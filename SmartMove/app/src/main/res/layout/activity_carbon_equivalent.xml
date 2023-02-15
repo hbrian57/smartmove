@@ -23,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
@@ -44,7 +43,9 @@
                         style="@style/MAINtileTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A quoi équivaut ma conso carbone?"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:text="@string/impact_carbone"
                         android:textAllCaps="false"
                         android:textAppearance="@style/CGUtitre" />
 
@@ -55,24 +56,91 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        >
 
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="45dp"
+                            android:layout_height="40dip"
+                            android:layout_marginRight="10dp"
+                            app:srcCompat="@drawable/leaf" />
 
                         <TextView
                             android:id="@+id/impactText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cette semaine, ma conso carbone est de ... cela équivaut à : "
+                            android:text="@string/_1_2_tonnes_de_co2eq"
                             android:textAppearance="@style/MAINtileCO2" />
 
-
-
+                        />
 
                     </LinearLayout>
-                </LinearLayout>
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dip" />
 
+                    <TextView
+                        android:id="@+id/textViewLinkToCalculation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/explication_du_r_sultat"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="2dip"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#0e4194"
+                        android:textStyle="italic"
+                        android:onClick="viewCalculationExplanation"/>
+
+                    <TextView
+                        android:id="@+id/textViewComparaison"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:text="@string/comparaison"
+                        android:textAppearance="@style/MAINtileCO2"
+                        android:textColor="#00a6e6" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dip" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/comparaison_explication_phrase"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dip"
+                            android:layout_marginRight="10dip"
+                            android:gravity="center_horizontal"
+                            android:textAppearance="@style/MAINtileCO2"
+                            android:textColor="#0e4194" />
+
+
+
+
+                    <ImageView
+                        android:id="@+id/comparaisonImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dip"
+                     />
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
             </LinearLayout>
+
         </ScrollView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

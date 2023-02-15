@@ -48,4 +48,9 @@ public class DashboardActivity extends AppCompatActivity implements DisplayHandl
         list.put(R.id.impactText, findViewById(R.id.impactText));
         return list;
     }
+
+    public void clickNew(View v){
+        Intent intent = new Intent(this,ActivityCarbonEquivalent.class);
+        startActivity(intent);;
+    }
 }
