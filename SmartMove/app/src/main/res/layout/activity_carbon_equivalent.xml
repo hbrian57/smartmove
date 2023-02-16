@@ -26,12 +26,12 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dip"
+                android:layout_marginTop="20dp"
                 android:background="@color/white"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingTop="10dip"
-                android:paddingBottom="20dip">
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,15 +43,15 @@
                         style="@style/MAINtileTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dip"
-                        android:layout_marginRight="10dip"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:text="@string/impact_carbone"
                         android:textAllCaps="false"
                         android:textAppearance="@style/CGUtitre" />
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="20dip" />
+                        android:layout_height="20dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -63,9 +63,10 @@
                         <ImageView
                             android:id="@+id/imageView"
                             android:layout_width="45dp"
-                            android:layout_height="40dip"
+                            android:layout_height="40dp"
                             android:layout_marginRight="10dp"
                             app:srcCompat="@drawable/leaf" />
+
 
                         <TextView
                             android:id="@+id/impactText"
@@ -79,15 +80,15 @@
                     </LinearLayout>
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="20dip" />
+                        android:layout_height="20dp" />
 
                     <TextView
                         android:id="@+id/textViewLinkToCalculation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/explication_du_r_sultat"
-                        android:layout_marginLeft="10dip"
-                        android:layout_marginRight="2dip"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
                         android:textAlignment="viewEnd"
                         android:textColor="#0e4194"
                         android:textStyle="italic"
@@ -98,15 +99,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="10dip"
-                        android:layout_marginRight="10dip"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:text="@string/comparaison"
                         android:textAppearance="@style/MAINtileCO2"
                         android:textColor="#00a6e6" />
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="20dip" />
+                        android:layout_height="20dp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -118,8 +119,8 @@
                             android:id="@+id/comparaison_explication_phrase"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dip"
-                            android:layout_marginRight="10dip"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:gravity="center_horizontal"
                             android:textAppearance="@style/MAINtileCO2"
                             android:textColor="#0e4194" />

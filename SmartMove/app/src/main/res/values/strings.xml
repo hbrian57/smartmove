@@ -23,7 +23,7 @@
     <string name="a_quoi_quivaut_ma_conso_carbone">A quoi équivaut ma conso carbone?</string>
     <string name="impact_carbone">Impact carbone:</string>
     <string name="comparaison">Comparaison:</string>
-    <string name="explication_du_r_sultat">Explication du résultat :</string>
+    <string name="explication_du_r_sultat"><u>Explication du résultat</u></string>
     <string name="impact_eco">Mon impact écologique</string>
     <string name="qttCO2">1,7 tonnes de CO2</string>
     <string name="name_defis">J\'viens en bus !</string>
