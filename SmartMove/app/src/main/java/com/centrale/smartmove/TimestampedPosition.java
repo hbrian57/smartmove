@@ -21,7 +21,7 @@ public class TimestampedPosition implements Savable {
      * Double corresponding to the altitude
      */
 
-    private double height;
+    private double altitude;
 
     /**
      * Date corresponding to exact moment the position is taken
@@ -29,10 +29,10 @@ public class TimestampedPosition implements Savable {
     Date dateOfCapture;
 
 
-    public TimestampedPosition(double lat, double longi, double hei) {
-        this.height = hei;
+    public TimestampedPosition(double lati, double longi, double alti) {
+        this.altitude = alti;
         this.longitude = longi;
-        this.latitude = lat;
+        this.latitude = lati;
     }
 
 
@@ -52,27 +52,25 @@ public class TimestampedPosition implements Savable {
      */
     public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
         if((targetPosition.latitude>90) || (this.latitude>90))
-        {throw new Exception("Impossible que la latitude soit supérieure à 90°");}
+        {throw new IllegalArgumentException("Impossible que la latitude soit supérieure à 90°");}
         if((targetPosition.longitude>180) || (this.longitude>180))
-        {throw new Exception("Impossible que la longitude soit supérieure à 180°");}
+        {throw new IllegalArgumentException("Impossible que la longitude soit supérieure à 180°");}
         if((targetPosition.latitude<-90) || (this.latitude<-90))
-        {throw new Exception("Impossible que la latitude soit inférieure à -90°");}
+        {throw new IllegalArgumentException("Impossible que la latitude soit inférieure à -90°");}
         if((targetPosition.longitude<-180) || (this.longitude<-180))
-        {throw new Exception("Impossible que la longitude soit inférieure à -180°");}
-        /** //TODO: faire l'exception quand c'est NULL, mais là ne fonctionne pas car NULL=O, je ne sais pas comment faire
-        if((targetPosition.latitude==NULL) || (this.latitude==NULL) || (targetPosition.longitude==NULL) || (this.longitude==NULL))
-        { throw new Exception("Impossible avec une position dont une coordonnée est vide (latitude ou longitude)");}*/
-    final int R = 6371; // Radius of the earth
-    double latDistance = Math.toRadians(targetPosition.latitude - this.latitude);
-    double lonDistance = Math.toRadians(targetPosition.longitude - this.longitude);
-    double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+        {throw new IllegalArgumentException("Impossible que la longitude soit inférieure à -180°");}
+
+        final int R = 6371000; // Radius of the earth
+        double deltaLatitude = Math.toRadians(targetPosition.latitude - this.latitude);
+        double deltaLongitude = Math.toRadians(targetPosition.longitude - this.longitude);
+        double a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2)
             + Math.cos(Math.toRadians(this.latitude)) * Math.cos(Math.toRadians(targetPosition.latitude))
-            * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    double distance = R * c * 1000; // convert to meters
-    double differenceheight = this.height - targetPosition.height;
-    distance = Math.pow(distance, 2) + Math.pow(differenceheight, 2);
-    return Math.sqrt(distance);
+            * Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c;
+        double deltaAltitude = this.altitude - targetPosition.altitude;
+        distance = Math.pow(distance, 2) + Math.pow(deltaAltitude, 2);
+        return Math.sqrt(distance);
     }
 
 
@@ -84,7 +82,7 @@ public class TimestampedPosition implements Savable {
             JSONObject JSONPosition = new JSONObject();
             JSONPosition.put("latitude", latitude);
             JSONPosition.put("longitude", longitude);
-            JSONPosition.put("height", height);
+            JSONPosition.put("height", altitude);
             JSONTimestampedPosition.put("position", JSONPosition);
         } catch (JSONException e) {
             e.printStackTrace(); //TODO : Handle the exception properly
