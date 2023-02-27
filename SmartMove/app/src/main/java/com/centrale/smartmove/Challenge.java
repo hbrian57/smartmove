@@ -22,7 +22,7 @@ public class Challenge {
         Double distDefi;
         Double total;
         String progression;
-        Double nbDefi;
+        int nbDefi;
         switch (this.goal.getFormatedGoal()) {
             case "defiDistance":
                 distDefi = this.goal.type.getDistance();
@@ -34,12 +34,12 @@ public class Challenge {
             case "defiNumerique":
                 nbDefi = this.goal.type.getNumberOfTrips();
                 total = this.getProgressionDouble() * nbDefi / 100;
-                nbDefi.toString();
+                String nbDefiString = String.valueOf(nbDefi);
                 total.toString();
                 if(total>1){
-                    progression = total + " trajets parcourue sur " + nbDefi;
+                    progression = total + " trajets parcourue sur " + nbDefiString;
                 }
-                else{progression = total + " trajet parcourue sur " + nbDefi;}
+                else{progression = total + " trajet parcourue sur " + nbDefiString;}
             break;
             default:
                 throw new IllegalStateException("Unexpected value: " + this.goal.getFormatedGoal());
@@ -52,7 +52,7 @@ public class Challenge {
      * @return the Double that corresponds to the progression
      */
     public Double getProgressionDouble() {
-            return this.progression;
+            return this.progression ;
         }
 
     /**
@@ -87,11 +87,12 @@ public class Challenge {
 
 
         Challenge(String Title,String Description, Double Progression,ChallengeGoal Goal,Date DebutChallenge){
-        this.title=title;
+        this.title=Title;
         this.description=Description;
         this.progression=Progression;
         this.goal=Goal;
         this.debutChallenge=DebutChallenge;
         }
+
     }
 

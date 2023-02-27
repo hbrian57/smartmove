@@ -1,20 +1,20 @@
 package com.centrale.smartmove;
 
 public enum GoalType {
-    EXEMPLE(0.0,23.0,TransportType.FOOT);
-    private Double numberOfTrips;
+    EXEMPLE(0,23.0,TransportType.FOOT);
+    int numberOfTrips;
     private Double distance;
 
     private TransportType transportUsed;
 
 
-    private GoalType(Double numberOfTrips, Double distance,TransportType transportUsed) {
+    private GoalType(int numberOfTrips, Double distance,TransportType transportUsed) {
         this.numberOfTrips = numberOfTrips;
         this.distance = distance;
         this.transportUsed = transportUsed;
     }
 
-    public Double getNumberOfTrips() {
+    public int getNumberOfTrips() {
         return numberOfTrips;
     }
 
