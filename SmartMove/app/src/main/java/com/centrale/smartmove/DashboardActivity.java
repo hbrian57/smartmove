@@ -12,7 +12,6 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Toast;
-
 import java.util.HashMap;
 import java.util.Map;
 

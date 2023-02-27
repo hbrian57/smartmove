@@ -28,6 +28,10 @@ public class Week implements Savable{
         calendar.setTime(firstDate);
         tripList.add(trip);
     }
+
+    public Week(ArrayList<Trip> trips){
+        this.tripList=trips;
+    }
     
     public double getTotalCO2Footprint() throws Exception{
         double sumCO2Footprint = 0;
