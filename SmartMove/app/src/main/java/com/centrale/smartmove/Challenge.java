@@ -5,12 +5,11 @@ import static com.centrale.smartmove.App.getAppContext;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
+import androidx.annotation.DrawableRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -22,10 +21,29 @@ public class Challenge {
     String description;
     Double progression;
     ChallengeGoal goal;
-    Date challengeBeginnig;
+    Date challengeBeginning;
+    @DrawableRes int icon;
 
-    public void setChallengeBeginnig(Date challengeBeginnig) {
-        this.challengeBeginnig = challengeBeginnig;
+    public Challenge(String title, String description, Double progression, ChallengeGoal goal, Date challengeBeginning, int icon) {
+        this.title = title;
+        this.description = description;
+        this.progression = progression;
+        this.goal = goal;
+        this.challengeBeginning = challengeBeginning;
+        this.icon = icon;
+    }
+
+    public Challenge() {
+        this.title = "Challenge";
+        this.description = "Description";
+        this.progression = 0.0;
+        this.goal = new ChallengeGoal();
+        this.challengeBeginning = new Date();
+        this.icon = R.drawable.travel;
+    }
+
+    public void setChallengeBeginning(Date challengeBeginning) {
+        this.challengeBeginning = challengeBeginning;
     }
 
     public void setTitle(String title) {
@@ -45,11 +63,20 @@ public class Challenge {
     }
 
     public String getPorgressionString() {
-        return null;
+        //depending on the goalType, the progression is displayed differently
+        Double progressionReality = progression/100*goal.getGoalFinal();
+        switch (goal.getType()) {
+            case NUMBER_OF_TRIPS:
+                return progressionReality.intValue() + "/" + goal.getGoalFinal().intValue() + "trips";
+            case DISTANCE_COVERED:
+                return progressionReality + "/" + goal.getGoalFinal() + "km";
+            default:
+                return "error";
+        }
     }
 
     public Double getProgressionDouble() {
-        return null;
+        return progression;
     }
 
     public boolean isCompleted() {
@@ -70,6 +97,10 @@ public class Challenge {
 
     public ChallengeGoal getGoal() {
         return goal;
+    }
+
+    public @DrawableRes int getIcon() {
+        return icon;
     }
 
 
