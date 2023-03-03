@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Trip implements Savable{
 
+
+
     /**
      * Vector with all the little trips contained in the trip
      */
@@ -21,13 +23,22 @@ public class Trip implements Savable{
         this.tripSegments = listSegments;
     }
 
+
+
     public ArrayList<TripSegment> getListOfTripSegments() {
         return tripSegments;
     }
 
-    public TripSegment getFirstSegment() {
-        return tripSegments.get(0);
+    public TripSegment getFirstSegment() throws Exception {
+        if(this.tripSegments.isEmpty()){
+            throw new Exception("tripSegement vide lors de la " +
+                    "fonction getFirstSegment()");
+        }
+            return tripSegments.get(0);
     }
+
+    public TransportType getTripTransportType() throws Exception {return getFirstSegment().getTransportType();}
+
     /**
      * Method which calculates the CO2 emission of a Trip
      * @return a double corresponding to the value of the CO2 emission
@@ -40,7 +51,10 @@ public class Trip implements Savable{
         return sumCarbonFootprint;
     }
 
-
+    /**
+     * allows to save in JSON format directly on the device all the tripSegment in Trip
+     * @return the JSON file of the backup
+     */
     @Override
     public JSONObject getSaveFormat() {
         JSONObject JSONTrip = new JSONObject();

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+
 public class TimestampedPosition implements Savable {
 
     /**
@@ -24,6 +25,13 @@ public class TimestampedPosition implements Savable {
      * Date corresponding to exact moment the position is taken
      */
     Date datePos;
+
+    public TimestampedPosition() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.datePos=null;
+    }
 
     public double getX() {
         return x;
@@ -91,4 +99,6 @@ public class TimestampedPosition implements Savable {
         this.y=y;
         this.z=z;
     }
+
+
 }

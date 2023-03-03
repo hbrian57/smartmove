@@ -83,20 +83,35 @@ public class Challenge {
         return false;
     }
 
-    public String getTitle() {
-        return title;
-    }
+        public String getTitle () {
+            return title;
+        }
 
-    public String getDescription() {
-        return description;
-    }
+        public String getDescription () {
+            return description;
+        }
 
-    public Double getProgression() {
-        return progression;
-    }
+        public Double getProgression () {
+            return progression;
+        }
 
-    public ChallengeGoal getGoal() {
-        return goal;
+        public ChallengeGoal getGoal () {
+            return goal;
+        }
+
+        public Date getDebutChallenge () {
+            return debutChallenge;
+        }
+
+
+        Challenge(String Title,String Description, Double Progression,ChallengeGoal Goal,Date DebutChallenge){
+        this.title=Title;
+        this.description=Description;
+        this.progression=Progression;
+        this.goal=Goal;
+        this.debutChallenge=DebutChallenge;
+        }
+
     }
 
     public @DrawableRes int getIcon() {
