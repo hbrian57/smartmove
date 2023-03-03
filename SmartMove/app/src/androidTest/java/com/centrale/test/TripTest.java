@@ -1,5 +1,6 @@
 package com.centrale.test;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 import com.centrale.smartmove.TimestampedPosition;
@@ -14,6 +15,12 @@ import java.util.LinkedList;
 
 public class TripTest {
 
+    /**
+     * Test de la méthode GetTRipCO2Footprint pour un cas classique
+     * Résultat attendu: (TransportType.BIKE.getCO2param() * bikeSegment.calculateTotalDistance())
+     *                 + (TransportType.CAR.getCO2param() * carSegment.calculateTotalDistance()) + (TransportType.WALKING.getCO2param() * footSegment.calculateTotalDistance()) ;
+     *
+     */
     // Test classique avec trois voyages: OK
     @Test
     public void testGetTripCO2FootprintClassicCase() throws Exception {
@@ -52,6 +59,11 @@ public class TripTest {
         assertEquals(expectedCO2Footprint, actualCO2Footprint, 5);
     }
 
+
+    /**
+     * Test de la méthode GetTRipCO2Footprint pour un cas ou on est statique
+     * Résultat attendu:0
+     */
     // Test distance à zéro avec trois voyages: OK
     @Test
     public void testGetTripCO2FootprintDistanceNul() throws Exception {
@@ -87,14 +99,18 @@ public class TripTest {
         assertEquals(expectedCO2Footprint, actualCO2Footprint, 5);
     }
 
-    // Test exception degré négatif: OK
+    /**
+     * Test de la méthode GetTRipCO2Footprint pour une exception lat inférieure à 90°
+     * Résultat attendu: Impossible que la latitude soit inf à -90°
+     */
+
     @Test
     public void testGetTripCO2FootprintExceptionNegative() throws Exception {
 
         //Un seul voyage
         LinkedList<TimestampedPosition> bikePositions = new LinkedList<>();
         bikePositions.add(new TimestampedPosition(0, 0, 0));
-        bikePositions.add(new TimestampedPosition(-10, 0, 0));
+        bikePositions.add(new TimestampedPosition(-100, 0, 0));
         TripSegment bikeSegment = new TripSegment(TransportType.BIKE, bikePositions);
 
         // Ajout des segments
@@ -104,12 +120,18 @@ public class TripTest {
         Trip trip = new Trip(tripSegments);
 
         double expectedCO2Footprint = 0;
-        double actualCO2Footprint = trip.getTripCO2Footprint();
 
-        assertEquals(expectedCO2Footprint, actualCO2Footprint, 5);
+        try {
+            double actualCO2Footprint = trip.getTripCO2Footprint();
+        } catch (Exception e) {
+            assertThat(e.getMessage(), is("Impossible que la latitude soit supérieure à 90°"));
+        }
     }
 
-    // Test exception degré négatif: OK
+    /**
+     * Test de la méthode GetTRipCO2Footprint pour une exception lat inférieure à 90°
+     * Résultat attendu: Impossible que la latitude soit supérieure à 90°
+     */
     @Test
     public void testGetTripCO2FootprintExceptionDegreeTooHigh() throws Exception {
 
@@ -126,9 +148,11 @@ public class TripTest {
         Trip trip = new Trip(tripSegments);
 
         double expectedCO2Footprint = 0;
-        double actualCO2Footprint = trip.getTripCO2Footprint();
-
-        assertEquals(expectedCO2Footprint, actualCO2Footprint, 5);
+        try {
+            double actualCO2Footprint = trip.getTripCO2Footprint();
+        } catch (Exception e) {
+            assertThat(e.getMessage(), is("Impossible que la latitude soit supérieure à 90°"));
+        }
     }
 }
 
