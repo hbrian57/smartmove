@@ -1,7 +1,6 @@
 package com.centrale.smartmove;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,7 +38,7 @@ public class RecyclerChallengeAdapter extends RecyclerView.Adapter<RecyclerChall
         holder.title.setText(challenges.get(position).getTitle());
         holder.description.setText(challenges.get(position).getDescription());
         holder.progressionBar.setProgress(challenges.get(position).getProgressionDouble().intValue());
-        holder.progressionString.setText(challenges.get(position).getPorgressionString());
+        holder.progressionString.setText(challenges.get(position).getProgressionString());
         holder.image.setImageResource(challenges.get(position).getIcon());
 
     }

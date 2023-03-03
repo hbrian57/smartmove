@@ -43,11 +43,14 @@ public class TripSegment implements Savable {
      * Method which calculates the total distance of the LitTrip
      * @return an integer corresponding to the total distance in m
      */
-    //TODO: faire l'exception, je ne sais pas laquelle c'est ? Je croyais c'était liste VIDE mais comme on pose totalDistance = 0 ca marche
-    public double calculateTotalDistance() throws Exception {
+    public double calculateTotalDistance() {
         double totalDistance = 0;
         for (int i = 0; i < timestampedPositionList.size() - 1; i++) {
-            totalDistance += timestampedPositionList.get(i).calculateDistance(timestampedPositionList.get(i + 1));
+            try {
+                totalDistance += timestampedPositionList.get(i).calculateDistance(timestampedPositionList.get(i + 1));
+            } catch (Exception e) {
+                //TODO Gestion de l'erreur, afficher un popup / Toast
+            }
         }
         return totalDistance;
     }
@@ -98,6 +101,5 @@ public class TripSegment implements Savable {
         }
         return JSONTripSegment;
     }
-
 
 }

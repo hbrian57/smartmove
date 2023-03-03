@@ -27,29 +27,10 @@ public class TimestampedPosition implements Savable {
     /**
      * Date corresponding to exact moment the position is taken
      */
-    Date datePos;
+    Date dateOfCapture;
 
-    public TimestampedPosition() {
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
-        this.datePos=null;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getZ() {
-        return z;
-    }
-
-    public Date getDatePos() {
-        return datePos;
+    public Date getDateOfCapture() {
+        return dateOfCapture;
     }
 
 
@@ -57,11 +38,11 @@ public class TimestampedPosition implements Savable {
         this.altitude = alti;
         this.longitude = longi;
         this.latitude = lati;
+        this.dateOfCapture = new Date();
     }
 
-
-    public void setDatePos(Date datePos) {
-        this.dateOfCapture = datePos;
+    public void setDateOfCapture(Date dateOfCapture) {
+        this.dateOfCapture = dateOfCapture;
     }
 
     /**

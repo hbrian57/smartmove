@@ -18,16 +18,6 @@ public class ChallengeGoal {
     }
 
 
-    public String getFormatedGoal(){
-        String defiDeType;
-        if(type.getNumberOfTrips()<=0){
-            defiDeType = "defiDistance";
-            return defiDeType; }
-        else{ defiDeType = "defiNumerique";
-            return defiDeType;
-        }
-    }
-
     public GoalType getType() {
         return type;
     }
@@ -50,5 +40,18 @@ public class ChallengeGoal {
 
     public void setTransportType(TransportType transportType) {
         this.transportType = transportType;
+    }
+
+    /**
+     * Method which calculates the progression of the challenge that corresponds to the number of trips input
+     * @param numberOfCorrespondingTrips number of trips corresponding to the goal
+     * @return a double corresponding to the progression increment of the challenge
+     */
+    public Double calculateProgressionIncrementNumberOfTrips(Integer numberOfCorrespondingTrips) {
+        return (double) numberOfCorrespondingTrips/goalFinal*100;
+    }
+
+    public Double calculateProgressionIncrementDistanceCovered(Double distanceCovered) {
+        return distanceCovered/goalFinal*100;
     }
 }

@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class Challenge {
@@ -62,7 +63,7 @@ public class Challenge {
         this.goal = goal;
     }
 
-    public String getPorgressionString() {
+    public String getProgressionString() {
         //depending on the goalType, the progression is displayed differently
         Double progressionReality = progression/100*goal.getGoalFinal();
         switch (goal.getType()) {
@@ -99,9 +100,6 @@ public class Challenge {
             return goal;
         }
 
-        public Date getDebutChallenge () {
-            return debutChallenge;
-        }
 
 
         Challenge(String Title,String Description, Double Progression,ChallengeGoal Goal,Date DebutChallenge){
@@ -109,10 +107,7 @@ public class Challenge {
         this.description=Description;
         this.progression=Progression;
         this.goal=Goal;
-        this.debutChallenge=DebutChallenge;
         }
-
-    }
 
     public @DrawableRes int getIcon() {
         return icon;
@@ -152,4 +147,24 @@ public class Challenge {
 
     }
 
+    /**
+     * Updates the progression of the challenge based on the new trip done
+     * @param newTripDone
+     */
+    public void updateProgression(Trip newTripDone) {
+        //depending on the goalType, the progression is updated differently
+        TransportType transportTypeNeededForChallenge = goal.getTransportType();
+        switch (goal.getType()) {
+            case NUMBER_OF_TRIPS:
+                HashMap<TransportType, Integer> numberOfTripSegmentsPerTransportType = newTripDone.getTripTransportTypeUsage();
+                progression += goal.calculateProgressionIncrementNumberOfTrips(numberOfTripSegmentsPerTransportType.get(transportTypeNeededForChallenge));
+                break;
+            case DISTANCE_COVERED:
+                HashMap<TransportType,Double> distanceCoveredByTransportType = newTripDone.getTripDistanceDonePerTransportType();
+                progression += goal.calculateProgressionIncrementDistanceCovered(distanceCoveredByTransportType.get(transportTypeNeededForChallenge));
+                break;
+            default:
+                break;
+        }
+    }
 }

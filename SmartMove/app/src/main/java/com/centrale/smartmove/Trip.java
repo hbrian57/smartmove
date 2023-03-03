@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Trip implements Savable{
 
@@ -31,8 +32,7 @@ public class Trip implements Savable{
 
     public TripSegment getFirstSegment() throws Exception {
         if(this.tripSegments.isEmpty()){
-            throw new Exception("tripSegement vide lors de la " +
-                    "fonction getFirstSegment()");
+            throw new Exception("The trip is empty and has no segments");
         }
             return tripSegments.get(0);
     }
@@ -69,5 +69,30 @@ public class Trip implements Savable{
             e.printStackTrace();
         }
         return JSONTrip;
+    }
+
+    //Returns the number of trips of each type
+    public HashMap<TransportType, Integer> getTripTransportTypeUsage() {
+        HashMap<TransportType, Integer> tripSegmentsUsage = new HashMap<>();
+        for (TransportType transportType : TransportType.values()) {
+            tripSegmentsUsage.put(transportType, 0);
+        }
+        for (TripSegment segment : tripSegments) {
+            TransportType transportType = segment.getTransportType();
+            tripSegmentsUsage.put(transportType, tripSegmentsUsage.get(transportType) + 1);
+        }
+        return tripSegmentsUsage;
+    }
+
+    public HashMap<TransportType, Double> getTripDistanceDonePerTransportType()  {
+        HashMap<TransportType, Double> tripSegmentsDistance = new HashMap<>();
+        for (TransportType transportType : TransportType.values()) {
+            tripSegmentsDistance.put(transportType, 0.0);
+        }
+        for (TripSegment segment : tripSegments) {
+            TransportType transportType = segment.getTransportType();
+            tripSegmentsDistance.put(transportType, tripSegmentsDistance.get(transportType) + segment.calculateTotalDistance());
+        }
+        return tripSegmentsDistance;
     }
 }

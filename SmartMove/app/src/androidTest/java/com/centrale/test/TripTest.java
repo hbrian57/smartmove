@@ -34,7 +34,7 @@ public class TripTest {
         LinkedList<TimestampedPosition> footPositions = new LinkedList<>();
         footPositions.add(new TimestampedPosition(0, 0, 0));
         footPositions.add(new TimestampedPosition(0.05, 0, 0));
-        TripSegment footSegment = new TripSegment(TransportType.FOOT, footPositions);
+        TripSegment footSegment = new TripSegment(TransportType.WALKING, footPositions);
 
         // Ajout des trois segments
         ArrayList<TripSegment> tripSegments = new ArrayList<>();
@@ -46,7 +46,7 @@ public class TripTest {
 
         // On a déjà testé la fonction calculate donc je peux l'utiliser là.
         double expectedCO2Footprint = (TransportType.BIKE.getCO2param() * bikeSegment.calculateTotalDistance())
-                + (TransportType.CAR.getCO2param() * carSegment.calculateTotalDistance()) + (TransportType.FOOT.getCO2param() * footSegment.calculateTotalDistance()) ;
+                + (TransportType.CAR.getCO2param() * carSegment.calculateTotalDistance()) + (TransportType.WALKING.getCO2param() * footSegment.calculateTotalDistance()) ;
         double actualCO2Footprint = trip.getTripCO2Footprint();
 
         assertEquals(expectedCO2Footprint, actualCO2Footprint, 5);
@@ -72,7 +72,7 @@ public class TripTest {
         LinkedList<TimestampedPosition> footPositions = new LinkedList<>();
         footPositions.add(new TimestampedPosition(0, 0, 0));
         footPositions.add(new TimestampedPosition(0, 0, 0));
-        TripSegment footSegment = new TripSegment(TransportType.FOOT, footPositions);
+        TripSegment footSegment = new TripSegment(TransportType.WALKING, footPositions);
 
         // Ajout des trois segments
         ArrayList<TripSegment> tripSegments = new ArrayList<>();
