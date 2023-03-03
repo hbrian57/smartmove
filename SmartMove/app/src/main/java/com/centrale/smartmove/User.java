@@ -10,8 +10,17 @@ import java.util.ArrayList;
 public class User implements Savable {
     ArrayList<Week> weeks;
     ChallengeGenerator coach;
+
+
     ArrayList<Challenge> onGoingChallenge;
     ArrayList<Trip> userTrips;
+
+    public User() {
+        weeks = new ArrayList<>();
+        coach = new ChallengeGenerator();
+        onGoingChallenge = new ArrayList<>();
+        userTrips = new ArrayList<>();
+    }
 
 
     public ArrayList<Week> getWeeks() {
@@ -114,9 +123,6 @@ public class User implements Savable {
     }
 
 
-    public void getNewChallenge() {
-    }
-
     /**
      * method which allows to save all the Week of User in a JSON file
      * @return the JSON file of the backup
@@ -136,6 +142,11 @@ public class User implements Savable {
         return JSONUser;
     }
 
+    public void getNewChallenge(){
+        Challenge challenge;
+        challenge = coach.getRandomChallenge();
+        onGoingChallenge.add(challenge);
+    }
 
     public ArrayList<Challenge> getOnGoingChallenge() {
         return onGoingChallenge;

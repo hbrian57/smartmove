@@ -1,7 +1,19 @@
 package com.centrale.smartmove;
 
+import static com.centrale.smartmove.App.getAppContext;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
+
+import androidx.annotation.DrawableRes;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import java.util.Date;
-import java.lang.Double;
 
 
 public class Challenge {
@@ -9,61 +21,67 @@ public class Challenge {
     String description;
     Double progression;
     ChallengeGoal goal;
-    Date debutChallenge;
+    Date challengeBeginning;
+    @DrawableRes int icon;
 
-    public void notifyUser() {
+    public Challenge(String title, String description, Double progression, ChallengeGoal goal, Date challengeBeginning, int icon) {
+        this.title = title;
+        this.description = description;
+        this.progression = progression;
+        this.goal = goal;
+        this.challengeBeginning = challengeBeginning;
+        this.icon = icon;
     }
 
-    /**
-     * method to display the progress of a Challenge as a sentence
-     * @return the String that corresponds to the sentence that treads the progression
-     */
-    public String getProgressionString() {
-        Double distDefi;
-        Double total;
-        String progression;
-        int nbDefi;
-        switch (this.goal.getFormatedGoal()) {
-            case "defiDistance":
-                distDefi = this.goal.type.getDistance();
-                total = this.getProgressionDouble() * distDefi / 100;
-                distDefi.toString();
-                total.toString();
-                progression = total + " parcourue sur " + distDefi;
-            break;
-            case "defiNumerique":
-                nbDefi = this.goal.type.getNumberOfTrips();
-                total = this.getProgressionDouble() * nbDefi / 100;
-                String nbDefiString = String.valueOf(nbDefi);
-                total.toString();
-                if(total>1){
-                    progression = total + " trajets parcourue sur " + nbDefiString;
-                }
-                else{progression = total + " trajet parcourue sur " + nbDefiString;}
-            break;
+    public Challenge() {
+        this.title = "Challenge";
+        this.description = "Description";
+        this.progression = 0.0;
+        this.goal = new ChallengeGoal();
+        this.challengeBeginning = new Date();
+        this.icon = R.drawable.travel;
+    }
+
+    public void setChallengeBeginning(Date challengeBeginning) {
+        this.challengeBeginning = challengeBeginning;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setProgression(Double progression) {
+        this.progression = progression;
+    }
+
+    public void setGoal(ChallengeGoal goal) {
+        this.goal = goal;
+    }
+
+    public String getPorgressionString() {
+        //depending on the goalType, the progression is displayed differently
+        Double progressionReality = progression/100*goal.getGoalFinal();
+        switch (goal.getType()) {
+            case NUMBER_OF_TRIPS:
+                return progressionReality.intValue() + "/" + goal.getGoalFinal().intValue() + "trips";
+            case DISTANCE_COVERED:
+                return progressionReality + "/" + goal.getGoalFinal() + "km";
             default:
-                throw new IllegalStateException("Unexpected value: " + this.goal.getFormatedGoal());
+                return "error";
         }
+    }
+
+    public Double getProgressionDouble() {
         return progression;
     }
 
-    /**
-     * method to display the progress of a Challenge as a Double
-     * @return the Double that corresponds to the progression
-     */
-    public Double getProgressionDouble() {
-            return this.progression ;
-        }
-
-    /**
-     * method to know if a challenge is finished
-     * @return a boolean which corresponds to the completed (true) or uncompleted (false)
-     * state of the Challenge
-     */
-    public boolean isCompleted () {
-            if (this.getProgressionDouble() < 100) {return false;}
-            else{return true;}
-        }
+    public boolean isCompleted() {
+        return false;
+    }
 
         public String getTitle () {
             return title;
@@ -96,3 +114,42 @@ public class Challenge {
 
     }
 
+    public @DrawableRes int getIcon() {
+        return icon;
+    }
+
+
+    // A METTRE DANS LE ONCREATE avec this comme context
+    private void createNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "My Channel";
+            String description = "Notification channel for my app";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("idChannel", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void notifyUser() {
+        boolean challengeAccomplished = isCompleted();
+        Context context = getAppContext();
+        if (challengeAccomplished) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "idChannel")
+                    .setContentTitle("Challenge accomplished")
+                    .setContentText("Congratulations!")
+                    //.setSmallIcon(Ressource.Drawable.ic_notification); If an icon is needed
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            //.setAutoCancel(true);
+            Notification notification = builder.build();
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            int notificationID = 0;
+            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {return;}
+            notificationManager.notify(notificationID, notification);
+        }
+
+    }
+
+}
