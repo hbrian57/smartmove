@@ -22,8 +22,7 @@ public class Week implements Savable {
      * Vector with all the trips of that week
      */
     ArrayList<Trip> tripList;
-
-
+ 
     /** Constructor that creates a week based on a new trip
      * @param trip first trip of the new week
      */
@@ -31,23 +30,13 @@ public class Week implements Savable {
         Date firstDate = trip.getFirstSegment().getFirstPosition().getDatePos();
         calendar.setTime(firstDate);
         tripList.add(trip);
-
     }
 
-    /**
-     * Constructor that creates a week with an empty tripList
-     */
-    public Week(){
-        Date firstDate = new Date(System.currentTimeMillis());
-        calendar.setTime(firstDate);
-        tripList = null;
+    public Week(ArrayList<Trip> trips){
+        this.tripList=trips;
     }
-
-    /**
-     * Method that calculates carbon consumption
-     * @return carbon consumption as double
-     */
-    public double getTotalCO2Footprint(){
+    
+    public double getTotalCO2Footprint() throws Exception{
         double sumCO2Footprint = 0;
         for (Trip trip : tripList) {
             sumCO2Footprint += trip.getTripCO2Footprint();

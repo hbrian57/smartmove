@@ -15,7 +15,6 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Toast;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,5 +62,10 @@ public class DashboardActivity extends AppCompatActivity implements DisplayHandl
         Map<Integer,View> list = new HashMap<>();
         list.put(R.id.impactText, (View) findViewById(R.id.impactText));
         return list;
+    }
+
+    public void clickNew(View v){
+        Intent intent = new Intent(this,ActivityCarbonEquivalent.class);
+        startActivity(intent);;
     }
 }

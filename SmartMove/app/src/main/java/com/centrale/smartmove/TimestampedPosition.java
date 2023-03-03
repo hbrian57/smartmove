@@ -9,18 +9,21 @@ import java.util.Date;
 public class TimestampedPosition implements Savable {
 
     /**
-     * Double corresponding to the x in a 3D plan
+     * Double corresponding to the latitude
      */
-    private double x;
+    private double latitude;
 
     /**
-     * Double corresponding to the y in a 3D plan
+     * Double corresponding to the longitude
      */
-    private double y;
+    private double longitude;
+
     /**
-     * Double corresponding to the z in a 3D plan
+     * Double corresponding to the altitude
      */
-    private double z;
+
+    private double altitude;
+
     /**
      * Date corresponding to exact moment the position is taken
      */
@@ -49,56 +52,69 @@ public class TimestampedPosition implements Savable {
         return datePos;
     }
 
-    public void setX(double x) {
-        this.x = x;
+
+    public TimestampedPosition(double lati, double longi, double alti) {
+        this.altitude = alti;
+        this.longitude = longi;
+        this.latitude = lati;
     }
 
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public void setZ(double z) {
-        this.z = z;
-    }
 
     public void setDatePos(Date datePos) {
-        this.datePos = datePos;
+        this.dateOfCapture = datePos;
     }
 
-    public double calculateDistance(TimestampedPosition targetPosition) {
-        double dx = this.x - targetPosition.x;
-        double dy = this.y - targetPosition.y;
-        double dz = this.z - targetPosition.z;
-        return Math.sqrt(dx*dx+dy*dy+dz*dz);
+    /**
+     * Fonction calculant la distance entre deux positions
+     * @param targetPosition la position avec laquelle on veut calculer la distance
+     * @return une distance en mètre
+     * @throws Exception si la latitude est supérieure à 180°
+     * @throws Exception si la longitude est inférieure à -90°
+     * @throws Exception si la longitude est supérieure à 90°
+     * @throws Exception si la latitude est inférieure à -180°
+     * @throws Exception si une des coordonnées est vide
+     */
+    public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
+        if((targetPosition.latitude>90) || (this.latitude>90))
+        {throw new IllegalArgumentException("Impossible que la latitude soit supérieure à 90°");}
+        if((targetPosition.longitude>180) || (this.longitude>180))
+        {throw new IllegalArgumentException("Impossible que la longitude soit supérieure à 180°");}
+        if((targetPosition.latitude<-90) || (this.latitude<-90))
+        {throw new IllegalArgumentException("Impossible que la latitude soit inférieure à -90°");}
+        if((targetPosition.longitude<-180) || (this.longitude<-180))
+        {throw new IllegalArgumentException("Impossible que la longitude soit inférieure à -180°");}
+
+        final int R = 6371000; // Radius of the earth
+        double deltaLatitude = Math.toRadians(targetPosition.latitude - this.latitude);
+        double deltaLongitude = Math.toRadians(targetPosition.longitude - this.longitude);
+        double a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2)
+            + Math.cos(Math.toRadians(this.latitude)) * Math.cos(Math.toRadians(targetPosition.latitude))
+            * Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c;
+        double deltaAltitude = this.altitude - targetPosition.altitude;
+        distance = Math.pow(distance, 2) + Math.pow(deltaAltitude, 2);
+        return Math.sqrt(distance);
     }
+
 
     @Override
     public JSONObject getSaveFormat() {
         JSONObject JSONTimestampedPosition = new JSONObject();
         try {
-            JSONTimestampedPosition.put("timestamp", datePos);
+            JSONTimestampedPosition.put("timestamp", dateOfCapture);
             JSONObject JSONPosition = new JSONObject();
-            JSONPosition.put("x", x);
-            JSONPosition.put("y", y);
-            JSONPosition.put("z", z);
+            JSONPosition.put("latitude", latitude);
+            JSONPosition.put("longitude", longitude);
+            JSONPosition.put("height", altitude);
             JSONTimestampedPosition.put("position", JSONPosition);
-        }  catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace(); //TODO : Handle the exception properly
         }
         return JSONTimestampedPosition;
     }
 
-    /**
-     * Sets the position of the point to the given coordinates.
-     * @param x
-     * @param y
-     * @param z
-     */
-    public void setTimestampedPosition(double x,double y,double z){
-        this.x=x;
-        this.y=y;
-        this.z=z;
+    public Date getDatePos() {
+        return this.dateOfCapture;
     }
-
-
 }
