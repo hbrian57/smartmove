@@ -38,7 +38,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="J'viens en bus !"
+                android:text="@string/name_defis"
                 android:textAppearance="@style/DefiTitle" />
 
             <LinearLayout
@@ -52,7 +52,7 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4.3/10 km"
+                    android:text="@string/avancee_defis"
                     android:textAppearance="@style/DefiProgress" />
 
                 <ProgressBar
@@ -82,7 +82,7 @@
                 android:layout_width="700dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Parcourir 10km en transports en commun"
+                android:text="@string/explication_defis"
                 android:textAppearance="@style/DefiSubtitle" />
 
             <ImageView
