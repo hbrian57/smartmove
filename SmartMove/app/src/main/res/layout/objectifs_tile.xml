@@ -14,27 +14,10 @@
         android:text="@string/obj"
         android:textAppearance="@style/MAINtileTitle_light" />
 
-    <include
-        layout="@layout/objectif_unique_tile"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/recyclerChallenges"/>
 
-    <include
-        layout="@layout/objectif_unique_tile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-    <include
-        layout="@layout/objectif_unique_tile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-    <include
-        layout="@layout/objectif_unique_tile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 </LinearLayout>

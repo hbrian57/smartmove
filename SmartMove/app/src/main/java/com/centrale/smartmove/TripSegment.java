@@ -57,11 +57,19 @@ public class TripSegment implements Savable {
         return transportType;
     }
 
-    public LinkedList<TimestampedPosition> getPositionList() {
+    public LinkedList<TimestampedPosition> getPositionList() throws Exception {
+        if(this.timestampedPositionList.isEmpty()){
+            throw new Exception("timestampedPositionList vide lors de l'utilisation de la " +
+                    "fonction getPositionList()");
+        }
         return timestampedPositionList;
     }
 
-    public TimestampedPosition getFirstPosition() {
+    public TimestampedPosition getFirstPosition() throws Exception {
+        if(this.timestampedPositionList.isEmpty()){
+            throw new Exception("timestampedPositionList vide lors de l'utilisation de la " +
+                    "fonction getFirstPosition()");
+        }
         return timestampedPositionList.get(0);
     }
 
