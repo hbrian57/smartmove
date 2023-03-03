@@ -82,4 +82,9 @@ public class User implements Savable {
     }
 
 
+    public Double calculateCurrentWeekCarbonFootprint() {
+        Week currentWeek = weeks.get(weeks.size()-1);
+        return currentWeek.getTotalCO2Footprint();
+
+    }
 }

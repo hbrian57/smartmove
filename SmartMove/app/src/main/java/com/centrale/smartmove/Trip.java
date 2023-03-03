@@ -44,7 +44,7 @@ public class Trip implements Savable{
      * @return a double corresponding to the value of the CO2 emission
      */
 
-    public double getTripCO2Footprint() throws Exception{
+    public double getTripCO2Footprint()  {
         double sumCarbonFootprint = 0;
         for (TripSegment segment : tripSegments) {
             sumCarbonFootprint += segment.calculateCO2footprint();

@@ -80,7 +80,7 @@ public class TripSegment implements Savable {
      * Method which enables to calculate the CO2 emission of a LitTrip
      * @return an integer corresponding to the value of the CO2 emission
      */
-    public double calculateCO2footprint() throws Exception{
+    public double calculateCO2footprint()  {
         float transportTypeCO2Parameter = transportType.getCO2param();
         return transportTypeCO2Parameter*this.calculateTotalDistance();
     }

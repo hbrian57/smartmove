@@ -42,14 +42,14 @@
                 app:srcCompat="@drawable/leaf" />
 
             <TextView
-                android:id="@+id/impactText"
+                android:id="@+id/impactTextDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/qttCO2"
                 android:textAppearance="@style/MAINtileCO2" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageViewNavToCarbonEquivalent"
                 android:layout_width="wrap_content"
                 android:clickable="true"
                 android:onClick="clickOpenCarbonEquivalentPage"

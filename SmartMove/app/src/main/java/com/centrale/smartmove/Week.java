@@ -22,7 +22,7 @@ public class Week implements Savable {
      * Vector with all the trips of that week
      */
     ArrayList<Trip> tripList;
- 
+
     /** Constructor that creates a week based on a new trip
      * @param trip first trip of the new week
      */
@@ -36,7 +36,7 @@ public class Week implements Savable {
         this.tripList=trips;
     }
     
-    public double getTotalCO2Footprint() throws Exception{
+    public double getTotalCO2Footprint() {
         double sumCO2Footprint = 0;
         for (Trip trip : tripList) {
             sumCO2Footprint += trip.getTripCO2Footprint();

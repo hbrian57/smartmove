@@ -33,51 +33,17 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="20dp">
 
+                <include
+                    layout="@layout/impact_tile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        style="@style/MAINtileTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/impact_carbone"
-                        android:textAllCaps="false"
-                        android:textAppearance="@style/CGUtitre" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        >
-
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="45dp"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="10dp"
-                            app:srcCompat="@drawable/leaf" />
-
-
-                        <TextView
-                            android:id="@+id/impactText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/_1_2_tonnes_de_co2eq"
-                            android:textAppearance="@style/MAINtileCO2" />
-
-                        />
-
-                    </LinearLayout>
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />

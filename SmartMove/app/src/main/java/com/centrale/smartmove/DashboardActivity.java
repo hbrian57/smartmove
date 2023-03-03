@@ -15,18 +15,17 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-import java.util.HashMap;
-import java.util.Map;
 
-public class DashboardActivity extends AppCompatActivity implements DisplayHandler {
+public class DashboardActivity extends AppCompatActivity  {
     User user;
-    DisplayManager displayManager;
+    Double carbonFootprintDisplayed;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        displayManager = new DisplayManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ActivityCompat.requestPermissions(this,
@@ -34,11 +33,16 @@ public class DashboardActivity extends AppCompatActivity implements DisplayHandl
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_BACKGROUND_LOCATION},
                 PackageManager.PERMISSION_GRANTED);
+        ImageView navToHere = findViewById(R.id.imageViewNavToCarbonEquivalent);
+        navToHere.setVisibility(View.VISIBLE);
+
+
         user = new User();
         //add 3 challenges for testing
         for (int i = 0; i < 3; i++) {
             user.getNewChallenge();
         }
+        displayCarbonFootprint();
         displayChallenges();
     }
 
@@ -58,15 +62,16 @@ public class DashboardActivity extends AppCompatActivity implements DisplayHandl
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    @Override
-    public Map<Integer, View> getEditableObjects() {
-        Map<Integer,View> list = new HashMap<>();
-        list.put(R.id.impactText, (View) findViewById(R.id.impactText));
-        return list;
-    }
-
     public void clickOpenCarbonEquivalentPage(View v){
         Intent intent = new Intent(this,ActivityCarbonEquivalent.class);
+        intent.putExtra("carbonFootprintDisplayed", carbonFootprintDisplayed);
         startActivity(intent);;
+    }
+
+    public void displayCarbonFootprint(){
+       // Double carbonFootprint = user.calculateCurrentWeekCarbonFootprint();
+        carbonFootprintDisplayed = 3.0;
+        TextView textView = findViewById(R.id.impactTextDashboard);
+        textView.setText(carbonFootprintDisplayed + " tonnes de CO2eq");
     }
 }
