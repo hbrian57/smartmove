@@ -62,16 +62,14 @@ public class TripSegment implements Savable {
 
     public LinkedList<TimestampedPosition> getPositionList() throws Exception {
         if(this.timestampedPositionList.isEmpty()){
-            throw new Exception("timestampedPositionList vide lors de l'utilisation de la " +
-                    "fonction getPositionList()");
+            throw new Exception(String.valueOf(R.string.tripSegmentException1));
         }
         return timestampedPositionList;
     }
 
     public TimestampedPosition getFirstPosition() throws Exception {
         if(this.timestampedPositionList.isEmpty()){
-            throw new Exception("timestampedPositionList vide lors de l'utilisation de la " +
-                    "fonction getFirstPosition()");
+            throw new Exception(String.valueOf(R.string.tripSegmentException2));
         }
         return timestampedPositionList.get(0);
     }
@@ -90,12 +88,12 @@ public class TripSegment implements Savable {
         JSONObject JSONTripSegment = new JSONObject();
 
         try {
-            JSONTripSegment.put("transportType", transportType.name());
+            JSONTripSegment.put(String.valueOf(R.string.tripSegmentTrasportType), transportType.name());
             JSONArray JSONPositionList = new JSONArray();
             for (TimestampedPosition pos : timestampedPositionList) {
                 JSONPositionList.put(pos.getSaveFormat());
             }
-            JSONTripSegment.put("positions", JSONPositionList);
+            JSONTripSegment.put(String.valueOf(R.string.TripSegmentPosition), JSONPositionList);
         } catch (JSONException e) {
             e.printStackTrace();
         }

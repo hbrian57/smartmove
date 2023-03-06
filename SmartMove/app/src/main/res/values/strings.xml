@@ -15,6 +15,7 @@
     <string name="transportTypeBike">À vélo</string>
     <string name="transportTypeCar">En voiture</string>
     <string name="transportTypeFoot">À pied</string>
+    <string name="transportTypeStatic">Immobile</string>
 
 
 
@@ -31,6 +32,15 @@
     <string name="explication_defis">Parcourir 10km en transports en commun</string>
     <string name="obj">OBJECTIFS</string>
     <string name="_1_2_tonnes_de_co2eq">1,2 tonnes de CO2eq</string>
+    <string name="weekTrips">trips</string>
+    <string name="weekWeekID">weekID</string>
+    <string name="userWeeks">weeks</string>
+    <string name="tripSegmentException1">timestampedPositionList vide lors de l\'utilisation de la + fonction getPositionList()</string>
+    <string name="tripSegmentException2">timestampedPositionList vide lors de l\'utilisation de la + fonction getFirstPosition()</string>
+    <string name="tripSegmentTrasportType">transportType</string>
+    <string name="TripSegmentPosition">positions</string>
+    <string name="TripException">The trip is empty and has no segments</string>
+
 
     <!-- Strings used for ActivityCarbonEquivalent -->
     <string name="repas_vege">repas végétariens</string>

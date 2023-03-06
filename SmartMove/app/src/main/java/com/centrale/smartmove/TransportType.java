@@ -3,6 +3,7 @@ package com.centrale.smartmove;
 import androidx.annotation.StringRes;
 
 public enum TransportType {
+    STATIC (R.string.transportTypeStatic,0.0f),
     BIKE(R.string.transportTypeBike,0.5f),
     CAR(R.string.transportTypeCar,5f),
     WALKING(R.string.transportTypeFoot, 0.1f);

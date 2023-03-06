@@ -81,8 +81,8 @@ public class Week implements Savable {
             JSONTrips.put(trip.getSaveFormat());
         }
         try {
-            JSONWeek.put("trips", JSONTrips);
-            JSONWeek.put("weekID", getWeekID());
+            JSONWeek.put(String.valueOf(R.string.weekTrips), JSONTrips);
+            JSONWeek.put(String.valueOf(R.string.weekWeekID), getWeekID());
         } catch (JSONException e) {
             e.printStackTrace();
         }
