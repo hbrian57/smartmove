@@ -10,11 +10,12 @@ import java.util.ArrayList;
 public class User implements Savable {
     ArrayList<Week> weeks;
     ChallengeGenerator coach;
-
-
     ArrayList<Challenge> onGoingChallenge;
     ArrayList<Trip> userTrips;
 
+    /**
+     * Constructor of a User with nothing in parameters
+     */
     public User() {
         weeks = new ArrayList<>();
         coach = new ChallengeGenerator();
@@ -22,6 +23,13 @@ public class User implements Savable {
         userTrips = new ArrayList<>();
     }
 
+    /**
+     * Constructor of a User with all the parameters
+     * @param w the list of the weeks
+     * @param c coach which generate the challenge
+     * @param o list of challenges which are currently ongoing
+     * @param u the list of the trips
+     */
     public User(ArrayList<Week> w, ChallengeGenerator c, ArrayList<Challenge> o, ArrayList<Trip> u){
         this.weeks=w ;
         this.coach=c;
@@ -34,15 +42,20 @@ public class User implements Savable {
         return weeks;
     }
 
-    // Method that is called once a trip is finished that updates the challenges
+    /**
+     * Method that is called once a trip is finished that updates the challenges
+     */
     public void updateOnGoingChallenge(Trip newTripDone){
         for (Challenge challenge : onGoingChallenge) {
             challenge.updateProgression(newTripDone);
         }
     }
 
+    /**
+     * Method that adds a trip to the list of the trip, and which updates the challenge according to the new trip
+     * @param trip
+     */
     public void addNewTrip(Trip trip)  {
-
         userTrips.add(trip);
         updateOnGoingChallenge(trip);
     }
@@ -81,7 +94,10 @@ public class User implements Savable {
         return userTrips;
     }
 
-
+    /**
+     * method that calculate the current week carbon footprint
+     * @return the total co2 footprint
+     */
     public Double calculateCurrentWeekCarbonFootprint() {
         Week currentWeek = weeks.get(weeks.size()-1);
         return currentWeek.getTotalCO2Footprint();

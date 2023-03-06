@@ -34,6 +34,12 @@ public class TimestampedPosition implements Savable {
     }
 
 
+    /**
+     * Constructor of a timestampedposition with the latitude, longitude, altitude
+      * @param lati latitude
+     * @param longi longitude
+     * @param alti altidude
+     */
     public TimestampedPosition(double lati, double longi, double alti) {
         this.altitude = alti;
         this.longitude = longi;

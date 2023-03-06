@@ -32,10 +32,18 @@ public class Week implements Savable {
         tripList.add(trip);
     }
 
+    /**
+     * Constructor that creates a week based on a list of trips
+     * @param trips the list of trips
+     */
     public Week(ArrayList<Trip> trips){
         this.tripList=trips;
     }
-    
+
+    /**
+     * method which enables to obtain the CO2 footprint of a whole trip
+     * @return a double corresponding to the CO2 footprint
+     */
     public double getTotalCO2Footprint() {
         double sumCO2Footprint = 0;
         for (Trip trip : tripList) {
