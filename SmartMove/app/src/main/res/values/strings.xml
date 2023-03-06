@@ -32,4 +32,21 @@
     <string name="obj">OBJECTIFS</string>
     <string name="_1_2_tonnes_de_co2eq">1,2 tonnes de CO2eq</string>
 
+    <!-- Strings used for ActivityCarbonEquivalent -->
+    <string name="repas_vege">repas végétariens</string>
+    <string name="kms_en_tgv">kms en TGV</string>
+    <string name="tshirt_en_coton">t-shirt en coton</string>
+    <string name="feuilles_de_papier">feuilles de papier</string>
+    <string name="bouteilles_d_eau">bouteilles d\'eau produites</string>
+    <string name="kilos_de_volaille">kilos de volaille</string>
+    <string name="pomme2terre">kilos de pommes de terre</string>
+    <string name="kg_2_pain">kilos de pain</string>
+    <string name="kwh_elec">kWh d\'électricité</string>
+    <string name="gobelets_cafe">gobelets de café</string>
+    <string name="equivaut_a_semaine">Cette semaine, ma conso de CO2 équivaut à</string>
+    <string name="tonnes_2_CO2eq">\ tonnes de CO2eq</string>
+    <string name="carbonFootprintDisplayed">carbonFootprintDisplayed</string>
+    <string name="url_explication_conso_carbone">https://gitlab.univ-eiffel.fr/teamgeoloc/smartloc/-/wikis/What-is-Smartmove</string>
+
+
 </resources>
