@@ -40,6 +40,15 @@
     <string name="tripSegmentTrasportType">transportType</string>
     <string name="TripSegmentPosition">positions</string>
     <string name="TripException">The trip is empty and has no segments</string>
+    <string name="positionException90deg">Impossible que la latitude soit supérieure à 90°</string>
+    <string name="positionException180">Impossible que la longitude soit supérieure à 180°</string>
+    <string name="positionException90Moins">Impossible que la latitude soit inférieure à -90°</string>
+    <string name="positionException180Moins">Impossible que la longitude soit inférieure à -180°</string>
+    <string name="postion_TimeStamp">timestamp</string>
+    <string name="position_latitude">latitude</string>
+    <string name="position_Longitude">longitude</string>
+    <string name="position_height">height</string>
+    <string name="position_position">position</string>
 
 
     <!-- Strings used for ActivityCarbonEquivalent -->
