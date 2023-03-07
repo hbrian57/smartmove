@@ -31,5 +31,8 @@
     <string name="explication_defis">Parcourir 10km en transports en commun</string>
     <string name="obj">OBJECTIFS</string>
     <string name="_1_2_tonnes_de_co2eq">1,2 tonnes de CO2eq</string>
+    <string name="onback_defaultmessage">Circulez, y\'a rien à voir !</string>
+    <string name="carbon_footprintdisplayed">carbonFootprintDisplayed</string>
+    <string name="display_message_after_CO2footprint">\" tonnes de CO2eq\"</string>
 
 </resources>

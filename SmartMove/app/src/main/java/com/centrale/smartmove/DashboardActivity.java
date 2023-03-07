@@ -1,5 +1,7 @@
 package com.centrale.smartmove;
 
+import static com.centrale.smartmove.R.string.onback_defaultmessage;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -48,7 +50,7 @@ public class DashboardActivity extends AppCompatActivity  {
 
     public void onBackPressed() {
         // super.onBackPressed();
-        Toast.makeText(this,"Circulez, y'a rien à voir !",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, onback_defaultmessage,Toast.LENGTH_LONG).show();
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         VibrationEffect vibrationEffect1 = VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE);
         vibrator.cancel();
@@ -64,7 +66,7 @@ public class DashboardActivity extends AppCompatActivity  {
 
     public void clickOpenCarbonEquivalentPage(View v){
         Intent intent = new Intent(this,ActivityCarbonEquivalent.class);
-        intent.putExtra("carbonFootprintDisplayed", carbonFootprintDisplayed);
+        intent.putExtra(getString(R.string.carbon_footprintdisplayed), carbonFootprintDisplayed);
         startActivity(intent);;
     }
 
@@ -72,6 +74,6 @@ public class DashboardActivity extends AppCompatActivity  {
        // Double carbonFootprint = user.calculateCurrentWeekCarbonFootprint();
         carbonFootprintDisplayed = 3.0;
         TextView textView = findViewById(R.id.impactTextDashboard);
-        textView.setText(carbonFootprintDisplayed + " tonnes de CO2eq");
+        textView.setText(carbonFootprintDisplayed + getString(R.string.display_message_after_CO2footprint));
     }
 }
