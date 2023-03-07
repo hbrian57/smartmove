@@ -5,6 +5,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import static java.sql.Types.NULL;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -109,7 +113,34 @@ public class TripSegment implements Savable {
         return velocityMean;
     }
 
+    /**
+     * Calculates the acceleration of the last 10 points
+     */
+    public double calculateRollingAcceleration() throws Exception{
+        int listSize = this.timestampedPositionList.size();
+        double accelerationMean=0;
+        if(listSize>=10){
+            int i=0;
+            long totaltemps=0;
+            double sum=0;
+            for(i=0;i<8;i++){
+                LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i).dateOfCapture.toInstant()
+                        , ZoneId.systemDefault());
+                LocalDateTime dateTime2 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-2).dateOfCapture.toInstant(), ZoneId.systemDefault());
 
+                Duration duration = Duration.between(dateTime1, dateTime2);
+                long timeBetweenPoints = duration.getSeconds();
+                totaltemps += timeBetweenPoints;
+
+                sum+=(timestampedPositionList.get(listSize-i).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-1))
+                        -(timestampedPositionList.get(listSize-i-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-2))))/totaltemps;
+            }
+            accelerationMean=sum/9;
+            return accelerationMean;
+        }
+        return accelerationMean;
+
+    }
 
 
     @Override
