@@ -1,7 +1,5 @@
 package com.centrale.smartmove;
 
-import static com.centrale.smartmove.R.string.onback_defaultmessage;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
