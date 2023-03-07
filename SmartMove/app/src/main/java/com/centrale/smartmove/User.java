@@ -73,7 +73,7 @@ public class User implements Savable {
             JSONWeeks.put(week.getSaveFormat());
         }
         try {
-            JSONUser.put("weeks", JSONWeeks);
+            JSONUser.put(String.valueOf(R.string.userWeeks), JSONWeeks);
         } catch (JSONException e) {
             e.printStackTrace();
         }

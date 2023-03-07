@@ -32,7 +32,7 @@ public class Trip implements Savable{
 
     public TripSegment getFirstSegment() throws Exception {
         if(this.tripSegments.isEmpty()){
-            throw new Exception("The trip is empty and has no segments");
+            throw new Exception(String.valueOf(R.string.TripException));
         }
             return tripSegments.get(0);
     }

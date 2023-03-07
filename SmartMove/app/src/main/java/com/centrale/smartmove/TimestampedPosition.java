@@ -63,13 +63,13 @@ public class TimestampedPosition implements Savable {
      */
     public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
         if((targetPosition.latitude>90) || (this.latitude>90))
-        {throw new IllegalArgumentException("Impossible que la latitude soit supérieure à 90°");}
+        {throw new IllegalArgumentException(String.valueOf(R.string.positionException90deg));}
         if((targetPosition.longitude>180) || (this.longitude>180))
-        {throw new IllegalArgumentException("Impossible que la longitude soit supérieure à 180°");}
+        {throw new IllegalArgumentException(String.valueOf(R.string.positionException180));}
         if((targetPosition.latitude<-90) || (this.latitude<-90))
-        {throw new IllegalArgumentException("Impossible que la latitude soit inférieure à -90°");}
+        {throw new IllegalArgumentException(String.valueOf(R.string.positionException90Moins));}
         if((targetPosition.longitude<-180) || (this.longitude<-180))
-        {throw new IllegalArgumentException("Impossible que la longitude soit inférieure à -180°");}
+        {throw new IllegalArgumentException(String.valueOf(R.string.positionException180Moins));}
 
         final int R = 6371000; // Radius of the earth
         double deltaLatitude = Math.toRadians(targetPosition.latitude - this.latitude);
@@ -89,12 +89,12 @@ public class TimestampedPosition implements Savable {
     public JSONObject getSaveFormat() {
         JSONObject JSONTimestampedPosition = new JSONObject();
         try {
-            JSONTimestampedPosition.put("timestamp", dateOfCapture);
+            JSONTimestampedPosition.put(String.valueOf(R.string.postion_TimeStamp), dateOfCapture);
             JSONObject JSONPosition = new JSONObject();
-            JSONPosition.put("latitude", latitude);
-            JSONPosition.put("longitude", longitude);
-            JSONPosition.put("height", altitude);
-            JSONTimestampedPosition.put("position", JSONPosition);
+            JSONPosition.put(String.valueOf(R.string.position_latitude), latitude);
+            JSONPosition.put(String.valueOf(R.string.position_Longitude), longitude);
+            JSONPosition.put(String.valueOf(R.string.position_height), altitude);
+            JSONTimestampedPosition.put(String.valueOf(R.string.position_position), JSONPosition);
         } catch (JSONException e) {
             e.printStackTrace(); //TODO : Handle the exception properly
         }
