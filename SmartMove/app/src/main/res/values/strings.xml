@@ -34,7 +34,7 @@
     <string name="_1_2_tonnes_de_co2eq">1,2 tonnes de CO2eq</string>
     <string name="onback_defaultmessage">Circulez, y\'a rien à voir !</string>
     <string name="carbon_footprintdisplayed">carbonFootprintDisplayed</string>
-    <string name="display_message_after_CO2footprint">\" tonnes de CO2eq\"</string>
+    <string name="display_message_after_CO2footprint">\ tonnes de CO2eq </string>
 =======
     <string name="weekTrips">trips</string>
     <string name="weekWeekID">weekID</string>
@@ -70,7 +70,15 @@
     <string name="tonnes_2_CO2eq">\ tonnes de CO2eq</string>
     <string name="carbonFootprintDisplayed">carbonFootprintDisplayed</string>
     <string name="url_explication_conso_carbone">https://gitlab.univ-eiffel.fr/teamgeoloc/smartloc/-/wikis/What-is-Smartmove</string>
-
->>>>>>> 2469e7494c4d36efa9a0479b908e884c12bbbefc
+    <string name="challenge_challenge">Challenge</string>
+    <string name="challenge_description">Description</string>
+    <string name="notification_congratulations">Congratulations!</string>
+    <string name="notification_accomplishedchall">Challenge accomplished</string>
+    <string name="notif_mychannel">My Channel</string>
+    <string name="notif_notifchannel">Notification channel for my app</string>
+    <string name="idchannel">idChannel</string>
+    <string name="acceptedCGUtext">acceptedGCU</string>
+    <string name="smartmove_intext">SMARTMOVE</string>
+    >>>>>>> 2469e7494c4d36efa9a0479b908e884c12bbbefc
 
 </resources>

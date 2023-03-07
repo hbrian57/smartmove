@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="repavege_value">1.961</dimen>
+    <dimen name="tgv_value">578.035</dimen>
+    <dimen name="tee_value">0.192</dimen>
+    <dimen name="feuille_value">218.141</dimen>
+    <dimen name="bouteille_value">2.208</dimen>
+    <dimen name="prodvol_value">1.</dimen>
+    <dimen name="prodpatate_value">4.7</dimen>
+    <dimen name="prodpain_value">1.2</dimen>
+    <dimen name="consoelec_value">4.3</dimen>
+    <dimen name="gobcafe_value">8.8</dimen>
+
+</resources>

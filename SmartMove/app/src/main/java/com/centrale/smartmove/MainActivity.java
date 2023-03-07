@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        SharedPreferences sharedPref = getSharedPreferences("SMARTMOVE",Context.MODE_PRIVATE);
-        int val = sharedPref.getInt("acceptedGCU", 0);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.smartmove_intext),Context.MODE_PRIVATE);
+        int val = sharedPref.getInt(getString(R.string.acceptedCGUtext), 0);
         if (val == 0) {
             Intent intent = new Intent(this, CGUActivity.class);
             startActivity(intent);
