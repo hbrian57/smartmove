@@ -35,8 +35,8 @@ public class Challenge {
     }
 
     public Challenge() {
-        this.title = "Challenge";
-        this.description = "Description";
+        this.title = getAppContext().getString(R.string.challenge_challenge);
+        this.description = getAppContext().getString(R.string.challenge_description);
         this.progression = 0.0;
         this.goal = new ChallengeGoal();
         this.challengeBeginning = new Date();
@@ -117,10 +117,10 @@ public class Challenge {
     // A METTRE DANS LE ONCREATE avec this comme context
     private void createNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "My Channel";
-            String description = "Notification channel for my app";
+            CharSequence name = getAppContext().getString(R.string.notif_mychannel);
+            String description = getAppContext().getString(R.string.notif_notifchannel);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("idChannel", name, importance);
+            NotificationChannel channel = new NotificationChannel(getAppContext().getString(R.string.idchannel), name, importance);
             channel.setDescription(description);
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -132,9 +132,9 @@ public class Challenge {
         boolean challengeAccomplished = isCompleted();
         Context context = getAppContext();
         if (challengeAccomplished) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "idChannel")
-                    .setContentTitle("Challenge accomplished")
-                    .setContentText("Congratulations!")
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, getAppContext().getString(R.string.idchannel))
+                    .setContentTitle(context.getString(R.string.notification_accomplishedchall))
+                    .setContentText(context.getString(R.string.notification_congratulations))
                     //.setSmallIcon(Ressource.Drawable.ic_notification); If an icon is needed
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
             //.setAutoCancel(true);
