@@ -83,6 +83,35 @@ public class TripSegment implements Savable {
         return transportTypeCO2Parameter*this.calculateTotalDistance();
     }
 
+    /**
+     * Defines the right TransportType for each TripSegment and creates a new TripSegment if the TransportType has changed
+     */
+    public void computeTransportType(){
+
+    }
+
+    /**
+    Calculates the mean of the last 10 points
+     */
+    public double calculateRollingMean() throws Exception {
+        int listSize = this.timestampedPositionList.size();
+        double velocityMean=0;
+        if(listSize>=10){
+            int i=0;
+            double sum=0;
+            for(i=0;i<9;i++){
+                sum+=timestampedPositionList.get(listSize-i).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-1));
+            }
+            velocityMean=sum/10;
+            return velocityMean;
+
+        }
+        return velocityMean;
+    }
+
+
+
+
     @Override
     public JSONObject getSaveFormat() {
         JSONObject JSONTripSegment = new JSONObject();

@@ -3,6 +3,9 @@ package com.centrale.smartmove;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 
@@ -84,6 +87,23 @@ public class TimestampedPosition implements Savable {
         return Math.sqrt(distance);
     }
 
+    /**
+     * Calculates the velocity between two TimestampedPosition
+     * @param secondPosition
+     * @return
+     * @throws Exception
+     */
+
+    public double calculateVelocityBetweenTwoPoints(TimestampedPosition secondPosition) throws Exception{
+        double velocity=0;
+        LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.dateOfCapture.toInstant(), ZoneId.systemDefault());
+        LocalDateTime dateTime2 = LocalDateTime.ofInstant(secondPosition.dateOfCapture.toInstant(), ZoneId.systemDefault());
+        Duration duration = Duration.between(dateTime1, dateTime2);
+        long timeBetweenPoints = duration.getSeconds();
+        double distanceBetweenPoints = this.calculateDistance(secondPosition);
+        velocity=distanceBetweenPoints/timeBetweenPoints;
+        return velocity;
+    }
 
     @Override
     public JSONObject getSaveFormat() {
