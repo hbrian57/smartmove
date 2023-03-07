@@ -90,21 +90,35 @@ public class TripSegment implements Savable {
     /**
      * Defines the right TransportType for each TripSegment and creates a new TripSegment if the TransportType has changed
      */
-    public void computeTransportType(){
+    public void computeTransportType() throws Exception{
+        int listSize = this.timestampedPositionList.size();
+        double lastTwoPointsVelocity=0;
+        int changement=0;
+        lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
+        if(lastTwoPointsVelocity*3.6>2){
+            if((2<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=6)&&(transportType!=TransportType.WALKING)){
+                new TripSegment(TransportType.WALKING);
+            }if((6<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=20)&&(transportType!=TransportType.BIKE)){
+                new TripSegment(TransportType.BIKE);
+            }if((20<calculateRollingVelocity()*3.6)&&(transportType!=TransportType.CAR)){
+                new TripSegment(TransportType.CAR);
+        }}
+
 
     }
 
+    //TODO régler les problèmes d'indice(dépassements)
     /**
     Calculates the mean of the last 10 points
      */
-    public double calculateRollingMean() throws Exception {
+    public double calculateRollingVelocity() throws Exception {
         int listSize = this.timestampedPositionList.size();
         double velocityMean=0;
         if(listSize>=10){
             int i=0;
             double sum=0;
             for(i=0;i<9;i++){
-                sum+=timestampedPositionList.get(listSize-i).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-1));
+                sum+=timestampedPositionList.get(listSize-i-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-2));
             }
             velocityMean=sum/10;
             return velocityMean;
@@ -124,9 +138,9 @@ public class TripSegment implements Savable {
             long totaltemps=0;
             double sum=0;
             for(i=0;i<8;i++){
-                LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i).dateOfCapture.toInstant()
+                LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-1).dateOfCapture.toInstant()
                         , ZoneId.systemDefault());
-                LocalDateTime dateTime2 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-2).dateOfCapture.toInstant(), ZoneId.systemDefault());
+                LocalDateTime dateTime2 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-3).dateOfCapture.toInstant(), ZoneId.systemDefault());
 
                 Duration duration = Duration.between(dateTime1, dateTime2);
                 long timeBetweenPoints = duration.getSeconds();
