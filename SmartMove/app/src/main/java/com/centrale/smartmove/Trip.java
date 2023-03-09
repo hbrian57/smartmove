@@ -30,6 +30,11 @@ public class Trip implements Savable{
         return tripSegments;
     }
 
+    /**
+     * Get the first segment of the trip.
+     * @return the first segment.
+     * @throws Exception There is no segment in the trip.
+     */
     public TripSegment getFirstSegment() throws Exception {
         if(this.tripSegments.isEmpty()){
             throw new Exception(String.valueOf(R.string.TripException));
@@ -72,6 +77,11 @@ public class Trip implements Savable{
     }
 
     //Returns the number of trips of each type
+
+    /**
+     * Returns the number of trips of each type.
+     * @return A HashMap with the transport type and the number of trips.
+     */
     public HashMap<TransportType, Integer> getTripTransportTypeUsage() {
         HashMap<TransportType, Integer> tripSegmentsUsage = new HashMap<>();
         for (TransportType transportType : TransportType.values()) {
@@ -84,6 +94,10 @@ public class Trip implements Savable{
         return tripSegmentsUsage;
     }
 
+    /**
+     * Returns the distance done per transport type.
+     * @return A HashMap with the transport type and the distance done.
+     */
     public HashMap<TransportType, Double> getTripDistanceDonePerTransportType()  {
         HashMap<TransportType, Double> tripSegmentsDistance = new HashMap<>();
         for (TransportType transportType : TransportType.values()) {

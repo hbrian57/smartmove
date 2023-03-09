@@ -157,7 +157,10 @@ public class TripSegment implements Savable {
 
     }*/
 
-
+    /**
+     * method which allows to save all the TripSegment of User in a JSON file
+     * @return the JSON file of the backup
+     */
     @Override
     public JSONObject getSaveFormat() {
         JSONObject JSONTripSegment = new JSONObject();

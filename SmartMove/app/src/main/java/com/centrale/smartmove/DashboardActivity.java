@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -35,8 +34,6 @@ public class DashboardActivity extends AppCompatActivity  {
                 PackageManager.PERMISSION_GRANTED);
         ImageView navToHere = findViewById(R.id.imageViewNavToCarbonEquivalent);
         navToHere.setVisibility(View.VISIBLE);
-
-
         user = new User();
         //add 3 challenges for testing
         for (int i = 0; i < 3; i++) {
@@ -46,6 +43,9 @@ public class DashboardActivity extends AppCompatActivity  {
         displayChallenges();
     }
 
+    /**
+     * Method to display a toast when the back button is pressed.
+     */
     public void onBackPressed() {
         // super.onBackPressed();
         Toast.makeText(this,getString(R.string.onback_defaultmessage),Toast.LENGTH_LONG).show();
@@ -55,6 +55,9 @@ public class DashboardActivity extends AppCompatActivity  {
         vibrator.vibrate(vibrationEffect1);
     }
 
+    /**
+     * Method to display all the ongoing challenges.
+     */
     private void displayChallenges() {
         RecyclerView recyclerView = findViewById(R.id.recyclerChallenges);
         RecyclerChallengeAdapter challengeAdapter = new RecyclerChallengeAdapter(this,user.getOnGoingChallenge());
@@ -62,12 +65,19 @@ public class DashboardActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * Method to sned the user to the view of the carbon equivalent.
+     * @param v the main view
+     */
     public void clickOpenCarbonEquivalentPage(View v){
         Intent intent = new Intent(this,ActivityCarbonEquivalent.class);
         intent.putExtra(getString(R.string.carbon_footprintdisplayed), carbonFootprintDisplayed);
         startActivity(intent);
     }
 
+    /**
+     * Methode to display the carbon footprint.
+     */
     public void displayCarbonFootprint(){
        // Double carbonFootprint = user.calculateCurrentWeekCarbonFootprint();
         carbonFootprintDisplayed = 3.0;

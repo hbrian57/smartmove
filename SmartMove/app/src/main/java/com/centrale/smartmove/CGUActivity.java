@@ -29,6 +29,9 @@ public class CGUActivity extends AppCompatActivity {
 
 
     @Override
+    /**
+     * Displays the CGU.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = CguScrollingLayoutBinding.inflate(getLayoutInflater());
@@ -62,7 +65,10 @@ public class CGUActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Creation of the button to accept the CGU.
+     * @param view the CGU view
+     */
     public void onButtonClicked(View view) {
         Log.d(LOG_TAG, "Validé");
         SharedPreferences sharedPref = getSharedPreferences("SMARTMOVE",Context.MODE_PRIVATE);
@@ -75,7 +81,10 @@ public class CGUActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Storage of the acceptance of the CGU.
+     * @param view the CGU view
+     */
     public void onCheckBoxClicked(View view) {
         btValidate.setEnabled(((CheckBox)view).isChecked());
         if (((CheckBox)view).isChecked()){
