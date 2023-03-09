@@ -34,8 +34,6 @@ public class DashboardActivity extends AppCompatActivity  {
                 PackageManager.PERMISSION_GRANTED);
         ImageView navToHere = findViewById(R.id.imageViewNavToCarbonEquivalent);
         navToHere.setVisibility(View.VISIBLE);
-
-
         user = new User();
         //add 3 challenges for testing
         for (int i = 0; i < 3; i++) {

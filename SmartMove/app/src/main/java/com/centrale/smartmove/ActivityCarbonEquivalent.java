@@ -28,6 +28,9 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
 
 
     @Override
+    /**
+     * This method launch the carbon equivalent activity.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_equivalent);

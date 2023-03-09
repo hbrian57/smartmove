@@ -15,6 +15,10 @@ public class App extends Application {
         appContext = this;
     }
 
+    /**
+     * This method return the context of the App
+     * @return the app context
+     */
     public static Context getAppContext() {
         return appContext;
     }

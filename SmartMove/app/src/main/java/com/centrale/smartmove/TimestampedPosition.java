@@ -106,6 +106,10 @@ public class TimestampedPosition implements Savable {
     }
 
     @Override
+    /**
+     * method which allows to save all the TimeStampedPosition of User in a JSON file
+     * @return the JSON file of the backup
+     */
     public JSONObject getSaveFormat() {
         JSONObject JSONTimestampedPosition = new JSONObject();
         try {
@@ -121,6 +125,10 @@ public class TimestampedPosition implements Savable {
         return JSONTimestampedPosition;
     }
 
+    /**
+     * Get the date of the TimeStampedPosition object.
+     * @return the date.
+     */
     public Date getDatePos() {
         return this.dateOfCapture;
     }

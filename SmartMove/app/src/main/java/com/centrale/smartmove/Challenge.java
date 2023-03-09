@@ -87,6 +87,10 @@ public class Challenge {
         this.progression = progression;
     }
 
+    /**
+     * Set Goal.
+     * @param goal
+     */
     public void setGoal(ChallengeGoal goal) {
         this.goal = goal;
     }
@@ -136,14 +140,6 @@ public class Challenge {
             return goal;
         }
 
-
-
-        Challenge(String Title,String Description, Double Progression,ChallengeGoal Goal,Date DebutChallenge){
-        this.title=Title;
-        this.description=Description;
-        this.progression=Progression;
-        this.goal=Goal;
-        }
 
     public @DrawableRes int getIcon() {
         return icon;

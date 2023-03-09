@@ -30,7 +30,7 @@ public class CGUActivity extends AppCompatActivity {
 
     @Override
     /**
-     * displays the CGU.
+     * Displays the CGU.
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
