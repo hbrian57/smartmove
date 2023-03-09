@@ -103,4 +103,15 @@ public class User implements Savable {
         return currentWeek.getTotalCO2Footprint();
 
     }
+
+    public Trip getCurrentTrip(){
+        //TODO implémenter la fonction qui récupère le Trip actuel
+        Trip trip=null;
+        return trip;
+    }
+
+    public void newTSPobtained(TimestampedPosition currentTimeStampedPosition) throws Exception{
+        getCurrentTrip().getCurrentTripSegment().computeTransportType();
+    }
+
 }

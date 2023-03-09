@@ -95,4 +95,10 @@ public class Trip implements Savable{
         }
         return tripSegmentsDistance;
     }
+
+    public TripSegment getCurrentTripSegment(){
+        //TODO implémenter la fonction qui extrait le TripSegment actuel du Trip
+        TripSegment tripSegment = null ;
+        return tripSegment;
+    }
 }

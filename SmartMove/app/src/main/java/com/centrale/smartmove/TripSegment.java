@@ -19,7 +19,7 @@ public class TripSegment implements Savable {
      */
     TransportType transportType;
     /**
-     * List of the positions taken during all the LitTrip
+     * List of the positions taken during all the TripSegment
      */
     LinkedList<TimestampedPosition> timestampedPositionList;
 
@@ -93,7 +93,6 @@ public class TripSegment implements Savable {
     public void computeTransportType() throws Exception{
         int listSize = this.timestampedPositionList.size();
         double lastTwoPointsVelocity=0;
-        int changement=0;
         lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
         if(lastTwoPointsVelocity*3.6>2){
             if((2<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=6)&&(transportType!=TransportType.WALKING)){

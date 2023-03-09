@@ -65,7 +65,7 @@ public class DashboardActivity extends AppCompatActivity  {
     public void clickOpenCarbonEquivalentPage(View v){
         Intent intent = new Intent(this,ActivityCarbonEquivalent.class);
         intent.putExtra(getString(R.string.carbon_footprintdisplayed), carbonFootprintDisplayed);
-        startActivity(intent);;
+        startActivity(intent);
     }
 
     public void displayCarbonFootprint(){
