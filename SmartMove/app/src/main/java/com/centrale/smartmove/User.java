@@ -80,16 +80,27 @@ public class User implements Savable {
         return JSONUser;
     }
 
+    /**
+     * Give a new challenge to the User.
+     */
     public void getNewChallenge(){
         Challenge challenge;
         challenge = coach.getRandomChallenge();
         onGoingChallenge.add(challenge);
     }
 
+    /**
+     * Methode to get all the onGoing challenges.
+     * @return theArrayList of the ongoing challenges
+     */
     public ArrayList<Challenge> getOnGoingChallenge() {
         return onGoingChallenge;
     }
 
+    /**
+     * Methode to get all the trips of the User.
+     * @return the Array list of the trips.
+     */
     public ArrayList<Trip> getUserTrips() {
         return userTrips;
     }
