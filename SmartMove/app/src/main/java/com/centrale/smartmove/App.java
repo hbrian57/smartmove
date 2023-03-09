@@ -7,6 +7,9 @@ public class App extends Application {
     private static Context appContext;
 
     @Override
+    /**
+     * Creation of the context.
+     */
     public void onCreate() {
         super.onCreate();
         appContext = this;

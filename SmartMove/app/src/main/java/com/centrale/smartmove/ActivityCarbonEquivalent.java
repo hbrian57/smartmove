@@ -39,6 +39,10 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
         displayCarbonFootprint();
     }
 
+
+    /**
+     * This method randomly selects a picture that corresponds to a carbon equivalent.
+     */
     public void getListImage() {
         if (listCarbonEquivalent == null) {
             this.getListImage();
@@ -66,6 +70,9 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
         }
     }
 
+    /**
+     * this method calculate and display the equivalent in accordance with the picture randomly chosen.
+     */
     public void calculateAndDisplayEquivalent() {
         this.getListImage();
         double co2EqOfCurrentWeek = carbonFootprintDisplayed;
@@ -82,6 +89,10 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
 
     }
 
+    /**
+     * It displays a link where the calculation is explained.
+     * @param v : the view.
+     */
     public void viewCalculationExplanation(View v) {
         String url = "https://gitlab.univ-eiffel.fr/teamgeoloc/smartloc/-/wikis/What-is-Smartmove";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -89,6 +100,9 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
 
     }
 
+    /**
+     * It displays the carbon footprint of the current week.
+     */
     public void displayCarbonFootprint(){
         // Double carbonFootprint = user.calculateCurrentWeekCarbonFootprint();
         TextView textView = findViewById(R.id.impactTextDashboard);

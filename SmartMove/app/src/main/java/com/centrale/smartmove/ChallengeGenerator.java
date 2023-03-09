@@ -7,6 +7,10 @@ public class ChallengeGenerator {
     public ChallengeGenerator() {
     }
 
+    /**
+     * Get a random challenge.
+     * @return A random challenge.
+     */
     public Challenge getRandomChallenge(){
         Challenge challenge = new Challenge();
         // Goal

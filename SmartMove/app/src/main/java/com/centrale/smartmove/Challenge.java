@@ -25,6 +25,15 @@ public class Challenge {
     Date challengeBeginning;
     @DrawableRes int icon;
 
+    /**
+     * Challenge constructor.
+     * @param title
+     * @param description
+     * @param progression
+     * @param goal
+     * @param challengeBeginning
+     * @param icon
+     */
     public Challenge(String title, String description, Double progression, ChallengeGoal goal, Date challengeBeginning, int icon) {
         this.title = title;
         this.description = description;
@@ -34,6 +43,9 @@ public class Challenge {
         this.icon = icon;
     }
 
+    /**
+     * Empty challenge constructor.
+     */
     public Challenge() {
         this.title = getAppContext().getString(R.string.challenge_challenge);
         this.description = getAppContext().getString(R.string.challenge_description);
@@ -43,18 +55,34 @@ public class Challenge {
         this.icon = R.drawable.travel;
     }
 
+    /**
+     * Set challenge beginning.
+     * @param challengeBeginning
+     */
     public void setChallengeBeginning(Date challengeBeginning) {
         this.challengeBeginning = challengeBeginning;
     }
 
+    /**
+     * Set Title
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Set Description
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Set Progression
+     * @param progression
+     */
     public void setProgression(Double progression) {
         this.progression = progression;
     }
@@ -63,6 +91,10 @@ public class Challenge {
         this.goal = goal;
     }
 
+    /**
+     * Get the progression in a string
+     * @return the progression
+     */
     public String getProgressionString() {
         //depending on the goalType, the progression is displayed differently
         Double progressionReality = progression/100*goal.getGoalFinal();
@@ -76,6 +108,10 @@ public class Challenge {
         }
     }
 
+    /**
+     * Get the progression in a double.
+     * @return the progression
+     */
     public Double getProgressionDouble() {
         return progression;
     }
@@ -113,7 +149,10 @@ public class Challenge {
         return icon;
     }
 
-
+    /**
+     * Creation of the notification channel.
+     * @param context the context of the app.
+     */
     // A METTRE DANS LE ONCREATE avec this comme context
     private void createNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -128,6 +167,9 @@ public class Challenge {
         }
     }
 
+    /**
+     * Send a notification when a challenge is accomplished.
+     */
     public void notifyUser() {
         boolean challengeAccomplished = isCompleted();
         Context context = getAppContext();
