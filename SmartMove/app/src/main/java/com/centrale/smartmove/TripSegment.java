@@ -9,6 +9,7 @@ import static java.sql.Types.NULL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -87,39 +88,40 @@ public class TripSegment implements Savable {
         return transportTypeCO2Parameter*this.calculateTotalDistance();
     }
 
+
     /**
-     * Defines the right TransportType for each TripSegment and creates a new TripSegment if the TransportType has changed
+     * Defines the right TransportType for each TripSegment
      */
     public void computeTransportType() throws Exception{
-        int listSize = this.timestampedPositionList.size();
-        double lastTwoPointsVelocity=0;
-        lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
-        if(lastTwoPointsVelocity*3.6>2){
-            if((2<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=6)&&(transportType!=TransportType.WALKING)){
-                new TripSegment(TransportType.WALKING);
-            }if((6<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=20)&&(transportType!=TransportType.BIKE)){
-                new TripSegment(TransportType.BIKE);
-            }if((20<calculateRollingVelocity()*3.6)&&(transportType!=TransportType.CAR)){
-                new TripSegment(TransportType.CAR);
-        }}
-
-
+        if((2<this.calculateMeanVelocity()*3.6)&&(this.calculateMeanVelocity()*3.6<=6)){
+            this.transportType=TransportType.WALKING;
+        }if((6<calculateMeanVelocity()*3.6)&&(calculateMeanVelocity()*3.6<=20)){
+            this.transportType=TransportType.BIKE;
+        }if((20<calculateMeanVelocity()*3.6)){
+            this.transportType=TransportType.CAR;
+        }
     }
 
-    //TODO régler les problèmes d'indice(dépassements)
+
     /**
-    Calculates the mean of the last 10 points
+     * Returns the mean velocity of the TripSegment, doesn't take into account velocities inferior to 2 km/h
+     * @return
+     * @throws Exception
      */
-    public double calculateRollingVelocity() throws Exception {
+    public double calculateMeanVelocity() throws Exception {
         int listSize = this.timestampedPositionList.size();
         double velocityMean=0;
-        if(listSize>=10){
+        if(listSize>=2){
             int i=0;
             double sum=0;
-            for(i=0;i<9;i++){
-                sum+=timestampedPositionList.get(listSize-i-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-2));
+            for(i=0;i<listSize-1;i++){
+                double velocityBetweenTwoPoints=0;
+                velocityBetweenTwoPoints = timestampedPositionList.get(i+1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(i));
+                if(velocityBetweenTwoPoints>0.55){
+                    sum+=velocityBetweenTwoPoints;
+                };
             }
-            velocityMean=sum/10;
+            velocityMean=sum/listSize;
             return velocityMean;
 
         }
@@ -129,7 +131,7 @@ public class TripSegment implements Savable {
     /**
      * Calculates the acceleration of the last 10 points
      */
-    public double calculateRollingAcceleration() throws Exception{
+    /*public double calculateRollingAcceleration() throws Exception{
         int listSize = this.timestampedPositionList.size();
         double accelerationMean=0;
         if(listSize>=10){
@@ -153,7 +155,7 @@ public class TripSegment implements Savable {
         }
         return accelerationMean;
 
-    }
+    }*/
 
 
     @Override

@@ -13,6 +13,7 @@ public class User implements Savable {
     ArrayList<Challenge> onGoingChallenge;
     ArrayList<Trip> userTrips;
 
+
     /**
      * Constructor of a User with nothing in parameters
      */
@@ -105,13 +106,11 @@ public class User implements Savable {
     }
 
     public Trip getCurrentTrip(){
-        //TODO implémenter la fonction qui récupère le Trip actuel
-        Trip trip=null;
-        return trip;
+        Trip currentTrip = this.userTrips.get(-1);
+        return currentTrip;
     }
 
     public void newTSPobtained(TimestampedPosition currentTimeStampedPosition) throws Exception{
-        getCurrentTrip().getCurrentTripSegment().computeTransportType();
     }
 
 }

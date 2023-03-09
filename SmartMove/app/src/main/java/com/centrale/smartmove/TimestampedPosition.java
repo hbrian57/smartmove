@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -36,10 +37,9 @@ public class TimestampedPosition implements Savable {
         return dateOfCapture;
     }
 
-
     /**
      * Constructor of a timestampedposition with the latitude, longitude, altitude
-      * @param lati latitude
+     * @param lati latitude
      * @param longi longitude
      * @param alti altidude
      */
@@ -48,6 +48,15 @@ public class TimestampedPosition implements Savable {
         this.longitude = longi;
         this.latitude = lati;
         this.dateOfCapture = new Date();
+    }
+
+
+    /**
+     * ajoute la TimeStampedPosition au TripSegment actuel
+     * @param currentTripSegment
+     */
+    public void addToCurrentTripSegment(TripSegment currentTripSegment){
+        currentTripSegment.timestampedPositionList.add(this);
     }
 
     public void setDateOfCapture(Date dateOfCapture) {
@@ -85,6 +94,15 @@ public class TimestampedPosition implements Savable {
         double deltaAltitude = this.altitude - targetPosition.altitude;
         distance = Math.pow(distance, 2) + Math.pow(deltaAltitude, 2);
         return Math.sqrt(distance);
+    }
+
+    public long calculateTimeBetweenTwoPositions(TimestampedPosition targetedTimestampedPosition){
+        long timeBetweenTwoPositions = 0;
+        Instant instant1 = this.dateOfCapture.toInstant();
+        Instant instant2 = targetedTimestampedPosition.dateOfCapture.toInstant();
+        Duration duration=Duration.between(instant1,instant2);
+        timeBetweenTwoPositions = duration.getSeconds();
+        return timeBetweenTwoPositions;
     }
 
     /**

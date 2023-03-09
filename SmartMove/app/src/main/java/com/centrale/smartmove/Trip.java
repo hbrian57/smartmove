@@ -97,8 +97,7 @@ public class Trip implements Savable{
     }
 
     public TripSegment getCurrentTripSegment(){
-        //TODO implémenter la fonction qui extrait le TripSegment actuel du Trip
-        TripSegment tripSegment = null ;
-        return tripSegment;
+        TripSegment currentTripSegment = this.tripSegments.get(-1) ;
+        return currentTripSegment;
     }
 }
