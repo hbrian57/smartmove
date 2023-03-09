@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import android.content.res.Resources;
 
-import com.centrale.smartmove.Equivalent;
-import org.apache.tools.ant.types.Resource;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,12 +20,12 @@ import java.util.Random;
 public class ActivityCarbonEquivalent extends AppCompatActivity {
 
     Double carbonFootprintDisplayed;
-
     ArrayList<Equivalent> listCarbonEquivalent = null;
     String displaySentence;
     Drawable displayImage;
     TextView textView;
     ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,28 +43,28 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
      * This method randomly selects a picture that corresponds to a carbon equivalent.
      */
     public void getListImage() {
+        Resources res = getResources();
         if (listCarbonEquivalent == null) {
-            this.getListImage();
             this.listCarbonEquivalent = new ArrayList<>();
-            Equivalent e2 = new Equivalent(getString(R.string.repas_vege),getResources().getDimension(R.dimen.repavege_value), ContextCompat.getDrawable(this, R.drawable.repavege));
+            Equivalent e2 = new Equivalent(getString(R.string.repas_vege),1.961, R.drawable.repavege);
             this.listCarbonEquivalent.add(e2);
-            Equivalent e3 = new Equivalent(getString(R.string.kms_en_tgv), getResources().getDimension(R.dimen.tgv_value), ContextCompat.getDrawable(this, R.drawable.tgv));
+            Equivalent e3 = new Equivalent(getString(R.string.kms_en_tgv), 578.035, R.drawable.tgv);
             this.listCarbonEquivalent.add(e3);
-            Equivalent e4 = new Equivalent(getString(R.string.tshirt_en_coton), getResources().getDimension(R.dimen.tee_value), ContextCompat.getDrawable(this, R.drawable.tee));
+            Equivalent e4 = new Equivalent(getString(R.string.tshirt_en_coton), 0.192, R.drawable.tee);
             this.listCarbonEquivalent.add(e4);
-            Equivalent e5 = new Equivalent(getString(R.string.feuilles_de_papier), getResources().getDimension(R.dimen.feuille_value), ContextCompat.getDrawable(this, R.drawable.feuille));
+            Equivalent e5 = new Equivalent(getString(R.string.feuilles_de_papier), 218.141, R.drawable.feuille);
             this.listCarbonEquivalent.add(e5);
-            Equivalent e6 = new Equivalent(getString(R.string.bouteilles_d_eau), getResources().getDimension(R.dimen.bouteille_value), ContextCompat.getDrawable(this, R.drawable.bouteille));
+            Equivalent e6 = new Equivalent(getString(R.string.bouteilles_d_eau), 2.208, R.drawable.bouteille);
             this.listCarbonEquivalent.add(e6);
-            Equivalent e7 = new Equivalent(getString(R.string.kilos_de_volaille), getResources().getDimension(R.dimen.prodvol_value), ContextCompat.getDrawable(this, R.drawable.prodvol));
+            Equivalent e7 = new Equivalent(getString(R.string.kilos_de_volaille), 1., R.drawable.prodvol);
             this.listCarbonEquivalent.add(e7);
-            Equivalent e8 = new Equivalent(getString(R.string.pomme2terre), getResources().getDimension(R.dimen.prodpatate_value), ContextCompat.getDrawable(this, R.drawable.prodpatate));
+            Equivalent e8 = new Equivalent(getString(R.string.pomme2terre), 4.7,  R.drawable.prodpatate);
             this.listCarbonEquivalent.add(e8);
-            Equivalent e9 = new Equivalent(getString(R.string.kg_2_pain), getResources().getDimension(R.dimen.prodpain_value), ContextCompat.getDrawable(this, R.drawable.prodpain));
+            Equivalent e9 = new Equivalent(getString(R.string.kg_2_pain), 1.2, R.drawable.prodpain);
             this.listCarbonEquivalent.add(e9);
-            Equivalent e10 = new Equivalent(getString(R.string.kwh_elec), getResources().getDimension(R.dimen.consoelec_value), ContextCompat.getDrawable(this, R.drawable.consoelec));
+            Equivalent e10 = new Equivalent(getString(R.string.kwh_elec), 4.3,  R.drawable.consoelec);
             this.listCarbonEquivalent.add(e10);
-            Equivalent e11 = new Equivalent(getString(R.string.gobelets_cafe), getResources().getDimension(R.dimen.gobcafe_value), ContextCompat.getDrawable(this, R.drawable.gobcafe));
+            Equivalent e11 = new Equivalent(getString(R.string.gobelets_cafe),8.8,R.drawable.gobcafe);
             this.listCarbonEquivalent.add(e11);
         }
     }
@@ -81,12 +80,12 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
         double ratio = exampleEq.getRatioEq() * co2EqOfCurrentWeek;
         ratio = Math.round(ratio*100.0)/100.0;
         this.displaySentence = getString(R.string.equivaut_a_semaine) + " " + ratio + " " + exampleEq.getSentenceEq() + ".";
-        this.displayImage = exampleEq.imageEq;
+        int imageEqID = exampleEq.imageID;
+        this.displayImage = ContextCompat.getDrawable(this, imageEqID);
         this.textView = findViewById(R.id.comparaison_explication_phrase);
         this.imageView = findViewById(R.id.comparaisonImage);
         textView.setText(displaySentence);
         this.imageView.setImageDrawable(displayImage);
-
     }
 
     /**

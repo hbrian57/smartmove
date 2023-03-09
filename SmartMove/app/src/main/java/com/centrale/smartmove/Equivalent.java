@@ -47,20 +47,20 @@ public class Equivalent extends Context {
 
     private String sentenceEq;
     private double ratioEq;
-    Drawable imageEq;
+    int imageID;
 
     //Constructors----------------------------------------------------------------------------------
 
     public Equivalent(){
         this.sentenceEq="repas végétariens";
-        this.ratioEq=1.961;
-        this.imageEq= ContextCompat.getDrawable(this, R.drawable.repavege);
+        this.ratioEq= 1.961;
+        this.imageID=  R.drawable.repavege;
     }
 
-    public Equivalent(String sentence,double ratio,Drawable image){
+    public Equivalent(String sentence,double ratio, int im_id){
         this.sentenceEq=sentence;
         this.ratioEq=ratio;
-        this.imageEq=image;
+        this.imageID=im_id;
     }
 
 //Getters and setters---------------------------------------------------------------------------
@@ -71,14 +71,6 @@ public class Equivalent extends Context {
 
     public void setRatioEq(double ratioEq) {
         this.ratioEq = ratioEq;
-    }
-
-    public Drawable getImageEq() {
-        return imageEq;
-    }
-
-    public void setImageEq(Drawable imageEq) {
-        this.imageEq = imageEq;
     }
 
     public String getSentenceEq() {
