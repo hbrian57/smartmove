@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/smartloc_lightblue"
-    tools:context=".DashboardActivity">
+    tools:context=".ui.DashboardActivity">
 
 
     <LinearLayout
@@ -52,7 +52,7 @@
                         android:id="@+id/textViewLinkToCalculation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/explication_du_r_sultat"
+                        android:text="@string/explication_du_resultat_text"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:textAlignment="viewEnd"
@@ -67,7 +67,7 @@
                         android:orientation="horizontal"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="@string/comparaison"
+                        android:text="@string/comparaison_text"
                         android:textAppearance="@style/MAINtileCO2"
                         android:textColor="#00a6e6" />
 

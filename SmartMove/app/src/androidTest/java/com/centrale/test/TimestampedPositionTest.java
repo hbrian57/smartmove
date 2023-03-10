@@ -5,9 +5,8 @@ import static org.junit.Assert.assertEquals;
 
 import static java.sql.Types.NULL;
 
-import com.centrale.smartmove.TimestampedPosition;
+import com.centrale.smartmove.models.TimestampedPosition;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;

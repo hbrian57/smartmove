@@ -1,11 +1,11 @@
 package com.centrale.test;
 import static org.junit.Assert.*;
 
-import com.centrale.smartmove.TimestampedPosition;
-import com.centrale.smartmove.TransportType;
-import com.centrale.smartmove.Trip;
-import com.centrale.smartmove.TripSegment;
-import com.centrale.smartmove.Week;
+import com.centrale.smartmove.models.TimestampedPosition;
+import com.centrale.smartmove.models.TransportType;
+import com.centrale.smartmove.models.Trip;
+import com.centrale.smartmove.models.TripSegment;
+import com.centrale.smartmove.models.Week;
 
 import org.junit.Test;
 

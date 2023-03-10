@@ -1,4 +1,8 @@
 package com.centrale.smartmove;
+import com.centrale.smartmove.R;
+import com.centrale.smartmove.models.Challenge;
+import com.centrale.smartmove.models.GoalType;
+
 import java.util.Random;
 import java.util.Date;
 
@@ -32,10 +36,10 @@ public class ChallengeGenerator {
         challenge.setChallengeBeginning(today);
 
         // Title A FAIRE EN FONCTION DES DEFIS
-        challenge.setTitle("Titre du défi");
+        challenge.setTitle(R.string.challenge_title);
 
         //Description A FAIRE EN FONCTION DES DEFIS
-        challenge.setDescription("Description Du Défi");
+        challenge.setDescription(R.string.challenge_description);
 
         return challenge;
     }

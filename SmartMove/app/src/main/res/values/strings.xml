@@ -1,15 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">SmartMove</string>
+    <string name="application_name_mintext">SmartMove</string>
     <string name="action_settings">Settings</string>
-    <string name="btvalidate">Valider</string>
-    <string name="cbaccept">Accepter les CGU</string>
-    <string name="cgu_text">"Le présent document a pour objet de définir les modalités et conditions dans lesquelles SMARTMOVE met à la disposition de ses utilisateurs son application mobile, et les services disponibles sur cette même application. Ce document définit aussi et d’autre part, la manière par laquelle l’utilisateur accède à l’application et utilise ses services. Toute connexion à l’application est subordonnée au respect des présentes conditions. L’utilisation de l’application SMARTMOVE est régie par l’acceptation des suivantes conditions générales d’utilisation (ci-après « CGU »)  Pour l’utilisateur, le simple accès à l’application SMARTMOVE réalisée par l’équipe SMARTLOC de l’Ecole Centrale de Nantes implique l’acceptation de l’ensemble des conditions décrites ci-après. Propriété intellectuelle Tous les éléments de l’application SMARTMOVE, y compris les documents téléchargeables, sont libres de droit. A l’exception de l’iconographie, la reproduction des pages de ce site est autorisée à la condition d’y mentionner la source. Elles ne peuvent être utilisées à des fins commerciales et publicitaires.  Liens hypertextes Le site peut être constitué de liens hypertextes. En cliquant sur ces derniers, l’Utilisateur sortira de la plateforme. Cette dernière n’a pas de contrôle et ne peut pas être tenue responsable du contenu des pages web relatives à ces liens. Responsabilité Bien que les informations publiées sur l’application (calculs, anecdotes…) soient réputées fiables, le site se réserve la faculté d’une non-garantie de la fiabilité des sources. Les informations diffusées sur l’application SMARTMOVE sont présentées à titre purement informatif et sont sans valeur contractuelle. En dépit des mises à jour régulières, la responsabilité du site ne peut être engagée en cas de modification des dispositions administratives et juridiques apparaissant après la publication. Il en est de même pour l’utilisation et l’interprétation des informations communiquées sur la plateforme. Suivi de position  L’objectif de l’application étant de sensibiliser les utilisateurs sur l’impact carbone de leurs déplacement, SMARTMOVE propose ainsi un calcul des émissions produites par les déplacements des utilisateurs. L’utilisation de SMARTMOVE sous-entend donc le suivi des déplacements de l’utilisateur en arrière-plan.  Accepter les CGU revient donc à accepter le suivi des déplacements en arrière-plan. Nous ne partageons aucune donnée de timestampedPositions collectées.  Données Personnelles  Les données personnelles utilisées sont principalement votre nom, prénom, adresse mail, timestampedPositions, missions déjà effectuées et planifiées, vos disponibilités. "</string>
+    <string name="validate_button_text">Valider</string>
+    <string name="cgu_acceptation_text">Accepter les CGU</string>
+    <string name="cgu_longtext">"Le présent document a pour objet de définir les modalités et conditions dans lesquelles SMARTMOVE met à la disposition de ses utilisateurs son application mobile, et les services disponibles sur cette même application. Ce document définit aussi et d’autre part, la manière par laquelle l’utilisateur accède à l’application et utilise ses services. Toute connexion à l’application est subordonnée au respect des présentes conditions. L’utilisation de l’application SMARTMOVE est régie par l’acceptation des suivantes conditions générales d’utilisation (ci-après « CGU »)  Pour l’utilisateur, le simple accès à l’application SMARTMOVE réalisée par l’équipe SMARTLOC de l’Ecole Centrale de Nantes implique l’acceptation de l’ensemble des conditions décrites ci-après. Propriété intellectuelle Tous les éléments de l’application SMARTMOVE, y compris les documents téléchargeables, sont libres de droit. A l’exception de l’iconographie, la reproduction des pages de ce site est autorisée à la condition d’y mentionner la source. Elles ne peuvent être utilisées à des fins commerciales et publicitaires.  Liens hypertextes Le site peut être constitué de liens hypertextes. En cliquant sur ces derniers, l’Utilisateur sortira de la plateforme. Cette dernière n’a pas de contrôle et ne peut pas être tenue responsable du contenu des pages web relatives à ces liens. Responsabilité Bien que les informations publiées sur l’application (calculs, anecdotes…) soient réputées fiables, le site se réserve la faculté d’une non-garantie de la fiabilité des sources. Les informations diffusées sur l’application SMARTMOVE sont présentées à titre purement informatif et sont sans valeur contractuelle. En dépit des mises à jour régulières, la responsabilité du site ne peut être engagée en cas de modification des dispositions administratives et juridiques apparaissant après la publication. Il en est de même pour l’utilisation et l’interprétation des informations communiquées sur la plateforme. Suivi de position  L’objectif de l’application étant de sensibiliser les utilisateurs sur l’impact carbone de leurs déplacement, SMARTMOVE propose ainsi un calcul des émissions produites par les déplacements des utilisateurs. L’utilisation de SMARTMOVE sous-entend donc le suivi des déplacements de l’utilisateur en arrière-plan.  Accepter les CGU revient donc à accepter le suivi des déplacements en arrière-plan. Nous ne partageons aucune donnée de timestampedPositions collectées.  Données Personnelles  Les données personnelles utilisées sont principalement votre nom, prénom, adresse mail, timestampedPositions, missions déjà effectuées et planifiées, vos disponibilités. "</string>
     <string name="title_activity_carbon_equivalent">activityCarbonEquivalent</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="next_text">Next</string>
+    <string name="previous_text">Previous</string>
 
     <!-- Strings used for transportType displating -->
     <string name="transportTypeBike">À vélo</string>
@@ -18,30 +18,29 @@
     <string name="transportTypeStatic">Immobile</string>
 
 
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="a_quoi_quivaut_ma_conso_carbone">A quoi équivaut ma conso carbone?</string>
-    <string name="impact_carbone">Impact carbone:</string>
-    <string name="comparaison">Comparaison:</string>
-    <string name="explication_du_r_sultat"><u>Explication du résultat</u></string>
-    <string name="impact_eco">Mon impact écologique</string>
-    <string name="qttCO2">1,7 tonnes de CO2</string>
-    <string name="name_defis">J\'viens en bus !</string>
+    <string name="a_quoi_equivaut_ma_conso_carbone_text">A quoi équivaut ma conso carbone?</string>
+    <string name="impact_carbone_text">Impact carbone:</string>
+    <string name="comparaison_text">Comparaison:</string>
+    <string name="explication_du_resultat_text"><u>Explication du résultat</u></string>
+    <string name="mon_impact_ecologique_text">Mon impact écologique</string>
+    <string name="quantity_of_CO2_data">1,7 tonnes de CO2</string>
+    <string name="name_defi_data">J\'viens en bus !</string>
     <string name="avancee_defis">4,3/10km</string>
-    <string name="explication_defis">Parcourir 10km en transports en commun</string>
-    <string name="obj">OBJECTIFS</string>
+    <string name="explication_defi">Parcourir 10km en transports en commun</string>
+    <string name="objectifs_text">OBJECTIFS</string>
     <string name="_1_2_tonnes_de_co2eq">1,2 tonnes de CO2eq</string>
     <string name="onback_defaultmessage">Circulez, y\'a rien à voir !</string>
-    <string name="carbon_footprintdisplayed">carbonFootprintDisplayed</string>
+    <string name="displayed_carbon_footprint">carbonFootprintDisplayed</string>
     <string name="display_message_after_CO2footprint">\ tonnes de CO2eq </string>
-=======
+    =======
     <string name="weekTrips">trips</string>
     <string name="weekWeekID">weekID</string>
     <string name="userWeeks">weeks</string>
     <string name="tripSegmentException1">timestampedPositionList vide lors de l\'utilisation de la + fonction getPositionList()</string>
     <string name="tripSegmentException2">timestampedPositionList vide lors de l\'utilisation de la + fonction getFirstPosition()</string>
-    <string name="tripSegmentTrasportType">transportType</string>
+    <string name="tripSegmentTransportType">transportType</string>
     <string name="TripSegmentPosition">positions</string>
     <string name="TripException">The trip is empty and has no segments</string>
     <string name="positionException90deg">Impossible que la latitude soit supérieure à 90°</string>
@@ -70,7 +69,7 @@
     <string name="tonnes_2_CO2eq">\ tonnes de CO2eq</string>
     <string name="carbonFootprintDisplayed">carbonFootprintDisplayed</string>
     <string name="url_explication_conso_carbone">https://gitlab.univ-eiffel.fr/teamgeoloc/smartloc/-/wikis/What-is-Smartmove</string>
-    <string name="challenge_challenge">Challenge</string>
+    <string name="challenge_title">Challenge</string>
     <string name="challenge_description">Description</string>
     <string name="notification_congratulations">Congratulations!</string>
     <string name="notification_accomplishedchall">Challenge accomplished</string>
@@ -79,6 +78,20 @@
     <string name="idchannel">idChannel</string>
     <string name="acceptedCGUtext">acceptedGCU</string>
     <string name="smartmove_intext">SMARTMOVE</string>
+    <string name="repavege_ratio">1.961</string>
+    <string name="tgv_ratio">578.035</string>
+    <string name="tee_ratio">0.192</string>
+    <string name="feuille_ratio">218.141</string>
+    <string name="bouteille_ratio">2.208</string>
+    <string name="prodvol_ratio">1.</string>
+    <string name="prodpatate_ratio">4.7</string>
+    <string name="prodpain_ratio">1.2</string>
+    <string name="consoelec_ratio">1.2</string>
+    <string name="gobcafe_ratio">8.8</string>
+
+
+
+
     >>>>>>> 2469e7494c4d36efa9a0479b908e884c12bbbefc
 
 </resources>
