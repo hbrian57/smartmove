@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 
 
 public class User implements Savable {
@@ -16,6 +18,9 @@ public class User implements Savable {
     ChallengeGenerator coach;
     ArrayList<Challenge> onGoingChallenge;
     ArrayList<Trip> userTrips;
+    Trip currentTrip;
+    TimestampedPosition lastPositionObtained;
+    boolean forceNewTrip = false;
 
     /**
      * Constructor of a User with nothing in parameters
@@ -25,6 +30,7 @@ public class User implements Savable {
         coach = new ChallengeGenerator();
         onGoingChallenge = new ArrayList<>();
         userTrips = new ArrayList<>();
+        lastPositionObtained = null;
     }
 
     /**
@@ -39,6 +45,7 @@ public class User implements Savable {
         this.coach=c;
         this.onGoingChallenge=o;
         this.userTrips=u;
+        currentTrip = null;
     }
 
 
@@ -109,13 +116,61 @@ public class User implements Savable {
         return userTrips;
     }
 
-    /**
-     * method that calculate the current week carbon footprint
-     * @return the total co2 footprint
-     */
-    public Double calculateCurrentWeekCarbonFootprint() {
-        Week currentWeek = weeks.get(weeks.size()-1);
-        return currentWeek.getTotalCO2Footprint();
 
+    /**
+     * method that returns the current week, if there is no current week, it creates a new one and adds it to the list of weeks
+     * @return the current week
+     */
+    public Week getCurrentWeek() {
+        Date today = new Date();
+        for (Week week : weeks) {
+            //if the week contains the date of today
+            if (week.isInWeek(today)) {
+                //return the week
+                return week;
+            }
+        }
+        //if there is no week containing the date of today, create a new week
+        Week newWeek = new Week(today);
+        //add the new week to the list of weeks
+        weeks.add(newWeek);
+        //return the new week
+        return newWeek;
+    }
+
+    //Create a method that will be launched each time we get a new position
+    //The method should check if the user is in a trip or not (based on lastpositionobtained timestamp) (5min with no position = end of trip)
+    //If the user is in a trip, it should add the new position to the trip
+    //If the user is not in a trip, it should create a new trip and add the new position to it
+    public void newPositionObtained(TimestampedPosition newPosition) {
+        //If the user is in a trip
+        if (lastPositionObtained != null && currentTrip != null && !forceNewTrip) {
+            //If the user is still in the same trip
+            if (newPosition.getTimestamp().getTime() - lastPositionObtained.getTimestamp().getTime() < 5 * 60 * 1000) {
+                //Add the new position to the current trip
+                currentTrip.addPosition(newPosition);
+            }
+        }
+        //If the user is not in a trip or a new trip is forced
+        else {
+            //Create a new trip Add the new position to the new trip
+            Trip newTrip = new Trip(newPosition);
+            //Add the new trip to the list of trips
+            userTrips.add(newTrip);
+            //Update the current trip
+            currentTrip = newTrip;
+            //Reset the forceNewTrip variable
+            forceNewTrip = false;
+        }
+        //Update the last position obtained
+        lastPositionObtained = newPosition;
+    }
+
+    public Trip getCurrentTrip() {
+        return currentTrip;
+    }
+
+    public void forceNewTrip() {
+        forceNewTrip = true;
     }
 }

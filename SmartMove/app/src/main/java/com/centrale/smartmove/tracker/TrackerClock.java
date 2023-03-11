@@ -49,4 +49,8 @@ public class TrackerClock extends Observable {
     public void setTracker(UserTracker tracker) {
         this.tracker = tracker;
     }
+
+    public TimestampedPosition getPosition() {
+        return trackerResult;
+    }
 }

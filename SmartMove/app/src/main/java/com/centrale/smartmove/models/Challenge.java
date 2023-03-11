@@ -32,12 +32,12 @@ public class Challenge {
 
     /**
      * Challenge constructor.
-     * @param title
-     * @param description
-     * @param progression
-     * @param goal
-     * @param challengeBeginning
-     * @param icon
+     * @param title the title of the challenge
+     * @param description the description of the challenge
+     * @param progression the progression of the challenge
+     * @param goal the goal of the challenge
+     * @param challengeBeginning the date of beginning of the challenge
+     * @param icon the icon of the challenge (resource id)
      */
     public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, Date challengeBeginning, int icon) {
         this.title = title;
@@ -62,7 +62,7 @@ public class Challenge {
 
     /**
      * Set challenge beginning.
-     * @param challengeBeginning
+     * @param challengeBeginning the date of beginning of the challenge
      */
     public void setChallengeBeginning(Date challengeBeginning) {
         this.challengeBeginning = challengeBeginning;
@@ -70,7 +70,7 @@ public class Challenge {
 
     /**
      * Set Title
-     * @param title
+     * @param title the title of the challenge
      */
     public void setTitle(@StringRes int title) {
         this.title = title;
@@ -78,7 +78,7 @@ public class Challenge {
 
     /**
      * Set Description
-     * @param description
+     * @param description the description of the challenge
      */
     public void setDescription(@StringRes int description) {
         this.description = description;
@@ -86,7 +86,7 @@ public class Challenge {
 
     /**
      * Set Progression
-     * @param progression
+     * @param progression the progression of the challenge
      */
     public void setProgression(Double progression) {
         this.progression = progression;
@@ -94,7 +94,7 @@ public class Challenge {
 
     /**
      * Set Goal.
-     * @param goal
+     * @param goal the goal of the challenge
      */
     public void setGoal(ChallengeGoal goal) {
         this.goal = goal;
@@ -192,7 +192,7 @@ public class Challenge {
 
     /**
      * Updates the progression of the challenge based on the new trip done
-     * @param newTripDone
+     * @param newTripDone the new trip done
      */
     public void updateProgression(Trip newTripDone) {
         //depending on the goalType, the progression is updated differently

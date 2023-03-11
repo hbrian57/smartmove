@@ -41,10 +41,10 @@ public class TimestampedPosition implements Savable {
     /**
      * Date corresponding to exact moment the position is taken
      */
-    Date dateOfCapture;
+    Date timestamp;
 
     public Date getDateOfCapture() {
-        return dateOfCapture;
+        return timestamp;
     }
 
 
@@ -58,11 +58,11 @@ public class TimestampedPosition implements Savable {
         this.altitude = alti;
         this.longitude = longi;
         this.latitude = lati;
-        this.dateOfCapture = new Date();
+        this.timestamp = new Date();
     }
 
     public void setDateOfCapture(Date dateOfCapture) {
-        this.dateOfCapture = dateOfCapture;
+        this.timestamp = dateOfCapture;
     }
 
     /**
@@ -107,8 +107,8 @@ public class TimestampedPosition implements Savable {
 
     public double calculateVelocityBetweenTwoPoints(TimestampedPosition secondPosition) throws Exception{
         double velocity=0;
-        LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.dateOfCapture.toInstant(), ZoneId.systemDefault());
-        LocalDateTime dateTime2 = LocalDateTime.ofInstant(secondPosition.dateOfCapture.toInstant(), ZoneId.systemDefault());
+        LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestamp.toInstant(), ZoneId.systemDefault());
+        LocalDateTime dateTime2 = LocalDateTime.ofInstant(secondPosition.timestamp.toInstant(), ZoneId.systemDefault());
         Duration duration = Duration.between(dateTime1, dateTime2);
         long timeBetweenPoints = duration.getSeconds();
         double distanceBetweenPoints = this.calculateDistance(secondPosition);
@@ -116,7 +116,7 @@ public class TimestampedPosition implements Savable {
         return velocity;
     }
     public void set(double latitude, double longitude, double altitude) {
-        this.dateOfCapture = new Date();
+        this.timestamp = new Date();
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
@@ -131,7 +131,7 @@ public class TimestampedPosition implements Savable {
     public JSONObject getSaveFormat() {
         JSONObject JSONTimestampedPosition = new JSONObject();
         try {
-            JSONTimestampedPosition.put("timestamp", dateOfCapture);
+            JSONTimestampedPosition.put("timestamp", timestamp);
             JSONObject JSONPosition = new JSONObject();
             JSONPosition.put("latitude", latitude);
             JSONPosition.put("longitude", longitude);
@@ -147,7 +147,8 @@ public class TimestampedPosition implements Savable {
      * Get the date of the TimeStampedPosition object.
      * @return the date.
      */
-    public Date getDatePos() {
-        return this.dateOfCapture;
+    public Date getTimestamp() {
+        return this.timestamp;
     }
+
 }

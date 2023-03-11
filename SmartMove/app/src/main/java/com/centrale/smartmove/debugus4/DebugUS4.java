@@ -1,13 +1,13 @@
 package com.centrale.smartmove.debugus4;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import java.io.File;
-import java.security.Permission;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,16 +15,19 @@ import java.util.Observer;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.webkit.PermissionRequest;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.view.View;
 
 import android.Manifest;
 import com.centrale.smartmove.R;
+import com.centrale.smartmove.models.TimestampedPosition;
+import com.centrale.smartmove.models.Trip;
+import com.centrale.smartmove.models.TripSegment;
 import com.centrale.smartmove.models.User;
 import com.centrale.smartmove.tracker.AndroidUserTracker;
 import com.centrale.smartmove.tracker.GeolocpvtUserTracker;
@@ -34,14 +37,21 @@ import com.centrale.smartmove.tracker.UserTracker;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Polygon;
+import org.osmdroid.views.overlay.Polyline;
 
 
 
+/**
+ * Debug activity for the US4
+ */
 public class DebugUS4 extends AppCompatActivity implements Observer {
+
+    Boolean drawMarkers = false;
+
     User user;
     TrackerClock clock;
     UserTracker selectedTracker;
@@ -57,7 +67,6 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
 
     MapView mapView;
     IMapController mapController;
-    Marker marker;
 
 
     @Override
@@ -83,6 +92,20 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
             mapController.animateTo(startPoint);
         });
 
+        Button displayTripButton = findViewById(R.id.DisplayTrip);
+        displayTripButton.setOnClickListener(v -> {
+            //delete all the previous Polylines
+            mapView.getOverlays().removeIf(overlay -> overlay instanceof Polyline);
+            displayCurrentTripOnMap();
+//            displayDummyPolyline();
+        });
+
+
+        Button forceNewTripButton = findViewById(R.id.forceNewTrip);
+        forceNewTripButton.setOnClickListener(v -> {
+            user.forceNewTrip();
+        });
+
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
@@ -102,6 +125,7 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         mapController = mapView.getController();
         //mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
+        mapController.setZoom(18.0);
         GeoPoint startPoint = new GeoPoint(47.218371, -1.553621);
         mapController.setCenter(startPoint);
 
@@ -112,9 +136,28 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         clock.addObserver(this);
         user = new User();
         //make a point on the map at Nantes, France
-        addPositionOnMap(47.218371, -1.553621);
+        //addPositionOnMap(47.218371, -1.553621);
     }
 
+    private void displayDummyPolyline() {
+        System.out.print("Displaying dummy polyline");
+        ArrayList<GeoPoint> points = new ArrayList<>();
+        points.add(new GeoPoint(47.218371, -1.553621));
+        //add a few random points in the area
+        points.add(new GeoPoint(47.214371, -1.552621));
+        points.add(new GeoPoint(47.216571, -1.551621));
+
+        Polyline polyline = new Polyline();
+        polyline.setPoints(points);
+        mapView.getOverlays().add(polyline);
+        mapView.invalidate();
+
+    }
+
+    /**
+     * Method called when the user tracker is switched
+     * @param useGeolocTracker true if the geoloc tracker is used, false if the android tracker is used
+     */
     public void trackerSwitched(@NonNull Boolean useGeolocTracker){
         if (useGeolocTracker){
             selectedTracker = new GeolocpvtUserTracker(this);
@@ -124,6 +167,11 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         clock.setTracker(selectedTracker);
     }
 
+    /**
+     * Update the position in the display table for the android tracker
+     * @param latitude latitude of the position
+     * @param longitude longitude of the position
+     */
     public void updatePositionAndroid(double latitude, double longitude){
         runOnUiThread(() -> {
             latitudeAndroid.setText(doubleToString(latitude));
@@ -131,6 +179,11 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         });
     }
 
+    /**
+     * Update the position in the display table for the geoloc tracker
+     * @param latitude latitude of the position
+     * @param longitude longitude of the position
+     */
     void updatePositionGeoloc(double latitude, double longitude){
         runOnUiThread(() -> {
             latitudeGeoloc.setText(doubleToString(latitude));
@@ -138,10 +191,16 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         });
     }
 
+    /**
+     * Convert a double to a string
+     * @param value double to convert
+     * @return string of the double
+     */
     private String doubleToString(double value){
         return String.valueOf(value);
     }
 
+    //Méthode héritée de Observer, appelée à chaque fois qu'un objet observé est modifié (et que c'est notifié)
     @Override
     public void update(Observable observable, Object o) {
         if (observable instanceof TrackerClock) {
@@ -151,15 +210,43 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
             } else {
                 updatePositionAndroid(trackerClock.getLatitude(), trackerClock.getLongitude());
             }
-            addPositionOnMap(trackerClock.getLatitude(), trackerClock.getLongitude());
+            if (drawMarkers) {
+                addPositionOnMap(trackerClock.getLatitude(), trackerClock.getLongitude());
+            }
+            user.newPositionObtained(trackerClock.getPosition());
+            //Run the method on the UI thread
+            runOnUiThread(this::updateInfosFromUserChange);
         }
     }
 
+    private void updateInfosFromUserChange() {
+        TextView numberOfSegmentsInTrip = findViewById(R.id.number_of_segments);
+        numberOfSegmentsInTrip.setText(String.valueOf(user.getCurrentTrip().getNumberOfSegments()));
+        TextView numberOfPositionsInSegment = findViewById(R.id.number_of_positions);
+        numberOfPositionsInSegment.setText(String.valueOf(user.getCurrentTrip().getCurrentSegment().getNumberOfPositions()));
+        TextView transportType = findViewById(R.id.computedTransportType);
+        transportType.setText(user.getCurrentTrip().getCurrentSegment().getTransportType().toString());
+    }
 
+    private void displayCurrentTripOnMap() {
+        //System.out.println("displayCurrentTripOnMap");
+        Trip currentTrip = user.getCurrentTrip();
+        TripSegment currentSegment = currentTrip.getCurrentSegment();
+        LinkedList<TimestampedPosition> positions = currentSegment.getPositionList();
+        Polyline polyline = new Polyline(mapView);
+        for(TimestampedPosition position : positions){
+            GeoPoint correspondingPoint = new GeoPoint(position.getLatitude(), position.getLongitude());
+            polyline.addPoint(correspondingPoint);
+        }
+        mapView.getOverlayManager().add(polyline);
+        mapView.invalidate();
+    }
 
-
-
-
+    /**
+     * Add a marker on the map
+     * @param latitude latitude of the marker
+     * @param longitude longitude of the marker
+     */
     public void addPositionOnMap(double latitude, double longitude) {
         Marker newMarker = new Marker(mapView);
         newMarker.setPosition(new GeoPoint(latitude, longitude));

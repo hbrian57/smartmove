@@ -20,9 +20,25 @@ public class TripSegment implements Savable {
      */
     TransportType transportType;
     /**
-     * List of the positions taken during all the LitTrip
+     * List of the positions taken during all the TripSegment
      */
     LinkedList<TimestampedPosition> timestampedPositionList;
+    
+    /** 
+     * Boolean which indicates if the TripSegment is finished or not (ready to be analyzed)
+     */
+    boolean isFinished = false;
+
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished() {
+        this.isFinished = true;
+    }
+
+
 
 
     /**
@@ -35,7 +51,7 @@ public class TripSegment implements Savable {
 
 
     /**
-     * Constructor of a a segment of Trip (a LitTrip) using all its attributes
+     * Constructor of a a segment of Trip (a TripSegment) using all its attributes
      * @param transportTypeUsed mean of transport
      * @param timestampedPositions list of all the position
      */
@@ -44,8 +60,14 @@ public class TripSegment implements Savable {
         this.timestampedPositionList = timestampedPositions;
     }
 
+    public TripSegment(TimestampedPosition firstPosition) {
+        this.transportType = TransportType.STATIC;
+        this.timestampedPositionList = new LinkedList<>();
+        this.timestampedPositionList.add(firstPosition);
+    }
+
     /**
-     * Method which calculates the total distance of the LitTrip
+     * Method which calculates the total distance of the TripSegment
      * @return an integer corresponding to the total distance in m
      */
     public double calculateTotalDistance() {
@@ -65,10 +87,7 @@ public class TripSegment implements Savable {
         return transportType;
     }
 
-    public LinkedList<TimestampedPosition> getPositionList() throws Exception {
-        if(this.timestampedPositionList.isEmpty()){
-            throw new Exception(String.valueOf(R.string.tripSegmentException1));
-        }
+    public LinkedList<TimestampedPosition> getPositionList() {
         return timestampedPositionList;
     }
 
@@ -80,7 +99,7 @@ public class TripSegment implements Savable {
     }
 
     /**
-     * Method which enables to calculate the CO2 emission of a LitTrip
+     * Method which enables to calculate the CO2 emission of a TripSegment
      * @return an integer corresponding to the value of the CO2 emission
      */
     public double calculateCO2footprint()  {
@@ -139,9 +158,9 @@ public class TripSegment implements Savable {
             long totaltemps=0;
             double sum=0;
             for(i=0;i<8;i++){
-                LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-1).dateOfCapture.toInstant()
+                LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-1).timestamp.toInstant()
                         , ZoneId.systemDefault());
-                LocalDateTime dateTime2 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-3).dateOfCapture.toInstant(), ZoneId.systemDefault());
+                LocalDateTime dateTime2 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-3).timestamp.toInstant(), ZoneId.systemDefault());
 
                 Duration duration = Duration.between(dateTime1, dateTime2);
                 long timeBetweenPoints = duration.getSeconds();
@@ -203,4 +222,23 @@ public class TripSegment implements Savable {
     }
 
 
+    public int getNumberOfPositions() {
+        return timestampedPositionList.size();
+    }
+
+    public void addPosition(TimestampedPosition newPosition) {
+        timestampedPositionList.add(newPosition);
+        //Compute the transport type if the number of positions is superior to 10
+        if(timestampedPositionList.size()>10){
+            try {
+                computeTransportType();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void mergeWithSegment(TripSegment source) {
+        this.timestampedPositionList.addAll(source.getPositionList());
+    }
 }

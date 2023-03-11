@@ -3,10 +3,12 @@ package com.centrale.smartmove.models;
 import com.centrale.smartmove.R;
 import com.centrale.smartmove.Savable;
 
+import org.gogpsproject.positioning.Time;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +20,40 @@ public class Trip implements Savable {
      * Vector with all the little trips contained in the trip
      */
     ArrayList<TripSegment> tripSegments;
+
+    Week weekOfTrip;
+
+    /**
+     * Constructor of a trip with nothing in parameters
+     */
+    TripSegment currentTripSegment;
+
+    public Trip(TimestampedPosition newPosition) {
+        tripSegments = new ArrayList<>();
+        tripSegments.add(new TripSegment(newPosition));
+        currentTripSegment = tripSegments.get(0);
+        weekOfTrip = new Week(newPosition.getTimestamp());
+    }
+
+    /**
+     * Constructor of a trip with nothing in parameters
+     */
+    public Week getWeekOfTrip() {
+        return weekOfTrip;
+    }
+
+    /**
+     * Constructor of a trip with nothing in parameters
+     */
+    public void setWeekOfTrip(Week weekOfTrip) {
+        this.weekOfTrip = weekOfTrip;
+    }
+
+    public Trip(TimestampedPosition firstPosition, Week weekOfTrip) {
+        this.weekOfTrip = weekOfTrip;
+        tripSegments = new ArrayList<>();
+        tripSegments.add(new TripSegment(firstPosition));
+    }
 
     /**
      * Constructor of a trip with all the little trips contained in this trip as a parameter
@@ -44,8 +80,6 @@ public class Trip implements Savable {
         }
             return tripSegments.get(0);
     }
-
-    public TransportType getTripTransportType() throws Exception {return getFirstSegment().getTransportType();}
 
     /**
      * Method which calculates the CO2 emission of a Trip
@@ -112,4 +146,46 @@ public class Trip implements Savable {
         }
         return tripSegmentsDistance;
     }
+
+    //Method that adds a position to the current trip segment if it exists
+    //if not, it creates a new trip segment and adds the position to it
+    //if the current trip segments contains more than 60 positions, it creates a new trip segment and marks it as finished
+    public void addPosition(TimestampedPosition newPosition) {
+        if (currentTripSegment == null) {
+            currentTripSegment = new TripSegment(newPosition);
+            tripSegments.add(currentTripSegment);
+        } else {
+            if (currentTripSegment.getNumberOfPositions() > 60) {
+                currentTripSegment.setFinished();
+                currentTripSegment = new TripSegment(newPosition);
+                tripSegments.add(currentTripSegment);
+            } else {
+                currentTripSegment.addPosition(newPosition);
+            }
+        }
+    }
+
+    //Method that checks all the tripSegments, compute their transportType and merges two following tripSegments if they have the same transportType
+    public void mergeTripSegmentsOnTransportType() throws Exception {
+        for (TripSegment segment : tripSegments) {
+            segment.computeTransportType();
+        }
+        for (int i = 0; i < tripSegments.size() - 1; i++) {
+            if (tripSegments.get(i).getTransportType() == tripSegments.get(i + 1).getTransportType()) {
+                tripSegments.get(i).mergeWithSegment(tripSegments.get(i + 1));
+                tripSegments.remove(i + 1);
+                i--;
+            }
+        }
+    }
+
+    public int getNumberOfSegments() {
+        return tripSegments.size();
+    }
+
+    public TripSegment getCurrentSegment() {
+        return currentTripSegment;
+    }
+
+
 }
