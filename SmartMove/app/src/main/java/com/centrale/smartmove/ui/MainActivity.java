@@ -1,24 +1,49 @@
 package com.centrale.smartmove.ui;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.centrale.smartmove.R;
 import com.centrale.smartmove.debugus4.DebugUS4;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity {
+    ArrayList<String> permissions = new ArrayList<>();
     /**
      * Method that displays the application's menu view or the CGU view if it has never been accepted.
      * @param savedInstanceState
      */
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         boolean DEBUG_SCREEN = true;
+        permissions.add(Manifest.permission.POST_NOTIFICATIONS);
+        permissions.add(Manifest.permission.VIBRATE);
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(Manifest.permission.INTERNET);
+        permissions.add(Manifest.permission.ACCESS_NETWORK_STATE);
+        permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        //loop through permissions and check if they are granted, if not, print a message
+        for (String permission : permissions) {
+            if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                System.out.println("Permission not granted: " + permission);
+            }
+        }
+        requestPermissions(permissions.toArray(new String[0]), 1);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);

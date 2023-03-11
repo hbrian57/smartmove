@@ -19,11 +19,37 @@
         <include
             layout="@layout/navbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="70dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:alpha="100"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="multiply"
+            android:foregroundTint="#FFFFFF"
+            android:foregroundTintMode="add" />
 
         <include
             layout="@layout/debug_position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:alpha="100"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="multiply"
+            android:foregroundTint="#FFFFFF"
+            android:foregroundTintMode="add" />
+
+        <include
+            layout="@layout/user_and_trip_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

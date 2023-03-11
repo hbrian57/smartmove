@@ -33,7 +33,7 @@ public class AndroidUserTracker extends UserTracker implements LocationListener 
         locationManager.requestLocationUpdates(locationProvider, 0, 0, this);
         Location locationTest = locationManager.getLastKnownLocation(locationProvider);
         if (locationTest != null) {
-            System.out.println("Provider " + locationProvider + " has been selected.");
+            System.out.println("Provider " + locationProvider + " has been selected. (TODO, passer en FusedLocationProviderClient)");
             onLocationChanged(locationTest);
         } else {
             System.out.println("Location is null");
