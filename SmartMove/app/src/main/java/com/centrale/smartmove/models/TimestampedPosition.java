@@ -19,6 +19,14 @@ public class TimestampedPosition implements Savable {
      */
     private double latitude;
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
     /**
      * Double corresponding to the longitude
      */

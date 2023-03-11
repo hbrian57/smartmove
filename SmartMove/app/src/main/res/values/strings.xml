@@ -88,8 +88,9 @@
     <string name="prodpain_ratio">1.2</string>
     <string name="consoelec_ratio">1.2</string>
     <string name="gobcafe_ratio">8.8</string>
-
-
+    <string name="title_activity_debug_us4">DebugUS4</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
 
     >>>>>>> 2469e7494c4d36efa9a0479b908e884c12bbbefc

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.centrale.smartmove.R;
+import com.centrale.smartmove.debugus4.DebugUS4;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        boolean DEBUG_SCREEN = true;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
@@ -26,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CGUActivity.class);
             startActivity(intent);
         } else {
+            if (DEBUG_SCREEN) {
+                Intent intent = new Intent(this, DebugUS4.class);
+                startActivity(intent);
+                return;
+            }
             Intent intent = new Intent(this,DashboardActivity.class);
             startActivity(intent);
         }

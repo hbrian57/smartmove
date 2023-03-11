@@ -85,4 +85,9 @@ public class AndroidUserTracker extends UserTracker implements LocationListener 
     public double getAltitude() {
         return altitude;
     }
+
+    @Override
+    public String getFormattedName() {
+        return "Tracker ANDROID";
+    }
 }

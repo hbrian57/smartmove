@@ -1,11 +1,13 @@
 package com.centrale.smartmove.tracker;
 
+import java.util.Observable;
+import java.util.Observer;
 import com.centrale.smartmove.models.TimestampedPosition;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TrackerClock {
+public class TrackerClock extends Observable {
 
     //Fréquence de rafraichissement de la position
     Integer positionUpdateDelayMillis = 1000;
@@ -13,19 +15,38 @@ public class TrackerClock {
     TimestampedPosition trackerResult;
     //Timer de rafraichissement de la position
     Timer timer;
+    UserTracker tracker;
 
-    public TrackerClock(UserTracker tracker){
+    public TrackerClock(UserTracker initializedTracker) {
+        super();
+        tracker = initializedTracker;
         trackerResult = new TimestampedPosition(0.0,0.0, 0);
         timer = new Timer();
         TimerTask runUpdatePosition = new TimerTask() {
             @Override
             public void run() {
-                trackerResult.set(tracker.getLatitude(), tracker.getLongitude(), tracker.getAltitude());
-                System.out.println(trackerResult.getSaveFormat());
+                //System.out.println(trackerResult.getSaveFormat());
+                setNewPosition(tracker.getLatitude(), tracker.getLongitude(), tracker.getAltitude());
 
             }
         };
         timer.schedule(runUpdatePosition, 0, positionUpdateDelayMillis);
     }
 
+    public double getLatitude() {
+        return trackerResult.getLatitude();
+    }
+    public double getLongitude() {
+        return trackerResult.getLongitude();
+    }
+    public void setNewPosition(double latitude, double longitude, double altitude) {
+        synchronized (this) {
+            trackerResult.set(latitude, longitude, altitude);
+            setChanged();
+            notifyObservers();
+        }
+    }
+    public void setTracker(UserTracker tracker) {
+        this.tracker = tracker;
+    }
 }

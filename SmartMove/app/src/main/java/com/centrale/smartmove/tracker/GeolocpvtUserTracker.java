@@ -79,6 +79,11 @@ public class GeolocpvtUserTracker extends UserTracker{
         return altitude;
     }
 
+    @Override
+    public String getFormattedName() {
+        return "Tracker GEOLOC-PVT";
+    }
+
     private Options getProcessingOptions() {
         Options options = new Options();
         options.setDualFrequencyEnabled(false);
