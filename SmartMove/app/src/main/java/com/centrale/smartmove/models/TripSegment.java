@@ -113,14 +113,14 @@ public class TripSegment implements Savable {
     public void computeTransportType() throws Exception{
         int listSize = this.timestampedPositionList.size();
         double lastTwoPointsVelocity=0;
-        int changement=0;
+        double meanVelocity = this.calculateMeanVelocity()*3.6; //convert to km/h
         lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
         if(lastTwoPointsVelocity*3.6>2){
-            if((2<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=6)&&(transportType!=TransportType.WALKING)){
+            if((2<meanVelocity)&&(meanVelocity<=6)){
                 this.transportType = TransportType.WALKING;
-            }if((6<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=20)&&(transportType!=TransportType.BIKE)){
+            }if((6<meanVelocity)&&(meanVelocity<=20)){
                 this.transportType = TransportType.BIKE;
-            }if((20<calculateRollingVelocity()*3.6)&&(transportType!=TransportType.CAR)){
+            }if((20<meanVelocity)){
                 this.transportType = TransportType.CAR;
         }}
 
@@ -147,34 +147,6 @@ public class TripSegment implements Savable {
         return velocityMean;
     }
 
-    /**
-     * Calculates the acceleration of the last 10 points
-     */
-    public double calculateRollingAcceleration() throws Exception{
-        int listSize = this.timestampedPositionList.size();
-        double accelerationMean=0;
-        if(listSize>=10){
-            int i=0;
-            long totaltemps=0;
-            double sum=0;
-            for(i=0;i<8;i++){
-                LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-1).timestamp.toInstant()
-                        , ZoneId.systemDefault());
-                LocalDateTime dateTime2 = LocalDateTime.ofInstant(this.timestampedPositionList.get(listSize-i-3).timestamp.toInstant(), ZoneId.systemDefault());
-
-                Duration duration = Duration.between(dateTime1, dateTime2);
-                long timeBetweenPoints = duration.getSeconds();
-                totaltemps += timeBetweenPoints;
-
-                sum+=(timestampedPositionList.get(listSize-i).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-1))
-                        -(timestampedPositionList.get(listSize-i-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-2))))/totaltemps;
-            }
-            accelerationMean=sum/9;
-            return accelerationMean;
-        }
-        return accelerationMean;
-
-    }
 
     /**
      * method which allows to save all the TripSegment of User in a JSON file

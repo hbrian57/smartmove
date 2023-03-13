@@ -214,12 +214,16 @@ public class TripSegmentTest {
     @Test
     //Test si le TripSegment comporte des points
     public void emptyTripSegmentTransportType(){
-        TripSegment tripSegment = null;
+        TripSegment tripSegment = new TripSegment(TransportType.STATIC);
         try{
-            tripSegment.computeTransportType();
+            tripSegment.getPositionList();
         }catch(Exception e){
-            assertThat(e.getMessage(), is("Le TripSegment n'a pas été initialisé."));
+            assertThat(e.getMessage(), is("La liste des TimestampedPositions est vide."));
         }}
+
+
+
+
 }
 
 
