@@ -111,17 +111,21 @@ public class TripSegment implements Savable {
      * Defines the right TransportType for the TripSegment
      */
     public void computeTransportType() throws Exception{
-        int listSize = this.timestampedPositionList.size();
-        double lastTwoPointsVelocity=0;
-        double meanVelocity = this.calculateMeanVelocity()*3.6; //convert to km/h
-        lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
-        if(lastTwoPointsVelocity*3.6>2){
-            if((2<meanVelocity)&&(meanVelocity<=6)){
-                this.transportType = TransportType.WALKING;
-            }if((6<meanVelocity)&&(meanVelocity<=20)){
-                this.transportType = TransportType.BIKE;
-            }if((20<meanVelocity)){
-                this.transportType = TransportType.CAR;
+        if (this.timestampedPositionList==null){
+            throw new NullPointerException(String.valueOf("Le TripSegment n'a pas été initialisé."));}
+        else{
+            int listSize = this.timestampedPositionList.size();
+            double lastTwoPointsVelocity=0;
+            double meanVelocity = this.calculateMeanVelocity()*3.6; //convert to km/h
+            lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
+            if(lastTwoPointsVelocity*3.6>2){
+                if((2<meanVelocity)&&(meanVelocity<=6)){
+                    this.transportType = TransportType.WALKING;
+                }
+                }if((6<meanVelocity)&&(meanVelocity<=20)){
+                    this.transportType = TransportType.BIKE;
+                }if((20<meanVelocity)){
+                    this.transportType = TransportType.CAR;
         }}
 
 
