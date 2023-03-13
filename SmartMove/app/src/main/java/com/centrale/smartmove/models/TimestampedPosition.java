@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -52,9 +53,9 @@ public class TimestampedPosition implements Savable {
     /**
      * Date corresponding to exact moment the position is taken
      */
-    Date timestamp;
+    Calendar timestamp;
 
-    public Date getDateOfCapture() {
+    public Calendar getDateOfCapture() {
         return timestamp;
     }
 
@@ -69,10 +70,17 @@ public class TimestampedPosition implements Savable {
         this.altitude = alti;
         this.longitude = longi;
         this.latitude = lati;
-        this.timestamp = new Date();
+        this.timestamp = Calendar.getInstance();
     }
 
-    public void setDateOfCapture(Date dateOfCapture) {
+    public TimestampedPosition(double lati, double longi, double alti, Calendar date) {
+        this.altitude = alti;
+        this.longitude = longi;
+        this.latitude = lati;
+        this.timestamp = date;
+    }
+
+    public void setDateOfCapture(Calendar dateOfCapture) {
         this.timestamp = dateOfCapture;
     }
 
@@ -127,7 +135,7 @@ public class TimestampedPosition implements Savable {
         return velocity;
     }
     public void set(double latitude, double longitude, double altitude) {
-        this.timestamp = new Date();
+        this.timestamp = Calendar.getInstance();
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
@@ -158,7 +166,7 @@ public class TimestampedPosition implements Savable {
      * Get the date of the TimeStampedPosition object.
      * @return the date.
      */
-    public Date getTimestamp() {
+    public Calendar getTimestamp() {
         return this.timestamp;
     }
 

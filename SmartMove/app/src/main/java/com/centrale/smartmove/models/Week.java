@@ -22,11 +22,12 @@ public class Week implements Savable {
     /** Constructor that creates a week based on a date of a day in the week.
      * @param dayInWeek the date of week;
      */
-    public Week(Date dayInWeek) {
-        calendar = Calendar.getInstance();
-        calendar.setTime(dayInWeek);
-        //set the calendar to the first day of the week
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+    public Week(Calendar dayInWeek) {
+        this.calendar=dayInWeek;
+//        calendar = Calendar.getInstance();
+//        calendar.setTime(dayInWeek);
+//        //set the calendar to the first day of the week
+//        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
     }
 
 

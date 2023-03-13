@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -131,7 +132,7 @@ public class User implements Savable {
             }
         }
         //if there is no week containing the date of today, create a new week
-        Week newWeek = new Week(today);
+        Week newWeek = new Week(Calendar.getInstance());
         //add the new week to the list of weeks
         weeks.add(newWeek);
         //return the new week
@@ -146,7 +147,7 @@ public class User implements Savable {
         //If the user is in a trip
         if (lastPositionObtained != null && currentTrip != null && !forceNewTrip) {
             //If the user is still in the same trip
-            if (newPosition.getTimestamp().getTime() - lastPositionObtained.getTimestamp().getTime() < 5 * 60 * 1000) {
+            if (newPosition.getTimestamp().getTimeInMillis() - lastPositionObtained.getTimestamp().getTimeInMillis() < 5 * 60 * 1000) {
                 //Add the new position to the current trip
                 currentTrip.addPosition(newPosition);
             }
