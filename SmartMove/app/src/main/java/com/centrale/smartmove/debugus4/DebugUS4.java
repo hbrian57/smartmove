@@ -226,7 +226,7 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
             user.newPositionObtained(trackerClock.getPosition());
             addNewPointToPolyline(trackerClock.getLatitude(), trackerClock.getLongitude());
             //Run the method on the UI thread
-            runOnUiThread(this::updateInfosFromUserChange);''
+            runOnUiThread(this::updateInfosFromUserChange);
         }
     }
 
