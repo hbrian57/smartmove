@@ -51,6 +51,7 @@ import org.osmdroid.views.overlay.Polyline;
 public class DebugUS4 extends AppCompatActivity implements Observer {
 
     Boolean drawMarkers = false;
+    Boolean drawSelfPosition = true;
 
     User user;
     TrackerClock clock;
@@ -129,6 +130,9 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         GeoPoint startPoint = new GeoPoint(47.218371, -1.553621);
         mapController.setCenter(startPoint);
 
+        //add the automatic polyline
+        displayAutomaticPolyline();
+
 
         selectedTracker = new AndroidUserTracker(this);
         clock = new TrackerClock(selectedTracker);
@@ -142,10 +146,10 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
     private void displayDummyPolyline() {
         System.out.print("Displaying dummy polyline");
         ArrayList<GeoPoint> points = new ArrayList<>();
-        points.add(new GeoPoint(47.218371, -1.553621));
+        points.add(new GeoPoint(47.237641177, -1.5867024));
         //add a few random points in the area
-        points.add(new GeoPoint(47.214371, -1.552621));
-        points.add(new GeoPoint(47.216571, -1.551621));
+        points.add(new GeoPoint(47.237541177, -1.5865024));
+        points.add(new GeoPoint(47.237441177, -1.5862024));
 
         Polyline polyline = new Polyline();
         polyline.setPoints(points);
@@ -213,9 +217,16 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
             if (drawMarkers) {
                 addPositionOnMap(trackerClock.getLatitude(), trackerClock.getLongitude());
             }
+            if (drawSelfPosition) {
+                //Remove all the previous markers
+                mapView.getOverlays().removeIf(overlay -> overlay instanceof Marker);
+                addPositionOnMap(trackerClock.getLatitude(), trackerClock.getLongitude());
+
+            }
             user.newPositionObtained(trackerClock.getPosition());
+            addNewPointToPolyline(trackerClock.getLatitude(), trackerClock.getLongitude());
             //Run the method on the UI thread
-            runOnUiThread(this::updateInfosFromUserChange);
+            runOnUiThread(this::updateInfosFromUserChange);''
         }
     }
 
@@ -229,16 +240,29 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
     }
 
     private void displayCurrentTripOnMap() {
+        ArrayList<GeoPoint> points = new ArrayList<>();
         //System.out.println("displayCurrentTripOnMap");
         Trip currentTrip = user.getCurrentTrip();
-        TripSegment currentSegment = currentTrip.getCurrentSegment();
-        LinkedList<TimestampedPosition> positions = currentSegment.getPositionList();
-        Polyline polyline = new Polyline(mapView);
-        for(TimestampedPosition position : positions){
-            GeoPoint correspondingPoint = new GeoPoint(position.getLatitude(), position.getLongitude());
-            polyline.addPoint(correspondingPoint);
+        Polyline polyline = new Polyline();
+        for (TripSegment segment : currentTrip.getListOfTripSegments()) {
+            for (TimestampedPosition position : segment.getPositionList()) {
+                points.add(new GeoPoint(position.getLatitude(), position.getLongitude()));
+            }
         }
+        polyline.setPoints(points);
         mapView.getOverlayManager().add(polyline);
+        mapView.invalidate();
+    }
+
+    Polyline automaticPolyline = new Polyline();
+    ArrayList<GeoPoint> automaticPoints = new ArrayList<>();
+    private void displayAutomaticPolyline() {
+        automaticPolyline.setPoints(automaticPoints);
+        mapView.getOverlayManager().add(automaticPolyline);
+    }
+    private void addNewPointToPolyline(double latitude, double longitude) {
+        automaticPoints.add(new GeoPoint(latitude, longitude));
+        automaticPolyline.setPoints(automaticPoints);
         mapView.invalidate();
     }
 
@@ -253,5 +277,6 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         newMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         newMarker.setIcon(ResourcesCompat.getDrawable(Objects.requireNonNull(getResources()), R.drawable.red_marker, null));
         mapView.getOverlays().add(newMarker);
+        mapView.invalidate();
     }
 }

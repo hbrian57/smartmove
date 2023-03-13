@@ -19,6 +19,17 @@ public class TimestampedPosition implements Savable {
      */
     private double latitude;
 
+    public TimestampedPosition(TimestampedPosition newPosition) {
+        this.altitude = newPosition.getAltitude();
+        this.longitude = newPosition.getLongitude();
+        this.latitude = newPosition.getLatitude();
+        this.timestamp = newPosition.getDateOfCapture();
+    }
+
+    private double getAltitude() {
+        return altitude;
+    }
+
     public double getLatitude() {
         return latitude;
     }

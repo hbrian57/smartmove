@@ -108,7 +108,7 @@ public class TripSegment implements Savable {
     }
 
     /**
-     * Defines the right TransportType for each TripSegment and creates a new TripSegment if the TransportType has changed
+     * Defines the right TransportType for the TripSegment
      */
     public void computeTransportType() throws Exception{
         int listSize = this.timestampedPositionList.size();
@@ -117,11 +117,11 @@ public class TripSegment implements Savable {
         lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
         if(lastTwoPointsVelocity*3.6>2){
             if((2<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=6)&&(transportType!=TransportType.WALKING)){
-                new TripSegment(TransportType.WALKING);
+                this.transportType = TransportType.WALKING;
             }if((6<calculateRollingVelocity()*3.6)&&(calculateRollingVelocity()*3.6<=20)&&(transportType!=TransportType.BIKE)){
-                new TripSegment(TransportType.BIKE);
+                this.transportType = TransportType.BIKE;
             }if((20<calculateRollingVelocity()*3.6)&&(transportType!=TransportType.CAR)){
-                new TripSegment(TransportType.CAR);
+                this.transportType = TransportType.CAR;
         }}
 
 
@@ -227,7 +227,8 @@ public class TripSegment implements Savable {
     }
 
     public void addPosition(TimestampedPosition newPosition) {
-        timestampedPositionList.add(newPosition);
+        //We store the position in the list, making sure to copy it to avoid any reference issues
+        timestampedPositionList.add(new TimestampedPosition(newPosition));
         //Compute the transport type if the number of positions is superior to 10
         if(timestampedPositionList.size()>10){
             try {
