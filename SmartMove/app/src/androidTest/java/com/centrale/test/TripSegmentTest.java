@@ -197,5 +197,29 @@ public class TripSegmentTest {
         assertEquals(expectedCO2footprint, actualCO2footprint, 10);
 
     */
-    }
+
+    /** Tests de la fonction computeTransportType
+     *
+     */
+    @Test
+    //Test si le TripSegment a été initialisé
+    public void nullTripSegmentTransportType(){
+        TripSegment tripSegment = null;
+        try{
+            tripSegment.computeTransportType();
+        }catch(Exception e){
+        assertThat(e.getMessage(), is("Le TripSegment n'a pas été initialisé."));
+    }}
+
+    @Test
+    //Test si le TripSegment comporte des points
+    public void emptyTripSegmentTransportType(){
+        TripSegment tripSegment = null;
+        try{
+            tripSegment.computeTransportType();
+        }catch(Exception e){
+            assertThat(e.getMessage(), is("Le TripSegment n'a pas été initialisé."));
+        }}
+}
+
 
