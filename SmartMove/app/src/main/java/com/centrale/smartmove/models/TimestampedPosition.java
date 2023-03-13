@@ -2,7 +2,7 @@ package com.centrale.smartmove.models;
 
 import com.centrale.smartmove.R;
 import com.centrale.smartmove.Savable;
-
+import org.osmdroid.util.GeoPoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,42 +18,31 @@ public class TimestampedPosition implements Savable {
     /**
      * Double corresponding to the latitude
      */
-    private double latitude;
-
-    public TimestampedPosition(TimestampedPosition newPosition) {
-        this.altitude = newPosition.getAltitude();
-        this.longitude = newPosition.getLongitude();
-        this.latitude = newPosition.getLatitude();
-        this.timestamp = newPosition.getDateOfCapture();
-    }
-
-    private double getAltitude() {
-        return altitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    /**
-     * Double corresponding to the longitude
-     */
-    private double longitude;
-
-    /**
-     * Double corresponding to the altitude
-     */
-
-    private double altitude;
+    private GeoPoint geoCoordinates;
 
     /**
      * Date corresponding to exact moment the position is taken
      */
     Calendar timestamp;
+
+
+    public TimestampedPosition(TimestampedPosition newPosition) {
+        this.geoCoordinates = newPosition.geoCoordinates;
+        this.timestamp = newPosition.getDateOfCapture();
+    }
+
+    private double getAltitude() {
+        return geoCoordinates.getAltitude();
+    }
+
+    public double getLatitude() {
+        return geoCoordinates.getLatitude();
+    }
+
+    public double getLongitude() {
+        return geoCoordinates.getLongitude();
+    }
+
 
     public Calendar getDateOfCapture() {
         return timestamp;
@@ -64,19 +53,14 @@ public class TimestampedPosition implements Savable {
      * Constructor of a timestampedposition with the latitude, longitude, altitude
       * @param lati latitude
      * @param longi longitude
-     * @param alti altidude
      */
-    public TimestampedPosition(double lati, double longi, double alti) {
-        this.altitude = alti;
-        this.longitude = longi;
-        this.latitude = lati;
+    public TimestampedPosition(double lati, double longi) {
+        this.geoCoordinates.setCoords(lati,longi);
         this.timestamp = Calendar.getInstance();
     }
 
-    public TimestampedPosition(double lati, double longi, double alti, Calendar date) {
-        this.altitude = alti;
-        this.longitude = longi;
-        this.latitude = lati;
+    public TimestampedPosition(double lati, double longi, Calendar date) {
+        this.geoCoordinates.setCoords(lati,longi);
         this.timestamp = date;
     }
 
@@ -95,27 +79,28 @@ public class TimestampedPosition implements Savable {
      * @throws Exception si une des coordonnées est vide
      */
     public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
-        if((targetPosition.latitude>90) || (this.latitude>90))
+        if((targetPosition.getAltitude()>90) || (this.getAltitude()>90))
         {throw new IllegalArgumentException(String.valueOf(R.string.positionException90deg));}
-        if((targetPosition.longitude>180) || (this.longitude>180))
+        if((targetPosition.getLongitude()>180) || (this.getLongitude()>180))
         {throw new IllegalArgumentException(String.valueOf(R.string.positionException180));}
-        if((targetPosition.latitude<-90) || (this.latitude<-90))
+        if((targetPosition.getLatitude()<-90) || (this.getLatitude()<-90))
         {throw new IllegalArgumentException(String.valueOf(R.string.positionException90Moins));}
-        if((targetPosition.longitude<-180) || (this.longitude<-180))
+        if((targetPosition.getLongitude()<-180) || (this.getLongitude()<-180))
         {throw new IllegalArgumentException(String.valueOf(R.string.positionException180Moins));}
+        else{
 
         final int R = 6371000; // Radius of the earth
-        double deltaLatitude = Math.toRadians(targetPosition.latitude - this.latitude);
-        double deltaLongitude = Math.toRadians(targetPosition.longitude - this.longitude);
+        double deltaLatitude = Math.toRadians(targetPosition.getLatitude() - this.getLatitude());
+        double deltaLongitude = Math.toRadians(targetPosition.getLongitude() - this.getLongitude());
         double a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2)
-            + Math.cos(Math.toRadians(this.latitude)) * Math.cos(Math.toRadians(targetPosition.latitude))
+            + Math.cos(Math.toRadians(this.getLatitude())) * Math.cos(Math.toRadians(targetPosition.getLatitude()))
             * Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double distance = R * c;
-        double deltaAltitude = this.altitude - targetPosition.altitude;
+        double deltaAltitude = this.getAltitude() - targetPosition.getAltitude();
         distance = Math.pow(distance, 2) + Math.pow(deltaAltitude, 2);
         return Math.sqrt(distance);
-    }
+    }}
 
     /**
      * Calculates the velocity between two TimestampedPosition
@@ -134,11 +119,10 @@ public class TimestampedPosition implements Savable {
         velocity=distanceBetweenPoints/timeBetweenPoints;
         return velocity;
     }
-    public void set(double latitude, double longitude, double altitude) {
+    public void set(double latitude, double longitude) {
+        this.geoCoordinates.setCoords(latitude,longitude);
         this.timestamp = Calendar.getInstance();
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.altitude = altitude;
+
     }
 
     @Override
@@ -152,9 +136,8 @@ public class TimestampedPosition implements Savable {
         try {
             JSONTimestampedPosition.put("timestamp", timestamp);
             JSONObject JSONPosition = new JSONObject();
-            JSONPosition.put("latitude", latitude);
-            JSONPosition.put("longitude", longitude);
-            JSONPosition.put("altitude", altitude);
+            JSONPosition.put("latitude", this.geoCoordinates.getLatitude());
+            JSONPosition.put("longitude", this.geoCoordinates.getLongitude());
             JSONTimestampedPosition.put("position", JSONPosition);
         } catch (JSONException e) {
             e.printStackTrace(); //TODO : Handle the exception properly

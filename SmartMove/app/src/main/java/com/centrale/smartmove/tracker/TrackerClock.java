@@ -26,7 +26,7 @@ public class TrackerClock extends Observable {
             @Override
             public void run() {
                 //System.out.println(trackerResult.getSaveFormat());
-                setNewPosition(tracker.getLatitude(), tracker.getLongitude(), tracker.getAltitude());
+                setNewPosition(tracker.getLatitude(), tracker.getLongitude());
 
             }
         };
@@ -39,9 +39,9 @@ public class TrackerClock extends Observable {
     public double getLongitude() {
         return trackerResult.getLongitude();
     }
-    public void setNewPosition(double latitude, double longitude, double altitude) {
+    public void setNewPosition(double latitude, double longitude) {
         synchronized (this) {
-            trackerResult.set(latitude, longitude, altitude);
+            trackerResult.set(latitude, longitude);
             setChanged();
             notifyObservers();
         }
