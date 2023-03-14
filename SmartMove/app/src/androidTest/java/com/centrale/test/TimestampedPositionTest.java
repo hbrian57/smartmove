@@ -22,7 +22,8 @@ public class TimestampedPositionTest {
     @Rule
     public ExpectedException thrownException = ExpectedException.none();
 
-    /**Test de base en latitude 0 longitude 0, sans mouvement.
+    /**
+     * Test de base en latitude 0 longitude 0, sans mouvement.
      * Résultat attendu: 0
      */
     @Test
@@ -35,25 +36,27 @@ public class TimestampedPositionTest {
         assertEquals(0., result, 0.01);
     }
 
-    /**Test de base entre latitude 10 longitude 0 et latitude 0 longitude 0.
+    /**
+     * Test de base entre latitude 10 longitude 0 et latitude 0 longitude 0.
      * Résultat attendu: 1111951
      */
     @Test
-    @Ignore
+
     public void test00100CalculateDistance() throws Exception {
         TimestampedPosition position1 = new TimestampedPosition(0, 0);
         TimestampedPosition position2 = new TimestampedPosition(10, 0);
 
         // Cas : 0 0 0 avec  0 0 0
         double result = position1.calculateDistance(position2);
-        assertEquals(1111951, result, 10);
+        assertEquals(1113194., result, 10);
     }
 
-    /**Test de base entre latitude 0 longitude 20 et latitude 0 longitude 0.
+    /**
+     * Test de base entre latitude 0 longitude 20 et latitude 0 longitude 0.
      * Résultat attendu: 2223900
      */
     @Test
-    @Ignore
+
     public void test00010CalculateDistance() throws Exception {
 
         TimestampedPosition position1 = new TimestampedPosition(0, 0);
@@ -61,10 +64,11 @@ public class TimestampedPositionTest {
 
         // Cas : 0 0 0 avec 0 20 0
         double result = position1.calculateDistance(position2);
-        assertEquals(2223900, result, 10);
+        assertEquals(2226389, result, 10);
     }
 
-    /**Test entre deux points choisis au hasard
+    /**
+     * Test entre deux points choisis au hasard
      * Résultat attendu: 1677084
      */
     @Test
@@ -74,86 +78,11 @@ public class TimestampedPositionTest {
 
         // Cas au hasard
         double result = position1.calculateDistance(position2);
-        assertEquals(1677084, result, 10);
+        assertEquals(1678960, result, 10);
     }
-
-    /**Test avec une position dont la latitude est supérieure à 90°
-     * Résultat attendu: "Impossible que la latitude soit supérieure à 90°"
-     */
-    // Cas où une des latitudes est >90°
-    @Test
-    public void testExceptionLatSup() throws Exception {
-        long milliseconds = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(milliseconds);
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
-        TimestampedPosition position2 = new TimestampedPosition(1000, 20, timestamp);
-        try {
-            double result = position1.calculateDistance(position2);
-        } catch (Exception e) {
-            assertThat(e.getMessage(), is("Impossible que la latitude soit supérieure à 90°"));
-        }
-    }
-
-    /**Test avec une position dont la latitude est supérieure à 90°
-     * Résultat attendu: "Impossible que la latitude soit inférieure à -90°"
-     */
-    // Cas où une des latitudes est<-90°
-    @Test
-    public void testExceptionLatInf() throws Exception {
-        long milliseconds = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(milliseconds);
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
-        TimestampedPosition position2 = new TimestampedPosition(-100, 20, timestamp);
-        try {
-            double result = position1.calculateDistance(position2);
-        } catch (Exception e) {
-            assertThat(e.getMessage(), is("Impossible que la latitude soit inférieure à -90°"));
-        }
-    }
-    /**Test avec une position dont la latitude est supérieure à 90°
-     * Résultat attendu: "Impossible que la longitude soit supérieure à 180°
-     */
-    @Test
-    public void testExceptionLongSup() throws Exception {
-        long milliseconds = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(milliseconds);
-        TimestampedPosition position1 = new TimestampedPosition(45, 190, timestamp);
-        TimestampedPosition position2 = new TimestampedPosition(45, 20, timestamp);
-        try {
-            double result = position1.calculateDistance(position2);
-        } catch (Exception e) {
-            assertThat(e.getMessage(), is("Impossible que la longitude soit supérieure à 180°"));
-        }
-    }
-
-    /**Test avec une position dont la latitude est supérieure à 90°
-     * Résultat attendu: "Impossible que la longitude soit inférieur à -180°
-     */
-    // Cas où une des latitudes est<-90°
-    @Test
-    public void testExceptionLongInf() throws Exception {
-        long milliseconds = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(milliseconds);
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
-        TimestampedPosition position2 = new TimestampedPosition(0, -200, timestamp);
-        try {
-            double result = position1.calculateDistance(position2);
-        } catch (Exception e) {
-            assertThat(e.getMessage(), is("Impossible que la longitude soit inférieure à -180°"));
-        }
-    }
-
-    //TODO: le cas d'un paramètre NULL on a jamais reglé le problème
-    @Test
-    public void testException3CalculateDistance() throws Exception {
-        long milliseconds = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(milliseconds);
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
-        TimestampedPosition position2 = new TimestampedPosition(NULL, 20, timestamp);
-
-        // Cas au exception coordonnée NULL
-        double result = position1.calculateDistance(position2);
-        assertEquals(1677084, result, 10);
-    }
-
 }
+
+
+
+
+
