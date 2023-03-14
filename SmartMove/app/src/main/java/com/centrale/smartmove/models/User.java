@@ -57,7 +57,7 @@ public class User implements Savable {
 
     /**
      * Method that adds a trip to the list of the trip, and which updates the challenge according to the new trip
-     * @param trip
+     * @param trip Trip
      */
     public void addNewTrip(Trip trip)  {
         userTrips.add(trip);

@@ -32,12 +32,12 @@ public class Challenge {
 
     /**
      * Challenge constructor.
-     * @param title
-     * @param description
-     * @param progression
-     * @param goal
-     * @param challengeBeginning
-     * @param icon
+     * @param title Challenge title
+     * @param description Challenge description
+     * @param progression Challenge Progression
+     * @param goal Challenge Goal
+     * @param challengeBeginning Challenge Beginning
+     * @param icon Challenge icon
      */
     public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, Date challengeBeginning, int icon) {
         this.title = title;
@@ -62,7 +62,7 @@ public class Challenge {
 
     /**
      * Set challenge beginning.
-     * @param challengeBeginning
+     * @param challengeBeginning Challenge Beginning
      */
     public void setChallengeBeginning(Date challengeBeginning) {
         this.challengeBeginning = challengeBeginning;
@@ -70,7 +70,7 @@ public class Challenge {
 
     /**
      * Set Title
-     * @param title
+     * @param title Challenge Title
      */
     public void setTitle(@StringRes int title) {
         this.title = title;
@@ -78,7 +78,7 @@ public class Challenge {
 
     /**
      * Set Description
-     * @param description
+     * @param description Challenge Description
      */
     public void setDescription(@StringRes int description) {
         this.description = description;
@@ -86,7 +86,7 @@ public class Challenge {
 
     /**
      * Set Progression
-     * @param progression
+     * @param progression Challenge progression
      */
     public void setProgression(Double progression) {
         this.progression = progression;
@@ -94,7 +94,7 @@ public class Challenge {
 
     /**
      * Set Goal.
-     * @param goal
+     * @param goal Challenge Goal
      */
     public void setGoal(ChallengeGoal goal) {
         this.goal = goal;
@@ -192,7 +192,7 @@ public class Challenge {
 
     /**
      * Updates the progression of the challenge based on the new trip done
-     * @param newTripDone
+     * @param newTripDone New trip done
      */
     public void updateProgression(Trip newTripDone) {
         //depending on the goalType, the progression is updated differently

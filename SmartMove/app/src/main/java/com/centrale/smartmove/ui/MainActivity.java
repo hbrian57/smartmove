@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method that displays the application's menu view or the CGU view if it has never been accepted.
-     * @param savedInstanceState
+     * @param savedInstanceState Instance State Saved
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

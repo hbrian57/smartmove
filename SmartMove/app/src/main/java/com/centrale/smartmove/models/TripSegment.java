@@ -179,8 +179,8 @@ public class TripSegment implements Savable {
     }
     /**
      * Returns the mean velocity of the TripSegment, doesn't take into account velocities inferior to 2 km/h
-     * @return
-     * @throws Exception
+     * @return the mean Velocity
+     * @throws Exception nul
      */
     public double calculateMeanVelocity() throws Exception {
         int listSize = this.timestampedPositionList.size();

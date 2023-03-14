@@ -92,9 +92,9 @@ public class TimestampedPosition implements Savable {
 
     /**
      * Calculates the velocity between two TimestampedPosition
-     * @param secondPosition
-     * @return
-     * @throws Exception
+     * @param secondPosition Second Position
+     * @return The velocity
+     * @throws Exception nul
      */
 
     public double calculateVelocityBetweenTwoPoints(TimestampedPosition secondPosition) throws Exception{

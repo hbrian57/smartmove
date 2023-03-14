@@ -7,9 +7,9 @@ public class ChallengeGoal {
 
     /**
      * Challenge Goal Constructor.
-     * @param type
-     * @param goalFinal
-     * @param transportType
+     * @param type Type
+     * @param goalFinal Final Goal
+     * @param transportType Type of transport
      */
     public ChallengeGoal(GoalType type, Double goalFinal, TransportType transportType) {
         this.type = type;
@@ -44,7 +44,7 @@ public class ChallengeGoal {
 
     /**
      * Set the type.
-     * @param type
+     * @param type Type
      */
     public void setType(GoalType type) {
         this.type = type;
@@ -52,7 +52,7 @@ public class ChallengeGoal {
 
     /**
      * Set the final goal.
-     * @param goalFinal
+     * @param goalFinal Final Goal
      */
     public void setGoalFinal(Double goalFinal) {
         this.goalFinal = goalFinal;

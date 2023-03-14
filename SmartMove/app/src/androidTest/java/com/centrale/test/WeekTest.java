@@ -17,7 +17,7 @@ public class WeekTest {
     /**
      * Test de la méthode GetTotalCO2Footprint dans le cas static
      * Résultat attendu: 0
-     * @throws Exception
+     * @throws Exception nul
      */
     @Test
     public void testGetTotalCO2FootprintCaseStatic() throws Exception {
@@ -74,7 +74,7 @@ public class WeekTest {
     /**
      * Test de la méthode GetTotalCO2Footprint dans le cas où on a pris des valeurs au hasard
      * Résultat attendu: 1269198
-     * @throws Exception
+     * @throws Exception nul
      */
     @Test
     public void testGetTotalCO2FootprintCaseRandom() throws Exception {
