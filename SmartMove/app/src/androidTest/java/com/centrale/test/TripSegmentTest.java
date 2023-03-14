@@ -17,80 +17,153 @@ import java.util.LinkedList;
 public class TripSegmentTest {
 
 
+
     /**Test de la fonction de calcul de distance entre trois positions similaires : lat= 0, long=0
      * Résultat attendu: 0
      */
     @Test
     public void testCalculateTotalDistance0() throws Exception {
-        // chemin du RC à St mihiel 824 metres
+        // chemin du RC à St mihiel 824 metres avec 56 points (soit 1 point tout les 14,71 m)
+        // pour car mettre seconde a moins de 2,66, pour bike seconde entre 8,86 et 2,65, et enfin walking entre 26,74 et 8,85
         Date date = new Date(0);
         LinkedList<TimestampedPosition> listOfPosition= new LinkedList<TimestampedPosition>();
         long current = System.currentTimeMillis();
-        int seconde = 1000;
+        long seconde = (long) (1000*2.5);
         Timestamp timestamp = new Timestamp(current);
         listOfPosition.add(new TimestampedPosition(47.218959, -1.547731, timestamp));
         listOfPosition.add(new TimestampedPosition(47.218733, -1.548331, new Timestamp(current+seconde*1)));
         listOfPosition.add(new TimestampedPosition(47.218686, -1.548455, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.218652, -1.548546, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.218641, -1.548575, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.218636, -1.548589, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.218624, -1.548621, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.219188, -1.549082, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.219223, -1.549111, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.219407, -1.549271, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.21943, -1.54929, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.219504, -1.549354, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.219697, -1.549515, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.219815, -1.549615, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.21989, -1.549666, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.219903, -1.549675, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.220042, -1.549792, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.220443, -1.550124, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.220934, -1.550526, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.221236, -1.550774, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.221456, -1.550955, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.221557, -1.551039, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.221574, -1.551051, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.221637, -1.551115, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.221674, -1.551218, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222299, -1.551701, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222549, -1.551905, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222803, -1.552146, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222889, -1.552208, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222924, -1.552199, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222962, -1.55221, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222995, -1.552241, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223018, -1.552288, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223027, -1.552355, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223017, -1.552419, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222988, -1.552471, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222972, -1.552487, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222915, -1.552638, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222888, -1.552933, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222856, -1.553195, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222854, -1.553207, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222852, -1.553231, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222904, -1.553243, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.222963, -1.553255, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223037, -1.553259, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223063, -1.553265, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223239, -1.553302, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.22349, -1.553355, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223627, -1.553385, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223624, -1.553408, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.22362, -1.553445, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223614, -1.553488, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.22361, -1.553524, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223606, -1.553559, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223617, -1.553578, new Timestamp(current+seconde*2)));
-        listOfPosition.add(new TimestampedPosition(47.223664, -1.553558, new Timestamp(current+seconde*2)));
-        TripSegment segment = new TripSegment(TransportType.valueOf("CAR"), listOfPosition);
+        listOfPosition.add(new TimestampedPosition(47.218652, -1.548546, new Timestamp(current+seconde*3)));
+        listOfPosition.add(new TimestampedPosition(47.218641, -1.548575, new Timestamp(current+seconde*4)));
+        listOfPosition.add(new TimestampedPosition(47.218636, -1.548589, new Timestamp(current+seconde*5)));
+        listOfPosition.add(new TimestampedPosition(47.218624, -1.548621, new Timestamp(current+seconde*6)));
+        listOfPosition.add(new TimestampedPosition(47.219188, -1.549082, new Timestamp(current+seconde*7)));
+        listOfPosition.add(new TimestampedPosition(47.219223, -1.549111, new Timestamp(current+seconde*8)));
+        listOfPosition.add(new TimestampedPosition(47.219407, -1.549271, new Timestamp(current+seconde*9)));
+        listOfPosition.add(new TimestampedPosition(47.21943, -1.54929, new Timestamp(current+seconde*10)));
+        listOfPosition.add(new TimestampedPosition(47.219504, -1.549354, new Timestamp(current+seconde*11)));
+        listOfPosition.add(new TimestampedPosition(47.219697, -1.549515, new Timestamp(current+seconde*12)));
+        listOfPosition.add(new TimestampedPosition(47.219815, -1.549615, new Timestamp(current+seconde*13)));
+        listOfPosition.add(new TimestampedPosition(47.21989, -1.549666, new Timestamp(current+seconde*14)));
+        listOfPosition.add(new TimestampedPosition(47.219903, -1.549675, new Timestamp(current+seconde*15)));
+        listOfPosition.add(new TimestampedPosition(47.220042, -1.549792, new Timestamp(current+seconde*16)));
+        listOfPosition.add(new TimestampedPosition(47.220443, -1.550124, new Timestamp(current+seconde*17)));
+        listOfPosition.add(new TimestampedPosition(47.220934, -1.550526, new Timestamp(current+seconde*18)));
+        listOfPosition.add(new TimestampedPosition(47.221236, -1.550774, new Timestamp(current+seconde*19)));
+        listOfPosition.add(new TimestampedPosition(47.221456, -1.550955, new Timestamp(current+seconde*20)));
+        listOfPosition.add(new TimestampedPosition(47.221557, -1.551039, new Timestamp(current+seconde*21)));
+        listOfPosition.add(new TimestampedPosition(47.221574, -1.551051, new Timestamp(current+seconde*22)));
+        listOfPosition.add(new TimestampedPosition(47.221637, -1.551115, new Timestamp(current+seconde*23)));
+        listOfPosition.add(new TimestampedPosition(47.221674, -1.551218, new Timestamp(current+seconde*24)));
+        listOfPosition.add(new TimestampedPosition(47.222299, -1.551701, new Timestamp(current + seconde*25)));
+        listOfPosition.add(new TimestampedPosition(47.222549, -1.551905, new Timestamp(current + seconde*26)));
+        listOfPosition.add(new TimestampedPosition(47.222803, -1.552146, new Timestamp(current + seconde*27)));
+        listOfPosition.add(new TimestampedPosition(47.222889, -1.552208, new Timestamp(current + seconde*28)));
+        listOfPosition.add(new TimestampedPosition(47.222924, -1.552199, new Timestamp(current + seconde*29)));
+        listOfPosition.add(new TimestampedPosition(47.222962, -1.55221, new Timestamp(current + seconde*30)));
+        listOfPosition.add(new TimestampedPosition(47.222995, -1.552241, new Timestamp(current + seconde*31)));
+        listOfPosition.add(new TimestampedPosition(47.223018, -1.552288, new Timestamp(current + seconde*32)));
+        listOfPosition.add(new TimestampedPosition(47.223027, -1.552355, new Timestamp(current + seconde*33)));
+        listOfPosition.add(new TimestampedPosition(47.223017, -1.552419, new Timestamp(current + seconde*34)));
+        listOfPosition.add(new TimestampedPosition(47.222988, -1.552471, new Timestamp(current + seconde*35)));
+        listOfPosition.add(new TimestampedPosition(47.222972, -1.552487, new Timestamp(current + seconde*36)));
+        listOfPosition.add(new TimestampedPosition(47.222915, -1.552638, new Timestamp(current + seconde*37)));
+        listOfPosition.add(new TimestampedPosition(47.222888, -1.552933, new Timestamp(current + seconde*38)));
+        listOfPosition.add(new TimestampedPosition(47.222856, -1.553195, new Timestamp(current + seconde*39)));
+        listOfPosition.add(new TimestampedPosition(47.222854, -1.553207, new Timestamp(current + seconde*40)));
+        listOfPosition.add(new TimestampedPosition(47.222852, -1.553231, new Timestamp(current + seconde*41)));
+        listOfPosition.add(new TimestampedPosition(47.222904, -1.553243, new Timestamp(current + seconde*42)));
+        listOfPosition.add(new TimestampedPosition(47.222963, -1.553255, new Timestamp(current + seconde*43)));
+        listOfPosition.add(new TimestampedPosition(47.223037, -1.553259, new Timestamp(current + seconde*44)));
+        listOfPosition.add(new TimestampedPosition(47.223063, -1.553265, new Timestamp(current + seconde*45)));
+        listOfPosition.add(new TimestampedPosition(47.223239, -1.553302, new Timestamp(current + seconde*46)));
+        listOfPosition.add(new TimestampedPosition(47.22349, -1.553355, new Timestamp(current + seconde*47)));
+        listOfPosition.add(new TimestampedPosition(47.223627, -1.553385, new Timestamp(current+seconde*48)));
+        listOfPosition.add(new TimestampedPosition(47.223624, -1.553408, new Timestamp(current+seconde*49)));
+        listOfPosition.add(new TimestampedPosition(47.22362, -1.553445, new Timestamp(current+seconde*50)));
+        listOfPosition.add(new TimestampedPosition(47.223614, -1.553488, new Timestamp(current+seconde*51)));
+        listOfPosition.add(new TimestampedPosition(47.22361, -1.553524, new Timestamp(current+seconde*52)));
+        listOfPosition.add(new TimestampedPosition(47.223606, -1.553559, new Timestamp(current+seconde*53)));
+        listOfPosition.add(new TimestampedPosition(47.223617, -1.553578, new Timestamp(current+seconde*54)));
+        listOfPosition.add(new TimestampedPosition(47.223664, -1.553558, new Timestamp(current+seconde*55)));
+        TripSegment segmenttest = new TripSegment(null, listOfPosition);
 
         double expectedDistance = 800;
-        double actualDistance = segment.calculateTotalDistance();
+        double actualDistance = segmenttest.calculateTotalDistance();
 
         assertEquals(expectedDistance, actualDistance, 5);
     }
+
+    @Test
+    public void computeTransportType() throws Exception {
+        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<TimestampedPosition>();
+        long current = System.currentTimeMillis();
+        long seconde = (long) (1000*2.5);
+        Timestamp timestamp = new Timestamp(current);
+        listOfPosition.add(new TimestampedPosition(47.218959, -1.547731, timestamp));
+        listOfPosition.add(new TimestampedPosition(47.218733, -1.548331, new Timestamp(current+seconde*1)));
+        listOfPosition.add(new TimestampedPosition(47.218686, -1.548455, new Timestamp(current+seconde*2)));
+        listOfPosition.add(new TimestampedPosition(47.218652, -1.548546, new Timestamp(current+seconde*3)));
+        listOfPosition.add(new TimestampedPosition(47.218641, -1.548575, new Timestamp(current+seconde*4)));
+        listOfPosition.add(new TimestampedPosition(47.218636, -1.548589, new Timestamp(current+seconde*5)));
+        listOfPosition.add(new TimestampedPosition(47.218624, -1.548621, new Timestamp(current+seconde*6)));
+        listOfPosition.add(new TimestampedPosition(47.219188, -1.549082, new Timestamp(current+seconde*7)));
+        listOfPosition.add(new TimestampedPosition(47.219223, -1.549111, new Timestamp(current+seconde*8)));
+        listOfPosition.add(new TimestampedPosition(47.219407, -1.549271, new Timestamp(current+seconde*9)));
+        listOfPosition.add(new TimestampedPosition(47.21943, -1.54929, new Timestamp(current+seconde*10)));
+        listOfPosition.add(new TimestampedPosition(47.219504, -1.549354, new Timestamp(current+seconde*11)));
+        listOfPosition.add(new TimestampedPosition(47.219697, -1.549515, new Timestamp(current+seconde*12)));
+        listOfPosition.add(new TimestampedPosition(47.219815, -1.549615, new Timestamp(current+seconde*13)));
+        listOfPosition.add(new TimestampedPosition(47.21989, -1.549666, new Timestamp(current+seconde*14)));
+        listOfPosition.add(new TimestampedPosition(47.219903, -1.549675, new Timestamp(current+seconde*15)));
+        listOfPosition.add(new TimestampedPosition(47.220042, -1.549792, new Timestamp(current+seconde*16)));
+        listOfPosition.add(new TimestampedPosition(47.220443, -1.550124, new Timestamp(current+seconde*17)));
+        listOfPosition.add(new TimestampedPosition(47.220934, -1.550526, new Timestamp(current+seconde*18)));
+        listOfPosition.add(new TimestampedPosition(47.221236, -1.550774, new Timestamp(current+seconde*19)));
+        listOfPosition.add(new TimestampedPosition(47.221456, -1.550955, new Timestamp(current+seconde*20)));
+        listOfPosition.add(new TimestampedPosition(47.221557, -1.551039, new Timestamp(current+seconde*21)));
+        listOfPosition.add(new TimestampedPosition(47.221574, -1.551051, new Timestamp(current+seconde*22)));
+        listOfPosition.add(new TimestampedPosition(47.221637, -1.551115, new Timestamp(current+seconde*23)));
+        listOfPosition.add(new TimestampedPosition(47.221674, -1.551218, new Timestamp(current+seconde*24)));
+        listOfPosition.add(new TimestampedPosition(47.222299, -1.551701, new Timestamp(current + seconde*25)));
+        listOfPosition.add(new TimestampedPosition(47.222549, -1.551905, new Timestamp(current + seconde*26)));
+        listOfPosition.add(new TimestampedPosition(47.222803, -1.552146, new Timestamp(current + seconde*27)));
+        listOfPosition.add(new TimestampedPosition(47.222889, -1.552208, new Timestamp(current + seconde*28)));
+        listOfPosition.add(new TimestampedPosition(47.222924, -1.552199, new Timestamp(current + seconde*29)));
+        listOfPosition.add(new TimestampedPosition(47.222962, -1.55221, new Timestamp(current + seconde*30)));
+        listOfPosition.add(new TimestampedPosition(47.222995, -1.552241, new Timestamp(current + seconde*31)));
+        listOfPosition.add(new TimestampedPosition(47.223018, -1.552288, new Timestamp(current + seconde*32)));
+        listOfPosition.add(new TimestampedPosition(47.223027, -1.552355, new Timestamp(current + seconde*33)));
+        listOfPosition.add(new TimestampedPosition(47.223017, -1.552419, new Timestamp(current + seconde*34)));
+        listOfPosition.add(new TimestampedPosition(47.222988, -1.552471, new Timestamp(current + seconde*35)));
+        listOfPosition.add(new TimestampedPosition(47.222972, -1.552487, new Timestamp(current + seconde*36)));
+        listOfPosition.add(new TimestampedPosition(47.222915, -1.552638, new Timestamp(current + seconde*37)));
+        listOfPosition.add(new TimestampedPosition(47.222888, -1.552933, new Timestamp(current + seconde*38)));
+        listOfPosition.add(new TimestampedPosition(47.222856, -1.553195, new Timestamp(current + seconde*39)));
+        listOfPosition.add(new TimestampedPosition(47.222854, -1.553207, new Timestamp(current + seconde*40)));
+        listOfPosition.add(new TimestampedPosition(47.222852, -1.553231, new Timestamp(current + seconde*41)));
+        listOfPosition.add(new TimestampedPosition(47.222904, -1.553243, new Timestamp(current + seconde*42)));
+        listOfPosition.add(new TimestampedPosition(47.222963, -1.553255, new Timestamp(current + seconde*43)));
+        listOfPosition.add(new TimestampedPosition(47.223037, -1.553259, new Timestamp(current + seconde*44)));
+        listOfPosition.add(new TimestampedPosition(47.223063, -1.553265, new Timestamp(current + seconde*45)));
+        listOfPosition.add(new TimestampedPosition(47.223239, -1.553302, new Timestamp(current + seconde*46)));
+        listOfPosition.add(new TimestampedPosition(47.22349, -1.553355, new Timestamp(current + seconde*47)));
+        listOfPosition.add(new TimestampedPosition(47.223627, -1.553385, new Timestamp(current+seconde*48)));
+        listOfPosition.add(new TimestampedPosition(47.223624, -1.553408, new Timestamp(current+seconde*49)));
+        listOfPosition.add(new TimestampedPosition(47.22362, -1.553445, new Timestamp(current+seconde*50)));
+        listOfPosition.add(new TimestampedPosition(47.223614, -1.553488, new Timestamp(current+seconde*51)));
+        listOfPosition.add(new TimestampedPosition(47.22361, -1.553524, new Timestamp(current+seconde*52)));
+        listOfPosition.add(new TimestampedPosition(47.223606, -1.553559, new Timestamp(current+seconde*53)));
+        listOfPosition.add(new TimestampedPosition(47.223617, -1.553578, new Timestamp(current+seconde*54)));
+        listOfPosition.add(new TimestampedPosition(47.223664, -1.553558, new Timestamp(current+seconde*55)));
+        TripSegment segmenttest = new TripSegment(null, listOfPosition);
+
+
+        segmenttest.computeTransportType();
+
+        System.out.println(segmenttest.getTransportType());
+    }
+
 
 
     /**Test de la fonction de calcul de distance entre lat= 0, long=0 / lat= 1, long=0/ lat= 2, long=0
