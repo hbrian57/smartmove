@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        boolean DEBUG_SCREEN = true;
+        boolean DEBUG_SCREEN = false;
         permissions.add(Manifest.permission.POST_NOTIFICATIONS);
         permissions.add(Manifest.permission.VIBRATE);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);

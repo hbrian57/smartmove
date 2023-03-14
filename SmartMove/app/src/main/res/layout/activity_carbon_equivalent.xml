@@ -49,19 +49,19 @@
                         android:layout_height="20dp" />
 
                     <TextView
-                        android:id="@+id/textViewLinkToCalculation"
+                        android:id="@+id/LinkToWiki"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/explication_du_resultat_text"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:textAlignment="viewEnd"
-                        android:textColor="#0e4194"
+                        android:textColor="@color/smartloc_darkblue"
                         android:textStyle="italic"
                         android:onClick="viewCalculationExplanation"/>
 
                     <TextView
-                        android:id="@+id/textViewComparaison"
+                        android:id="@+id/titleComparaison"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -69,17 +69,24 @@
                         android:layout_marginRight="10dp"
                         android:text="@string/comparaison_text"
                         android:textAppearance="@style/MAINtileCO2"
-                        android:textColor="#00a6e6" />
+                        android:textColor="@color/smartloc_lightblue" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="120dp"
+                        android:orientation="horizontal">
 
+
+                        <ImageView
+                            android:id="@+id/comparaisonImage"
+                            android:layout_width="115dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="0dip"
+                            app:srcCompat="@drawable/bouteille" />
 
                         <TextView
                             android:id="@+id/comparaison_explication_phrase"
@@ -88,21 +95,13 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:gravity="center_horizontal"
+                            android:maxWidth="270dp"
+                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet lorem dolor, non pellentesque ex luctus ac."
                             android:textAppearance="@style/MAINtileCO2"
-                            android:textColor="#0e4194" />
+                            android:textColor="@color/smartloc_darkblue" />
 
 
-
-
-                    <ImageView
-                        android:id="@+id/comparaisonImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="0dip"
-                     />
-
-
-                    </RelativeLayout>
+                    </LinearLayout>
 
 
                 </LinearLayout>

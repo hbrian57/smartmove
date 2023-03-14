@@ -34,6 +34,7 @@ public class DashboardActivity extends AppCompatActivity  {
     AndroidUserTracker trackerAndroid;
     GeolocpvtUserTracker trackerGeoloc;
 
+    ImageView navToEquivalent;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
@@ -52,6 +53,11 @@ public class DashboardActivity extends AppCompatActivity  {
         for (int i = 0; i < 3; i++) {
             user.getNewChallenge();
         }
+
+        navToEquivalent = findViewById(R.id.imageViewNavToCarbonEquivalent);
+        navToEquivalent.setOnClickListener(v -> {
+            clickOpenCarbonEquivalentPage();
+        });
         displayCarbonFootprint();
         displayChallenges();
         trackerAndroid = new AndroidUserTracker(this);
@@ -90,7 +96,7 @@ public class DashboardActivity extends AppCompatActivity  {
      * Method to sned the user to the view of the carbon equivalent.
      * @param v the main view
      */
-    public void clickOpenCarbonEquivalentPage(View v){
+    public void clickOpenCarbonEquivalentPage(){
         Intent intent = new Intent(this, ActivityCarbonEquivalent.class);
         intent.putExtra(getString(R.string.displayed_carbon_footprint), displayedCarbonFootprint);
         startActivity(intent);;
