@@ -8,9 +8,6 @@ import org.json.JSONObject;
 import com.centrale.smartmove.R;
 import com.centrale.smartmove.Savable;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.LinkedList;
 
 
@@ -18,16 +15,16 @@ public class TripSegment implements Savable {
     /**
      * Mean of transport
      */
-    TransportType transportType;
+    private TransportType transportType;
     /**
      * List of the positions taken during all the TripSegment
      */
-    LinkedList<TimestampedPosition> timestampedPositionList;
+    private LinkedList<TimestampedPosition> positions;
     
     /** 
      * Boolean which indicates if the TripSegment is finished or not (ready to be analyzed)
      */
-    boolean isFinished = false;
+    private boolean isFinished = false;
 
 
     public boolean isFinished() {
@@ -57,13 +54,13 @@ public class TripSegment implements Savable {
      */
     public TripSegment(TransportType transportTypeUsed, LinkedList<TimestampedPosition> timestampedPositions) {
         this.transportType = transportTypeUsed;
-        this.timestampedPositionList = timestampedPositions;
+        this.positions = timestampedPositions;
     }
 
     public TripSegment(TimestampedPosition firstPosition) {
         this.transportType = TransportType.STATIC;
-        this.timestampedPositionList = new LinkedList<>();
-        this.timestampedPositionList.add(firstPosition);
+        this.positions = new LinkedList<>();
+        this.positions.add(firstPosition);
     }
 
     /**
@@ -72,9 +69,9 @@ public class TripSegment implements Savable {
      */
     public double calculateTotalDistance() {
         double totalDistance = 0;
-        for (int i = 0; i < timestampedPositionList.size() - 1; i++) {
+        for (int i = 0; i < positions.size() - 1; i++) {
             try {
-                totalDistance += timestampedPositionList.get(i).calculateDistance(timestampedPositionList.get(i + 1));
+                totalDistance += positions.get(i).getDistanceToPosition(positions.get(i + 1));
             } catch (Exception e) {
                 //TODO Gestion de l'erreur, afficher un popup / Toast
             }
@@ -88,14 +85,7 @@ public class TripSegment implements Savable {
     }
 
     public LinkedList<TimestampedPosition> getPositionList() {
-        return timestampedPositionList;
-    }
-
-    public TimestampedPosition getFirstPosition() throws Exception {
-        if(this.timestampedPositionList.isEmpty()){
-            throw new Exception(String.valueOf(R.string.tripSegmentException2));
-        }
-        return timestampedPositionList.get(0);
+        return positions;
     }
 
     /**
@@ -111,13 +101,13 @@ public class TripSegment implements Savable {
      * Defines the right TransportType for the TripSegment
      */
     public void computeTransportType() throws Exception{
-        if (this.timestampedPositionList==null){
+        if (this.positions ==null){
             throw new NullPointerException(String.valueOf("Le TripSegment n'a pas été initialisé."));}
         else{
-            int listSize = this.timestampedPositionList.size();
+            int listSize = this.positions.size();
             double lastTwoPointsVelocity=0;
             double meanVelocity = this.calculateMeanVelocity()*3.6; //convert to km/h
-            lastTwoPointsVelocity=timestampedPositionList.get(listSize-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-2));
+            lastTwoPointsVelocity= positions.get(listSize-1).calculateVelocityBetweenTwoPoints(positions.get(listSize-2));
             if(lastTwoPointsVelocity*3.6>2){
                 if((2<meanVelocity)&&(meanVelocity<=6)){
                     this.transportType = TransportType.WALKING;
@@ -127,8 +117,6 @@ public class TripSegment implements Savable {
                 }if((20<meanVelocity)){
                     this.transportType = TransportType.CAR;
         }}
-
-
     }
 
     //TODO régler les problèmes d'indice(dépassements)
@@ -136,13 +124,13 @@ public class TripSegment implements Savable {
     Calculates the mean of the last 10 points
      */
     public double calculateRollingVelocity() throws Exception {
-        int listSize = this.timestampedPositionList.size();
+        int listSize = this.positions.size();
         double velocityMean=0;
         if(listSize>=10){
             int i=0;
             double sum=0;
             for(i=0;i<9;i++){
-                sum+=timestampedPositionList.get(listSize-i-1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(listSize-i-2));
+                sum+= positions.get(listSize-i-1).calculateVelocityBetweenTwoPoints(positions.get(listSize-i-2));
             }
             velocityMean=sum/10;
             return velocityMean;
@@ -163,7 +151,7 @@ public class TripSegment implements Savable {
         try {
             JSONTripSegment.put(String.valueOf(R.string.tripSegmentTransportType), transportType.name());
             JSONArray JSONPositionList = new JSONArray();
-            for (TimestampedPosition pos : timestampedPositionList) {
+            for (TimestampedPosition pos : positions) {
                 JSONPositionList.put(pos.getSaveFormat());
             }
             JSONTripSegment.put(String.valueOf(R.string.TripSegmentPosition), JSONPositionList);
@@ -178,14 +166,14 @@ public class TripSegment implements Savable {
      * @throws Exception
      */
     public double calculateMeanVelocity() throws Exception {
-        int listSize = this.timestampedPositionList.size();
+        int listSize = this.positions.size();
         double velocityMean=0;
         if(listSize>=2){
             int i=0;
             double sum=0;
             for(i=0;i<listSize-1;i++){
                 double velocityBetweenTwoPoints=0;
-                velocityBetweenTwoPoints = timestampedPositionList.get(i+1).calculateVelocityBetweenTwoPoints(timestampedPositionList.get(i));
+                velocityBetweenTwoPoints = positions.get(i+1).calculateVelocityBetweenTwoPoints(positions.get(i));
                 if(velocityBetweenTwoPoints>0.55){
                     sum+=velocityBetweenTwoPoints;
                 };
@@ -199,14 +187,14 @@ public class TripSegment implements Savable {
 
 
     public int getNumberOfPositions() {
-        return timestampedPositionList.size();
+        return positions.size();
     }
 
     public void addPosition(TimestampedPosition newPosition) {
         //We store the position in the list, making sure to copy it to avoid any reference issues
-        timestampedPositionList.add(new TimestampedPosition(newPosition));
+        positions.add(new TimestampedPosition(newPosition));
         //Compute the transport type if the number of positions is superior to 10
-        if(timestampedPositionList.size()>10){
+        if(positions.size()>10){
             try {
                 computeTransportType();
             } catch (Exception e) {
@@ -216,6 +204,6 @@ public class TripSegment implements Savable {
     }
 
     public void mergeWithSegment(TripSegment source) {
-        this.timestampedPositionList.addAll(source.getPositionList());
+        this.positions.addAll(source.getPositionList());
     }
 }

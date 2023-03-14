@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,8 +13,6 @@ import java.util.Observer;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Button;
@@ -40,7 +36,6 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.Polygon;
 import org.osmdroid.views.overlay.Polyline;
 
 
@@ -69,6 +64,7 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
     MapView mapView;
     IMapController mapController;
 
+    final private Integer positionUpdateDelay = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +131,7 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
 
 
         selectedTracker = new AndroidUserTracker(this);
-        clock = new TrackerClock(selectedTracker);
+        clock = new TrackerClock(selectedTracker, positionUpdateDelay);
         trackerSwitched(false);
         clock.addObserver(this);
         user = new User();
@@ -244,7 +240,7 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         //System.out.println("displayCurrentTripOnMap");
         Trip currentTrip = user.getCurrentTrip();
         Polyline polyline = new Polyline();
-        for (TripSegment segment : currentTrip.getListOfTripSegments()) {
+        for (TripSegment segment : currentTrip.getTripSegments()) {
             for (TimestampedPosition position : segment.getPositionList()) {
                 points.add(new GeoPoint(position.getLatitude(), position.getLongitude()));
             }

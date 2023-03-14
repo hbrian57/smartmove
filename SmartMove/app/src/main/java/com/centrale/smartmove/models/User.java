@@ -16,13 +16,13 @@ import java.util.Date;
 
 
 public class User implements Savable {
-    ArrayList<Week> weeks;
-    ChallengeGenerator coach;
-    ArrayList<Challenge> onGoingChallenge;
-    ArrayList<Trip> userTrips;
-    Trip currentTrip;
-    TimestampedPosition lastPositionObtained;
-    boolean forceNewTrip = false;
+    private final ArrayList<Week> weeks;
+    private final ChallengeGenerator coach;
+    private final ArrayList<Challenge> onGoingChallenge;
+    private final ArrayList<Trip> userTrips;
+    private Trip currentTrip;
+    private TimestampedPosition lastPositionObtained;
+    private boolean forceNewTrip = false;
 
     /**
      * Constructor of a User with nothing in parameters
@@ -140,6 +140,7 @@ public class User implements Savable {
         return newWeek;
     }
 
+
     //Create a method that will be launched each time we get a new position
     //The method should check if the user is in a trip or not (based on lastpositionobtained timestamp) (5min with no position = end of trip)
     //If the user is in a trip, it should add the new position to the trip
@@ -151,6 +152,14 @@ public class User implements Savable {
             if (newPosition.getTimestamp().getTime() - lastPositionObtained.getTimestamp().getTime() < 5 * 60 * 1000) {
                 //Add the new position to the current trip
                 currentTrip.addPosition(newPosition);
+            }
+            else {
+                //Create a new trip Add the new position to the new trip
+                Trip newTrip = new Trip(newPosition);
+                //Add the new trip to the list of trips
+                userTrips.add(newTrip);
+                //Update the current trip
+                currentTrip = newTrip;
             }
         }
         //If the user is not in a trip or a new trip is forced

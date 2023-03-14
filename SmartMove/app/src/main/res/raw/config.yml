@@ -1,0 +1,26 @@
+## SMARTMOVE CONFIGURATION FILE
+## This file is used to configure the app
+## Here you can set default values for the app
+
+
+# APP CONFIGURATION
+
+# useGeolocLibTracker : If set to true, the app will use the GeolocLibTracker
+useGeolocLibTracker: false
+
+#positionUpdateClockDelay : The delay between each position update (in ms)
+positionUpdateClockDelay: 1000
+
+#numberOfPositionsInSegment : The number of positions in a segment
+numberOfPositionsInSegment: 60
+
+
+
+
+# DEBUG SECTION
+# debug : If set to true, the app will show the debugUS4 activity
+debug: false
+
+
+
+

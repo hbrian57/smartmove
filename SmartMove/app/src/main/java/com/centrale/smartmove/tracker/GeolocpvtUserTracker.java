@@ -39,10 +39,10 @@ import fr.ifsttar.geoloc.geoloclib.Options;
 import fr.ifsttar.geoloc.geoloclib.computations.GNSSPositioning;
 
 public class GeolocpvtUserTracker extends UserTracker{
-    double longitude;
-    double latitude;
-    double altitude;
-    GNSSPositioning positionTracker;
+    private double longitude;
+    private double latitude;
+    private double altitude;
+    private GNSSPositioning positionTracker;
     private Map<Integer, Map<Integer, Map<Integer,GnssNavigationMessage>>> mMapMessages;
     private GnssMeasurementsEvent.Callback mGnssMeasurementsEventCallback;
     private GnssNavigationMessage.Callback mGnssNavigationMessageCallback;
@@ -74,15 +74,7 @@ public class GeolocpvtUserTracker extends UserTracker{
     public double getLatitude() {
         return latitude;
     }
-    @Override
-    public double getAltitude() {
-        return altitude;
-    }
 
-    @Override
-    public String getFormattedName() {
-        return "Tracker GEOLOC-PVT";
-    }
 
     private Options getProcessingOptions() {
         Options options = new Options();

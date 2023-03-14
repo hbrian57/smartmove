@@ -3,56 +3,32 @@ package com.centrale.smartmove.models;
 import com.centrale.smartmove.R;
 import com.centrale.smartmove.Savable;
 
-import org.gogpsproject.positioning.Time;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Trip implements Savable {
 
-
-
     /**
      * Vector with all the little trips contained in the trip
      */
-    ArrayList<TripSegment> tripSegments;
+    private ArrayList<TripSegment> segmentsOfTrip;
 
-    Week weekOfTrip;
+    private Week weekOfTrip;
 
     /**
      * Constructor of a trip with nothing in parameters
      */
-    TripSegment currentTripSegment;
+    private TripSegment currentTripSegment;
 
     public Trip(TimestampedPosition newPosition) {
-        tripSegments = new ArrayList<>();
-        tripSegments.add(new TripSegment(newPosition));
-        currentTripSegment = tripSegments.get(0);
+        segmentsOfTrip = new ArrayList<>();
+        segmentsOfTrip.add(new TripSegment(newPosition));
+        currentTripSegment = segmentsOfTrip.get(0);
         weekOfTrip = new Week(newPosition.getTimestamp());
-    }
-
-    /**
-     * Constructor of a trip with nothing in parameters
-     */
-    public Week getWeekOfTrip() {
-        return weekOfTrip;
-    }
-
-    /**
-     * Constructor of a trip with nothing in parameters
-     */
-    public void setWeekOfTrip(Week weekOfTrip) {
-        this.weekOfTrip = weekOfTrip;
-    }
-
-    public Trip(TimestampedPosition firstPosition, Week weekOfTrip) {
-        this.weekOfTrip = weekOfTrip;
-        tripSegments = new ArrayList<>();
-        tripSegments.add(new TripSegment(firstPosition));
     }
 
     /**
@@ -60,25 +36,12 @@ public class Trip implements Savable {
      * @param listSegments list of the little trips contained in this trip
      */
     public Trip(ArrayList<TripSegment> listSegments) {
-        this.tripSegments = listSegments;
+        this.segmentsOfTrip = listSegments;
     }
 
 
-
-    public ArrayList<TripSegment> getListOfTripSegments() {
-        return tripSegments;
-    }
-
-    /**
-     * Get the first segment of the trip.
-     * @return the first segment.
-     * @throws Exception There is no segment in the trip.
-     */
-    public TripSegment getFirstSegment() throws Exception {
-        if(this.tripSegments.isEmpty()){
-            throw new Exception(String.valueOf(R.string.TripException));
-        }
-            return tripSegments.get(0);
+    public ArrayList<TripSegment> getTripSegments() {
+        return segmentsOfTrip;
     }
 
     /**
@@ -88,7 +51,7 @@ public class Trip implements Savable {
 
     public double getTripCO2Footprint()  {
         double sumCarbonFootprint = 0;
-        for (TripSegment segment : tripSegments) {
+        for (TripSegment segment : segmentsOfTrip) {
             sumCarbonFootprint += segment.calculateCO2footprint();
         }
         return sumCarbonFootprint;
@@ -102,7 +65,7 @@ public class Trip implements Savable {
     public JSONObject getSaveFormat() {
         JSONObject JSONTrip = new JSONObject();
         JSONArray JSONSegments = new JSONArray();
-        for (TripSegment segment : tripSegments) {
+        for (TripSegment segment : segmentsOfTrip) {
             JSONSegments.put(segment.getSaveFormat());
         }
         try {
@@ -124,7 +87,7 @@ public class Trip implements Savable {
         for (TransportType transportType : TransportType.values()) {
             tripSegmentsUsage.put(transportType, 0);
         }
-        for (TripSegment segment : tripSegments) {
+        for (TripSegment segment : segmentsOfTrip) {
             TransportType transportType = segment.getTransportType();
             tripSegmentsUsage.put(transportType, tripSegmentsUsage.get(transportType) + 1);
         }
@@ -140,7 +103,7 @@ public class Trip implements Savable {
         for (TransportType transportType : TransportType.values()) {
             tripSegmentsDistance.put(transportType, 0.0);
         }
-        for (TripSegment segment : tripSegments) {
+        for (TripSegment segment : segmentsOfTrip) {
             TransportType transportType = segment.getTransportType();
             tripSegmentsDistance.put(transportType, tripSegmentsDistance.get(transportType) + segment.calculateTotalDistance());
         }
@@ -153,12 +116,12 @@ public class Trip implements Savable {
     public void addPosition(TimestampedPosition newPosition) {
         if (currentTripSegment == null) {
             currentTripSegment = new TripSegment(newPosition);
-            tripSegments.add(currentTripSegment);
+            segmentsOfTrip.add(currentTripSegment);
         } else {
             if (currentTripSegment.getNumberOfPositions() > 60) {
                 currentTripSegment.setFinished();
                 currentTripSegment = new TripSegment(newPosition);
-                tripSegments.add(currentTripSegment);
+                segmentsOfTrip.add(currentTripSegment);
             } else {
                 currentTripSegment.addPosition(newPosition);
             }
@@ -167,20 +130,20 @@ public class Trip implements Savable {
 
     //Method that checks all the tripSegments, compute their transportType and merges two following tripSegments if they have the same transportType
     public void mergeTripSegmentsOnTransportType() throws Exception {
-        for (TripSegment segment : tripSegments) {
+        for (TripSegment segment : segmentsOfTrip) {
             segment.computeTransportType();
         }
-        for (int i = 0; i < tripSegments.size() - 1; i++) {
-            if (tripSegments.get(i).getTransportType() == tripSegments.get(i + 1).getTransportType()) {
-                tripSegments.get(i).mergeWithSegment(tripSegments.get(i + 1));
-                tripSegments.remove(i + 1);
+        for (int i = 0; i < segmentsOfTrip.size() - 1; i++) {
+            if (segmentsOfTrip.get(i).getTransportType() == segmentsOfTrip.get(i + 1).getTransportType()) {
+                segmentsOfTrip.get(i).mergeWithSegment(segmentsOfTrip.get(i + 1));
+                segmentsOfTrip.remove(i + 1);
                 i--;
             }
         }
     }
 
     public int getNumberOfSegments() {
-        return tripSegments.size();
+        return segmentsOfTrip.size();
     }
 
     public TripSegment getCurrentSegment() {

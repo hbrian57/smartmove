@@ -1,7 +1,8 @@
 package com.centrale.test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import com.centrale.smartmove.models.TimestampedPosition;
 import com.centrale.smartmove.models.TransportType;
@@ -19,15 +20,14 @@ public class TripTest {
     /**
      * Test de la méthode GetTRipCO2Footprint pour un cas classique
      * Résultat attendu: (TransportType.BIKE.getCO2param() * bikeSegment.calculateTotalDistance())
-     *                 + (TransportType.CAR.getCO2param() * carSegment.calculateTotalDistance()) + (TransportType.WALKING.getCO2param() * footSegment.calculateTotalDistance()) ;
-     *
+     * + (TransportType.CAR.getCO2param() * carSegment.calculateTotalDistance()) + (TransportType.WALKING.getCO2param() * footSegment.calculateTotalDistance()) ;
      */
     // Test classique avec trois voyages: OK
     @Test
     public void testGetTripCO2FootprintClassicCase() throws Exception {
 
         //Le voyage en vélo
-        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<>();
+        LinkedList<TimestampedPosition> listOfPosition = new LinkedList<>();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LinkedList<TimestampedPosition> bikePositions = new LinkedList<>();
         bikePositions.add(new TimestampedPosition(0, 0, timestamp));
@@ -56,7 +56,7 @@ public class TripTest {
 
         // On a déjà testé la fonction calculate donc je peux l'utiliser là.
         double expectedCO2Footprint = (TransportType.BIKE.getCO2param() * bikeSegment.calculateTotalDistance())
-                + (TransportType.CAR.getCO2param() * carSegment.calculateTotalDistance()) + (TransportType.WALKING.getCO2param() * footSegment.calculateTotalDistance()) ;
+                + (TransportType.CAR.getCO2param() * carSegment.calculateTotalDistance()) + (TransportType.WALKING.getCO2param() * footSegment.calculateTotalDistance());
         double actualCO2Footprint = trip.getTripCO2Footprint();
 
         assertEquals(expectedCO2Footprint, actualCO2Footprint, 5);
@@ -72,7 +72,7 @@ public class TripTest {
     public void testGetTripCO2FootprintDistanceNul() throws Exception {
 
         //Le voyage en vélo
-        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<>();
+        LinkedList<TimestampedPosition> listOfPosition = new LinkedList<>();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LinkedList<TimestampedPosition> bikePositions = new LinkedList<>();
         bikePositions.add(new TimestampedPosition(0, 0, timestamp));
@@ -113,7 +113,7 @@ public class TripTest {
     public void testGetTripCO2FootprintExceptionNegative() throws Exception {
 
         //Un seul voyage
-        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<>();
+        LinkedList<TimestampedPosition> listOfPosition = new LinkedList<>();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LinkedList<TimestampedPosition> bikePositions = new LinkedList<>();
         bikePositions.add(new TimestampedPosition(0, 0, timestamp));
@@ -142,7 +142,7 @@ public class TripTest {
     @Test
     public void testGetTripCO2FootprintExceptionDegreeTooHigh() throws Exception {
 
-        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<>();
+        LinkedList<TimestampedPosition> listOfPosition = new LinkedList<>();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         //Un seul voyage
         LinkedList<TimestampedPosition> bikePositions = new LinkedList<>();

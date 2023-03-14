@@ -31,9 +31,6 @@ public class ChallengeGenerator {
         challenge.getGoal().setGoalFinal(5.0);// A VERIFIER
         // progression
         challenge.setProgression(70.0);
-        // Date
-        Date today = new Date();
-        challenge.setChallengeBeginning(today);
 
         // Title A FAIRE EN FONCTION DES DEFIS
         challenge.setTitle(R.string.challenge_title);

@@ -23,12 +23,11 @@ import java.util.HashMap;
 
 
 public class Challenge {
-    @StringRes int title;
-    @StringRes int description;
-    Double progression;
-    ChallengeGoal goal;
-    Date challengeBeginning;
-    @DrawableRes int icon;
+    private @StringRes int title;
+    private @StringRes int description;
+    private Double progression;
+    private ChallengeGoal goal;
+    private @DrawableRes int icon;
 
     /**
      * Challenge constructor.
@@ -39,12 +38,11 @@ public class Challenge {
      * @param challengeBeginning the date of beginning of the challenge
      * @param icon the icon of the challenge (resource id)
      */
-    public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, Date challengeBeginning, int icon) {
+    public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, int icon) {
         this.title = title;
         this.description = description;
         this.progression = progression;
         this.goal = goal;
-        this.challengeBeginning = challengeBeginning;
         this.icon = icon;
     }
 
@@ -56,16 +54,7 @@ public class Challenge {
         this.description = R.string.challenge_description;
         this.progression = 0.0;
         this.goal = new ChallengeGoal();
-        this.challengeBeginning = new Date();
         this.icon = R.drawable.travel;
-    }
-
-    /**
-     * Set challenge beginning.
-     * @param challengeBeginning the date of beginning of the challenge
-     */
-    public void setChallengeBeginning(Date challengeBeginning) {
-        this.challengeBeginning = challengeBeginning;
     }
 
     /**

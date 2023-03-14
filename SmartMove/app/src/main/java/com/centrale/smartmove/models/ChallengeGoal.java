@@ -1,9 +1,9 @@
 package com.centrale.smartmove.models;
 
 public class ChallengeGoal {
-    GoalType type;
-    Double goalFinal;
-    TransportType transportType;
+    private GoalType type;
+    private Double goalFinal;
+    private TransportType transportType;
 
     /**
      * Challenge Goal Constructor.

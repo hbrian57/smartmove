@@ -17,7 +17,7 @@ public class Week implements Savable {
     /**
      * Calendar object to compute Date & Time transformations.
      */
-    Calendar calendar;
+    private Calendar calendar;
 
 
     /** Constructor that creates a week based on a date of a day in the week.

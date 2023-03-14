@@ -1,11 +1,9 @@
 package com.centrale.test;
-import static org.junit.Assert.*;
 
 import com.centrale.smartmove.models.TimestampedPosition;
 import com.centrale.smartmove.models.TransportType;
 import com.centrale.smartmove.models.Trip;
 import com.centrale.smartmove.models.TripSegment;
-import com.centrale.smartmove.models.Week;
 
 import org.junit.Test;
 
@@ -18,12 +16,14 @@ public class WeekTest {
     /**
      * Test de la méthode GetTotalCO2Footprint dans le cas static
      * Résultat attendu: 0
-     * @throws Exception*/
+     *
+     * @throws Exception
+     */
 
     @Test
     public void testGetTotalCO2FootprintCaseStatic() throws Exception {
         //Le voyage 1
-        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<>();
+        LinkedList<TimestampedPosition> listOfPosition = new LinkedList<>();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LinkedList<TimestampedPosition> bikePositions = new LinkedList<>();
         bikePositions.add(new TimestampedPosition(0, 0, timestamp));
@@ -40,7 +40,7 @@ public class WeekTest {
         ArrayList<TripSegment> tripSegments1 = new ArrayList<>();
         tripSegments1.add(tripsegm1);
         tripSegments1.add(tripsegm2);
-        Trip trip1= new Trip(tripSegments1);
+        Trip trip1 = new Trip(tripSegments1);
 
 
         //Le voyage 3
@@ -59,7 +59,7 @@ public class WeekTest {
         ArrayList<TripSegment> tripSegments2 = new ArrayList<>();
         tripSegments1.add(tripsegm3);
         tripSegments1.add(tripsegm4);
-        Trip trip2= new Trip(tripSegments2);
+        Trip trip2 = new Trip(tripSegments2);
 
         //Création de la week
         ArrayList trips = new ArrayList<Trip>();
@@ -77,12 +77,14 @@ public class WeekTest {
     /**
      * Test de la méthode GetTotalCO2Footprint dans le cas où on a pris des valeurs au hasard
      * Résultat attendu: 1269198
-     * @throws Exception*/
+     *
+     * @throws Exception
+     */
 
     @Test
     public void testGetTotalCO2FootprintCaseRandom() throws Exception {
         //Le voyage 1
-        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<>();
+        LinkedList<TimestampedPosition> listOfPosition = new LinkedList<>();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LinkedList<TimestampedPosition> bikePositions1 = new LinkedList<>();
         bikePositions1.add(new TimestampedPosition(0, 0, timestamp));
@@ -99,7 +101,7 @@ public class WeekTest {
         ArrayList<TripSegment> tripSegments1 = new ArrayList<>();
         tripSegments1.add(tripsegm1);
         tripSegments1.add(tripsegm2);
-        Trip trip1= new Trip(tripSegments1);
+        Trip trip1 = new Trip(tripSegments1);
 
 
         //Le voyage 3
@@ -118,7 +120,7 @@ public class WeekTest {
         ArrayList<TripSegment> tripSegments2 = new ArrayList<>();
         tripSegments1.add(tripsegm3);
         tripSegments1.add(tripsegm4);
-        Trip trip2= new Trip(tripSegments2);
+        Trip trip2 = new Trip(tripSegments2);
 
         //Création de la week
         ArrayList trips = new ArrayList<Trip>();

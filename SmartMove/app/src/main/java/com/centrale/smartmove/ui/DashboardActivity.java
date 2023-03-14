@@ -24,48 +24,78 @@ import com.centrale.smartmove.tracker.TrackerClock;
 import com.centrale.smartmove.models.User;
 import com.centrale.smartmove.tracker.AndroidUserTracker;
 
+import org.yaml.snakeyaml.Yaml;
+
+import java.io.InputStream;
+import java.util.Map;
+
 public class DashboardActivity extends AppCompatActivity  {
-    User user;
-    Double displayedCarbonFootprint;
 
-    TrackerClock tracker;
+    private User user; // L'utilisateur de l'application
+    private Double displayedCarbonFootprint; // L'empreinte carbone affichée
+    ImageView navToEquivalent; // L'image qui permet de naviguer vers la page d'empreinte carbone
 
-    public boolean GeolocSwitch = true; //True makes the app use GeolocPVT, false makes it use Android's default library
-    AndroidUserTracker trackerAndroid;
-    GeolocpvtUserTracker trackerGeoloc;
-
-    ImageView navToEquivalent;
+    //Data du fichier config
+    private boolean geolocSwitch;
+    private Integer positionUpdateDelay;
+    private Integer numberOfPositionsInSegments;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        readConfigFile();
         setContentView(R.layout.activity_dashboard);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_BACKGROUND_LOCATION},
                 PackageManager.PERMISSION_GRANTED);
-        ImageView navToHere = findViewById(R.id.imageViewNavToCarbonEquivalent);
-        navToHere.setVisibility(View.VISIBLE);
         user = new User();
         //add 3 challenges for testing
         for (int i = 0; i < 3; i++) {
             user.getNewChallenge();
         }
-
         navToEquivalent = findViewById(R.id.imageViewNavToCarbonEquivalent);
         navToEquivalent.setOnClickListener(v -> {
             clickOpenCarbonEquivalentPage();
         });
+        navToEquivalent.setVisibility(View.VISIBLE);
         displayCarbonFootprint();
         displayChallenges();
-        trackerAndroid = new AndroidUserTracker(this);
-        trackerGeoloc = new GeolocpvtUserTracker(this);
-        if (GeolocSwitch) {
-            tracker = new TrackerClock(trackerGeoloc);
+        AndroidUserTracker trackerAndroid = new AndroidUserTracker(this);
+        GeolocpvtUserTracker trackerGeoloc = new GeolocpvtUserTracker(this);
+        // La clock qui gère le tracker
+        TrackerClock tracker;
+        if (geolocSwitch) {
+            tracker = new TrackerClock(trackerGeoloc, positionUpdateDelay);
         } else {
-            tracker = new TrackerClock(trackerAndroid);
+            tracker = new TrackerClock(trackerAndroid, positionUpdateDelay);
+        }
+
+    }
+
+    private void readConfigFile() {
+        //Open the config file from raw ressource
+        InputStream inputStream = getResources().openRawResource(R.raw.config);
+        Yaml yaml = new Yaml();
+        //Load the file into a map
+        Map<String,Object> configResult = (Map) yaml.load(inputStream);
+        for (Map.Entry<String,Object> entry : configResult.entrySet()) {
+            //Get the key and the value
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            switch(key) {
+                case "geoloc":
+                    geolocSwitch = (boolean) value;
+                    break;
+                case "positionUpdateClockDelay" :
+                    positionUpdateDelay = (Integer) value;
+                    break;
+                case "numberOfPositionsInSegment":
+                    numberOfPositionsInSegments = (Integer) value;
+                    break;
+            }
         }
 
     }
@@ -93,10 +123,9 @@ public class DashboardActivity extends AppCompatActivity  {
     }
 
     /**
-     * Method to sned the user to the view of the carbon equivalent.
-     * @param v the main view
+     * Method to send the user to the view of the carbon equivalent.
      */
-    public void clickOpenCarbonEquivalentPage(){
+    private void clickOpenCarbonEquivalentPage(){
         Intent intent = new Intent(this, ActivityCarbonEquivalent.class);
         intent.putExtra(getString(R.string.displayed_carbon_footprint), displayedCarbonFootprint);
         startActivity(intent);;
@@ -105,7 +134,7 @@ public class DashboardActivity extends AppCompatActivity  {
     /**
      * Methode to display the carbon footprint.
      */
-    public void displayCarbonFootprint(){
+    private void displayCarbonFootprint(){
        // Double carbonFootprint = user.calculateCurrentWeekCarbonFootprint();
         displayedCarbonFootprint = 3.0;
         TextView textView = findViewById(R.id.impactTextDashboard);

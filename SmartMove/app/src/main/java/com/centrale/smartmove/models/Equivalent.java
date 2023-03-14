@@ -49,7 +49,7 @@ public class Equivalent {
 
     private String sentenceEq;
     private double ratioEq;
-    int imageID;
+    private int imageID;
 
     //Constructors----------------------------------------------------------------------------------
 
@@ -59,10 +59,10 @@ public class Equivalent {
         this.imageID=  R.drawable.repavege;
     }
 
-    public Equivalent(String sentence,double ratio, int im_id){
+    public Equivalent(String sentence,double ratio, int imageRessourceID){
         this.sentenceEq=sentence;
         this.ratioEq=ratio;
-        this.imageID=im_id;
+        this.imageID=imageRessourceID;
     }
 
 //Getters and setters---------------------------------------------------------------------------
@@ -71,20 +71,12 @@ public class Equivalent {
         return ratioEq;
     }
 
-    public void setRatioEq(double ratioEq) {
-        this.ratioEq = ratioEq;
-    }
-
     public String getSentenceEq() {
         return sentenceEq;
     }
 
     public int getImageID() {
         return imageID;
-    }
-
-    public void setSentenceEq(String sentenceEq) {
-        this.sentenceEq = sentenceEq;
     }
 
 

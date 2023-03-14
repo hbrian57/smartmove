@@ -1,6 +1,5 @@
 package com.centrale.smartmove.models;
 
-import com.centrale.smartmove.R;
 import com.centrale.smartmove.Savable;
 import org.osmdroid.util.GeoPoint;
 import org.json.JSONException;
@@ -10,8 +9,6 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 
 
 public class TimestampedPosition implements Savable {
@@ -24,12 +21,12 @@ public class TimestampedPosition implements Savable {
     /**
      * Date corresponding to exact moment the position is taken
      */
-    Timestamp timestamp;
+    private Timestamp timestamp;
 
 
     public TimestampedPosition(TimestampedPosition newPosition) {
         this.geoCoordinates = newPosition.geoCoordinates;
-        this.timestamp = newPosition.getDateOfCapture();
+        this.timestamp = newPosition.getTimeStamp();
     }
 
     private double getAltitude() {
@@ -45,7 +42,7 @@ public class TimestampedPosition implements Savable {
     }
 
 
-    public Timestamp getDateOfCapture() {
+    public Timestamp getTimeStamp() {
         return timestamp;
     }
 
@@ -67,10 +64,6 @@ public class TimestampedPosition implements Savable {
         this.timestamp = date;
     }
 
-    public void setDateOfCapture(Timestamp dateOfCapture) {
-        this.timestamp = dateOfCapture;
-    }
-
     /**
      * Fonction calculant la distance entre deux positions
      * @param targetPosition la position avec laquelle on veut calculer la distance
@@ -81,11 +74,9 @@ public class TimestampedPosition implements Savable {
      * @throws Exception si la latitude est inférieure à -180°
      * @throws Exception si une des coordonnées est vide
      */
-    public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
+    public double getDistanceToPosition(TimestampedPosition targetPosition) throws Exception {
         return this.geoCoordinates.distanceToAsDouble(targetPosition.geoCoordinates);
     }
-
-
 
     /**
      * Calculates the velocity between two TimestampedPosition
@@ -100,10 +91,11 @@ public class TimestampedPosition implements Savable {
         LocalDateTime dateTime2 = LocalDateTime.ofInstant(secondPosition.timestamp.toInstant(), ZoneId.systemDefault());
         Duration duration = Duration.between(dateTime1, dateTime2);
         long timeBetweenPoints = duration.getSeconds();
-        double distanceBetweenPoints = this.calculateDistance(secondPosition);
+        double distanceBetweenPoints = this.getDistanceToPosition(secondPosition);
         velocity=distanceBetweenPoints/timeBetweenPoints;
         return velocity;
     }
+
     public void set(double latitude, double longitude) {
         this.geoCoordinates.setCoords(latitude,longitude);
         this.timestamp = new Timestamp(System.currentTimeMillis());

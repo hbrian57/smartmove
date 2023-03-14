@@ -11,12 +11,12 @@ public enum TransportType {
     WALKING(R.string.transportTypeFoot, 0.1f);
 
     /** String corresponding to the name of the transport */
-    @StringRes Integer nameTransport;
+    private final @StringRes Integer nameTransport;
 
 
 
     /** Float corresponding to the consumption of CO2 of the transport */
-    float CO2param;
+    private final float CO2param;
 
     /** Constructor of a mean of transport with two parameters: its name and its consumption of CO2
      * @param name name of the mean of transport

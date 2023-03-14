@@ -11,14 +11,13 @@ import java.util.TimerTask;
 public class TrackerClock extends Observable {
 
     //Fréquence de rafraichissement de la position
-    Integer positionUpdateDelayMillis = 1000;
     //Résultat du tracker
     TimestampedPosition trackerResult;
     //Timer de rafraichissement de la position
     Timer timer;
     UserTracker tracker;
 
-    public TrackerClock(UserTracker initializedTracker) {
+    public TrackerClock(UserTracker initializedTracker, Integer positionUpdateDelayMillis) {
         super();
         tracker = initializedTracker;
         long milliseconds = System.currentTimeMillis();
