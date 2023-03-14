@@ -27,12 +27,12 @@ public class TimestampedPositionTest {
      */
     @Test
     public void test0000CalculateDistance() throws Exception {
-        //TODO: on fait quoi de la hauteur, tout le temps à zéro ?
-        TimestampedPosition position1 = new TimestampedPosition(0, 0);
-        TimestampedPosition position2 = new TimestampedPosition(0, 0);
+        TimestampedPosition position1 = new TimestampedPosition(0., 0.);
+        TimestampedPosition position2 = new TimestampedPosition(0., 0.);
         // Cas : 0 0 0 avec 0 0 0
+
         double result = position1.calculateDistance(position2);
-        assertEquals(0, result, 0.01);
+        assertEquals(0., result, 0.01);
     }
 
     /**Test de base entre latitude 10 longitude 0 et latitude 0 longitude 0.

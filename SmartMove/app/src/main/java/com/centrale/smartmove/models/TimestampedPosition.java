@@ -56,12 +56,14 @@ public class TimestampedPosition implements Savable {
      * @param longi longitude
      */
     public TimestampedPosition(double lati, double longi) {
-        this.geoCoordinates.setCoords(lati,longi);
+        GeoPoint geoPoint = new GeoPoint(lati,longi);
+        this.geoCoordinates= geoPoint;
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public TimestampedPosition(double lati, double longi, Timestamp date) {
-        this.geoCoordinates.setCoords(lati,longi);
+        GeoPoint geoPoint = new GeoPoint(lati,longi);
+        this.geoCoordinates= geoPoint;
         this.timestamp = date;
     }
 
@@ -80,28 +82,10 @@ public class TimestampedPosition implements Savable {
      * @throws Exception si une des coordonnées est vide
      */
     public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
-        if((targetPosition.getAltitude()>90) || (this.getAltitude()>90))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException90deg));}
-        if((targetPosition.getLongitude()>180) || (this.getLongitude()>180))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException180));}
-        if((targetPosition.getLatitude()<-90) || (this.getLatitude()<-90))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException90Moins));}
-        if((targetPosition.getLongitude()<-180) || (this.getLongitude()<-180))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException180Moins));}
-        else{
+        return this.geoCoordinates.distanceToAsDouble(targetPosition.geoCoordinates);
+    }
 
-        final int R = 6371000; // Radius of the earth
-        double deltaLatitude = Math.toRadians(targetPosition.getLatitude() - this.getLatitude());
-        double deltaLongitude = Math.toRadians(targetPosition.getLongitude() - this.getLongitude());
-        double a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2)
-            + Math.cos(Math.toRadians(this.getLatitude())) * Math.cos(Math.toRadians(targetPosition.getLatitude()))
-            * Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c;
-        double deltaAltitude = this.getAltitude() - targetPosition.getAltitude();
-        distance = Math.pow(distance, 2) + Math.pow(deltaAltitude, 2);
-        return Math.sqrt(distance);
-    }}
+
 
     /**
      * Calculates the velocity between two TimestampedPosition
