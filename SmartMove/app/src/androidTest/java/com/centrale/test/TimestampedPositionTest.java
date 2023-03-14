@@ -14,6 +14,8 @@ import org.junit.rules.ExpectedException;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import java.sql.Timestamp;
+
 
 public class TimestampedPositionTest {
 
@@ -81,8 +83,10 @@ public class TimestampedPositionTest {
     // Cas où une des latitudes est >90°
     @Test
     public void testExceptionLatSup() throws Exception {
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
-        TimestampedPosition position2 = new TimestampedPosition(1000, 20, 0);
+        long milliseconds = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(milliseconds);
+        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
+        TimestampedPosition position2 = new TimestampedPosition(1000, 20, timestamp);
         try {
             double result = position1.calculateDistance(position2);
         } catch (Exception e) {
@@ -96,8 +100,10 @@ public class TimestampedPositionTest {
     // Cas où une des latitudes est<-90°
     @Test
     public void testExceptionLatInf() throws Exception {
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
-        TimestampedPosition position2 = new TimestampedPosition(-100, 20, 0);
+        long milliseconds = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(milliseconds);
+        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
+        TimestampedPosition position2 = new TimestampedPosition(-100, 20, timestamp);
         try {
             double result = position1.calculateDistance(position2);
         } catch (Exception e) {
@@ -109,8 +115,10 @@ public class TimestampedPositionTest {
      */
     @Test
     public void testExceptionLongSup() throws Exception {
-        TimestampedPosition position1 = new TimestampedPosition(45, 190, 0);
-        TimestampedPosition position2 = new TimestampedPosition(45, 20, 0);
+        long milliseconds = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(milliseconds);
+        TimestampedPosition position1 = new TimestampedPosition(45, 190, timestamp);
+        TimestampedPosition position2 = new TimestampedPosition(45, 20, timestamp);
         try {
             double result = position1.calculateDistance(position2);
         } catch (Exception e) {
@@ -124,8 +132,10 @@ public class TimestampedPositionTest {
     // Cas où une des latitudes est<-90°
     @Test
     public void testExceptionLongInf() throws Exception {
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
-        TimestampedPosition position2 = new TimestampedPosition(0, -200, 0);
+        long milliseconds = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(milliseconds);
+        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
+        TimestampedPosition position2 = new TimestampedPosition(0, -200, timestamp);
         try {
             double result = position1.calculateDistance(position2);
         } catch (Exception e) {
@@ -136,8 +146,10 @@ public class TimestampedPositionTest {
     //TODO: le cas d'un paramètre NULL on a jamais reglé le problème
     @Test
     public void testException3CalculateDistance() throws Exception {
-        TimestampedPosition position1 = new TimestampedPosition(45, 18, 0);
-        TimestampedPosition position2 = new TimestampedPosition(NULL, 20, 0);
+        long milliseconds = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(milliseconds);
+        TimestampedPosition position1 = new TimestampedPosition(45, 18, timestamp);
+        TimestampedPosition position2 = new TimestampedPosition(NULL, 20, timestamp);
 
         // Cas au exception coordonnée NULL
         double result = position1.calculateDistance(position2);

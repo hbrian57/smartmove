@@ -1,5 +1,6 @@
 package com.centrale.smartmove.tracker;
 
+import java.sql.Timestamp;
 import java.util.Observable;
 import java.util.Observer;
 import com.centrale.smartmove.models.TimestampedPosition;
@@ -20,7 +21,9 @@ public class TrackerClock extends Observable {
     public TrackerClock(UserTracker initializedTracker) {
         super();
         tracker = initializedTracker;
-        trackerResult = new TimestampedPosition(0.0,0.0, 0);
+        long milliseconds = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(milliseconds);
+        trackerResult = new TimestampedPosition(0.0,0.0, timestamp);
         timer = new Timer();
         TimerTask runUpdatePosition = new TimerTask() {
             @Override

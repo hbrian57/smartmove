@@ -6,6 +6,7 @@ import org.osmdroid.util.GeoPoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -23,7 +24,7 @@ public class TimestampedPosition implements Savable {
     /**
      * Date corresponding to exact moment the position is taken
      */
-    Calendar timestamp;
+    Timestamp timestamp;
 
 
     public TimestampedPosition(TimestampedPosition newPosition) {
@@ -44,7 +45,7 @@ public class TimestampedPosition implements Savable {
     }
 
 
-    public Calendar getDateOfCapture() {
+    public Timestamp getDateOfCapture() {
         return timestamp;
     }
 
@@ -56,15 +57,15 @@ public class TimestampedPosition implements Savable {
      */
     public TimestampedPosition(double lati, double longi) {
         this.geoCoordinates.setCoords(lati,longi);
-        this.timestamp = Calendar.getInstance();
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public TimestampedPosition(double lati, double longi, Calendar date) {
+    public TimestampedPosition(double lati, double longi, Timestamp date) {
         this.geoCoordinates.setCoords(lati,longi);
         this.timestamp = date;
     }
 
-    public void setDateOfCapture(Calendar dateOfCapture) {
+    public void setDateOfCapture(Timestamp dateOfCapture) {
         this.timestamp = dateOfCapture;
     }
 
@@ -121,7 +122,7 @@ public class TimestampedPosition implements Savable {
     }
     public void set(double latitude, double longitude) {
         this.geoCoordinates.setCoords(latitude,longitude);
-        this.timestamp = Calendar.getInstance();
+        this.timestamp = new Timestamp(System.currentTimeMillis());
 
     }
 
@@ -149,7 +150,7 @@ public class TimestampedPosition implements Savable {
      * Get the date of the TimeStampedPosition object.
      * @return the date.
      */
-    public Calendar getTimestamp() {
+    public Timestamp getTimestamp() {
         return this.timestamp;
     }
 

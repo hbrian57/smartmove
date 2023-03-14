@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,12 +23,12 @@ public class Week implements Savable {
     /** Constructor that creates a week based on a date of a day in the week.
      * @param dayInWeek the date of week;
      */
-    public Week(Calendar dayInWeek) {
-        this.calendar=dayInWeek;
-//        calendar = Calendar.getInstance();
-//        calendar.setTime(dayInWeek);
-//        //set the calendar to the first day of the week
-//        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+    public Week(Timestamp dayInWeek) {
+
+   calendar = Calendar.getInstance();
+   calendar.setTimeInMillis(dayInWeek.getTime());
+        //set the calendar to the first day of the week
+     calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
     }
 
 
