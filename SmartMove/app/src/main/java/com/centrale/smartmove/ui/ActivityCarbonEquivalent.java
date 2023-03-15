@@ -52,7 +52,7 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
      */
     public void getListImage() {
         Resources res = getResources();
-        //open the raw ressource file equivalentsCarbone.json
+        //open the raw ressource file equivalentscarbone.json
         //Create a json object based on this file
         //parse it and create multiple equivalents objects to update listCarbonEquivalent with its content
 

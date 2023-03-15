@@ -1,0 +1,55 @@
+{
+  "equivalents" : [
+
+    {
+      "sentence": "@string/repas_vege",
+      "ratio" : "@string/repavege_ratio",
+      "imageId" : "@drawable/repavege"
+    },
+    {
+      "sentence": "@string/kms_en_tgv",
+      "ratio" : "@string/tgv_ratio",
+      "imageId" : "@drawable/tgv"
+    },
+    {
+      "sentence": "@string/tshirt_en_coton",
+      "ratio" : "@string/tee_ratio",
+      "imageId" : "@drawable/tee"
+    },
+    {
+      "sentence": "@string/feuilles_de_papier",
+      "ratio" : "@string/feuille_ratio",
+      "imageId" : "@drawable/feuille"
+    },
+    {
+      "sentence": "@string/bouteilles_d_eau",
+      "ratio" : "@string/bouteille_ratio",
+      "imageId" : "@drawable/bouteille"
+    },
+    {
+      "sentence": "@string/kilos_de_volaille",
+      "ratio" : "@string/prodvol_ratio",
+      "imageId" : "@drawable/prodvol"
+    },
+    {
+      "sentence": "@string/pomme2terre",
+      "ratio" : "@string/prodpatate_ratio",
+      "imageId" : "@drawable/prodpatate"
+    },
+    {
+      "sentence": "@string/kg_2_pain",
+      "ratio" : "@string/prodpain_ratio",
+      "imageId" : "@drawable/prodpain"
+    },
+    {
+      "sentence": "@string/kwh_elec",
+      "ratio" : "@string/consoelec_ratio",
+      "imageId" : "@drawable/consoelec"
+    },
+    {
+      "sentence": "@string/gobelets_cafe",
+      "ratio" : "@string/gobcafe_ratio",
+      "imageId" : "@drawable/gobcafe"
+    }
+  ]
+}
