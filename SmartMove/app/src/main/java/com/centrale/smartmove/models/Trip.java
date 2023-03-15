@@ -9,8 +9,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
-public class Trip implements Savable {
+public class Trip  implements Savable {
 
     /**
      * Vector with all the little trips contained in the trip
@@ -18,6 +19,7 @@ public class Trip implements Savable {
     private ArrayList<TripSegment> segmentsOfTrip;
 
     private Week weekOfTrip;
+
 
     /**
      * Constructor of a trip with nothing in parameters
@@ -150,5 +152,16 @@ public class Trip implements Savable {
         return currentTripSegment;
     }
 
+    public Week getWeek() {
+        return weekOfTrip;
+    }
+
+    public double getTotalCarbonFootprint() {
+        double totalCarbonFootprint = 0;
+        for (TripSegment segment : segmentsOfTrip) {
+            totalCarbonFootprint += segment.calculateCO2footprint();
+        }
+        return totalCarbonFootprint;
+    }
 
 }

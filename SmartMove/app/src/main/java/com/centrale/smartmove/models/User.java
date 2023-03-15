@@ -12,7 +12,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+import java.util.Observable;
+import java.util.Observer;
 
 
 public class User implements Savable {
@@ -154,12 +155,14 @@ public class User implements Savable {
                 currentTrip.addPosition(newPosition);
             }
             else {
+                onTripFinished(currentTrip);
                 //Create a new trip Add the new position to the new trip
                 Trip newTrip = new Trip(newPosition);
                 //Add the new trip to the list of trips
                 userTrips.add(newTrip);
                 //Update the current trip
                 currentTrip = newTrip;
+
             }
         }
         //If the user is not in a trip or a new trip is forced
@@ -175,6 +178,13 @@ public class User implements Savable {
         }
         //Update the last position obtained
         lastPositionObtained = newPosition;
+    }
+
+    private void onTripFinished(Trip currentTrip) {
+        //Update the challenges
+        updateOnGoingChallenge(currentTrip);
+        //calculer le CO2 et l'ajouter dans la week du Trip
+        currentTrip.getWeek().addCarbonFootprint(currentTrip.getTotalCarbonFootprint());
     }
 
     public Trip getCurrentTrip() {

@@ -19,6 +19,18 @@ public class Week implements Savable {
      */
     private Calendar calendar;
 
+    private double carbonFootprint;
+
+    public double getCarbonFootprint() {
+        return carbonFootprint;
+    }
+
+    public void setCarbonFootprint(double carbonFootprint) {
+        this.carbonFootprint = carbonFootprint;
+    }
+    public void addCarbonFootprint(double newCarbonFootprintToAdd) {
+        this.carbonFootprint += newCarbonFootprintToAdd;
+    }
 
     /** Constructor that creates a week based on a date of a day in the week.
      * @param dayInWeek the date of week;
