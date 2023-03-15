@@ -1,0 +1,14 @@
+{
+  "equivalents" : [
+    {
+      "sentence": "La phrase de l'équivalent",
+      "ratio" : 0.8,
+      "imageId" : "@drawable/bouteille"
+    },
+    {
+      "sentence": "La phrase de l'équivalent",
+      "ratio" : 0.8,
+      "imageId" : "@drawable/bouteille"
+    }
+  ]
+}

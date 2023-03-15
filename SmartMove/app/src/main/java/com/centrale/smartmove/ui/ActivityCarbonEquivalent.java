@@ -52,6 +52,10 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
      */
     public void getListImage() {
         Resources res = getResources();
+        //open the raw ressource file equivalentsCarbone.json
+        //Create a json object based on this file
+        //parse it and create multiple equivalents objects to update listCarbonEquivalent with its content
+
         if (listCarbonEquivalent == null) {
             this.listCarbonEquivalent = new ArrayList<>();
             Equivalent e2 = new Equivalent(getString(R.string.repas_vege),parseDouble(getString(R.string.repavege_ratio)), R.drawable.repavege);
@@ -75,6 +79,8 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
             Equivalent e11 = new Equivalent(getString(R.string.gobelets_cafe),parseDouble(getString(R.string.gobcafe_ratio)),R.drawable.gobcafe);
             this.listCarbonEquivalent.add(e11);
         }
+
+
     }
 
     /**
