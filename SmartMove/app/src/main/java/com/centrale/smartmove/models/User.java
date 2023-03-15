@@ -72,6 +72,12 @@ public class User implements Savable {
     public void addNewTrip(Trip trip)  {
         userTrips.add(trip);
         updateOnGoingChallenge(trip);
+        Timestamp dateSemaine = trip.getTripSegments().get(0).getPositionList().getFirst().getTimestamp();
+        for(Week w : weeks){
+            if(w.isInWeek(new Date(dateSemaine.getTime()))){
+                trip.setWeekOfTrip(w);
+            }
+        }
     }
 
 
