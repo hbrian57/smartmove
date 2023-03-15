@@ -65,6 +65,7 @@ public class Equivalent {
         this.imageID=imageRessourceID;
     }
 
+
 //Getters and setters---------------------------------------------------------------------------
 
     public double getRatioEq() {

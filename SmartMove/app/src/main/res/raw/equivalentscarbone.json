@@ -2,53 +2,53 @@
   "equivalents" : [
 
     {
-      "sentence": "@string/repas_vege",
-      "ratio" : "@string/repavege_ratio",
+      "sentence": "repas végétariens",
+      "ratio" : 1.961,
       "imageId" : "@drawable/repavege"
     },
     {
-      "sentence": "@string/kms_en_tgv",
-      "ratio" : "@string/tgv_ratio",
+      "sentence": "kms en TGV",
+      "ratio" : 578.035,
       "imageId" : "@drawable/tgv"
     },
     {
-      "sentence": "@string/tshirt_en_coton",
-      "ratio" : "@string/tee_ratio",
+      "sentence": "t-shirts en coton",
+      "ratio" : 0.192,
       "imageId" : "@drawable/tee"
     },
     {
-      "sentence": "@string/feuilles_de_papier",
-      "ratio" : "@string/feuille_ratio",
+      "sentence": "feuilles de papier",
+      "ratio" : 218.141,
       "imageId" : "@drawable/feuille"
     },
     {
-      "sentence": "@string/bouteilles_d_eau",
-      "ratio" : "@string/bouteille_ratio",
+      "sentence": "bouteilles d'eau produites",
+      "ratio" : 2.208,
       "imageId" : "@drawable/bouteille"
     },
     {
-      "sentence": "@string/kilos_de_volaille",
-      "ratio" : "@string/prodvol_ratio",
+      "sentence": "kilos de volaille",
+      "ratio" : 1,
       "imageId" : "@drawable/prodvol"
     },
     {
-      "sentence": "@string/pomme2terre",
-      "ratio" : "@string/prodpatate_ratio",
+      "sentence": "kilos de pommes de terre",
+      "ratio" : 4.7,
       "imageId" : "@drawable/prodpatate"
     },
     {
-      "sentence": "@string/kg_2_pain",
-      "ratio" : "@string/prodpain_ratio",
+      "sentence": "kilos de pain",
+      "ratio" : 1.2,
       "imageId" : "@drawable/prodpain"
     },
     {
-      "sentence": "@string/kwh_elec",
-      "ratio" : "@string/consoelec_ratio",
+      "sentence": "kWh d'électricité",
+      "ratio" : 1.2,
       "imageId" : "@drawable/consoelec"
     },
     {
-      "sentence": "@string/gobelets_cafe",
-      "ratio" : "@string/gobcafe_ratio",
+      "sentence": "gobelets de café",
+      "ratio" : 8.8,
       "imageId" : "@drawable/gobcafe"
     }
   ]
