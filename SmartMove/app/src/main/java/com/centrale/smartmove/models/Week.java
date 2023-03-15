@@ -40,7 +40,7 @@ public class Week implements Savable {
    calendar = Calendar.getInstance();
    calendar.setTimeInMillis(dayInWeek.getTime());
         //set the calendar to the first day of the week
-     calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+    calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
     }
 
 

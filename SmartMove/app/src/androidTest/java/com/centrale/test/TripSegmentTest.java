@@ -1,8 +1,11 @@
 package com.centrale.test;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 import com.centrale.smartmove.models.TimestampedPosition;
 import com.centrale.smartmove.models.TransportType;
@@ -25,7 +28,6 @@ public class TripSegmentTest {
     public void testCalculateTotalDistance0() throws Exception {
         // chemin du RC à St mihiel 824 metres avec 56 points (soit 1 point tout les 14,71 m)
         // pour car mettre seconde a moins de 2,66, pour bike seconde entre 8,86 et 2,65, et enfin walking entre 26,74 et 8,85
-        Date date = new Date(0);
         LinkedList<TimestampedPosition> listOfPosition = new LinkedList<TimestampedPosition>();
         long current = System.currentTimeMillis();
         long seconde = (long) (1000*2.5);
@@ -96,6 +98,11 @@ public class TripSegmentTest {
 
     @Test
     public void computeTransportType() throws Exception {
+        // chemin du RC à St mihiel 824 metres avec 56 points (soit 1 point tout les 14,71 m)
+        // pour car mettre seconde a moins de 2,66, pour bike seconde entre 8,86 et 2,65, et enfin walking entre 26,74 et 8,85
+
+        TransportType transportPredi = TransportType.CAR;  // changer le TransporType en fonction du test que l'on veut realiser
+
         LinkedList<TimestampedPosition> listOfPosition= new LinkedList<TimestampedPosition>();
         long current = System.currentTimeMillis();
         long seconde = (long) (1000*2.5);
@@ -160,8 +167,21 @@ public class TripSegmentTest {
 
 
         segmenttest.computeTransportType();
+        assertTrue(segmenttest.getTransportType()==transportPredi);
 
-        System.out.println(segmenttest.getTransportType());
+    }
+
+    @Test
+    public void computeTransportType2() throws Exception {
+        LinkedList<TimestampedPosition> listOfPosition= new LinkedList<TimestampedPosition>();
+        TripSegment segmenttest = new TripSegment(null, listOfPosition);
+
+        try{
+            segmenttest.computeTransportType();
+        } catch (Exception e) {
+            String msg = e.getMessage();
+            assertTrue(msg=="Le TripSegment n'a pas été initialisé.");
+        }
     }
 
 
