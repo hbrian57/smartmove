@@ -164,4 +164,7 @@ public class Trip  implements Savable {
         return totalCarbonFootprint;
     }
 
+    public void setWeekOfTrip(Week weekOfTrip) {
+        this.weekOfTrip = weekOfTrip;
+    }
 }
