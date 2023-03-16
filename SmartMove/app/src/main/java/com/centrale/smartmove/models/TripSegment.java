@@ -32,6 +32,7 @@ public class TripSegment implements Savable {
 
     //Getters and Setters---------------------------------------------------------------------------
     /**
+     * Getter
      * @return boolean isFinished
      */
     public boolean isFinished() {
@@ -45,11 +46,18 @@ public class TripSegment implements Savable {
         this.isFinished = true;
     }
 
-
+    /**
+     * Getter
+     * @return TransportType transportType
+     */
     public TransportType getTransportType() {
         return transportType;
     }
 
+    /**
+     * Getter
+     * @return LinkedList<TimestampedPosition> positions
+     */
     public LinkedList<TimestampedPosition> getPositionList() {
         return positions;
     }
