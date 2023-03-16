@@ -35,7 +35,6 @@ public class Challenge {
      * @param description the description of the challenge
      * @param progression the progression of the challenge
      * @param goal the goal of the challenge
-     * @param challengeBeginning the date of beginning of the challenge
      * @param icon the icon of the challenge (resource id)
      */
     public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, int icon) {

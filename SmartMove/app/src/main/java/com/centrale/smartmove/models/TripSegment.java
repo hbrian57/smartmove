@@ -12,34 +12,51 @@ import java.util.LinkedList;
 
 
 public class TripSegment implements Savable {
+
+    //Attributes--------------------------------------------------------------------------------------
     /**
-     * Mean of transport
+     * TransportType that defines de transport type used during the TripSegment
      */
     private TransportType transportType;
+
     /**
-     * List of the positions taken during all the TripSegment
+     * List of the TimestampedPositions taken during all the TripSegment
      */
     private LinkedList<TimestampedPosition> positions;
     
     /** 
-     * Boolean which indicates if the TripSegment is finished or not (ready to be analyzed)
+     * Boolean which indicates wether the TripSegment is finished
      */
     private boolean isFinished = false;
 
 
+    //Getters and Setters---------------------------------------------------------------------------
+    /**
+     * @return boolean isFinished
+     */
     public boolean isFinished() {
         return isFinished;
     }
 
+    /**
+     * Sets the boolean isFinished
+     */
     public void setFinished() {
         this.isFinished = true;
     }
 
 
+    public TransportType getTransportType() {
+        return transportType;
+    }
 
+    public LinkedList<TimestampedPosition> getPositionList() {
+        return positions;
+    }
 
+    //Constructors----------------------------------------------------------------------------------
     /**
-     * Constructor without any position, with just the transport type used
+     * Constructor of a TripSegment with the transport type used
      * @param transportTypeUsed mean of transport
      */
     public TripSegment(TransportType transportTypeUsed){
@@ -48,24 +65,31 @@ public class TripSegment implements Savable {
 
 
     /**
-     * Constructor of a a segment of Trip (a TripSegment) using all its attributes
-     * @param transportTypeUsed mean of transport
-     * @param timestampedPositions list of all the position
+     * Constructor of a TripSegment using all its attributes
+     * @param transportTypeUsed the TransportType
+     * @param timestampedPositions the LinkedList<TimestampedPosition>
      */
     public TripSegment(TransportType transportTypeUsed, LinkedList<TimestampedPosition> timestampedPositions) {
         this.transportType = transportTypeUsed;
         this.positions = timestampedPositions;
     }
 
+
+    /**
+     * Constructor of a TripSegment using the first position on the LinkedList<TimestampedPosition>
+     * @param firstPosition the first TimestampedPosition of the LinkedList<TimestampedPosition>
+     */
     public TripSegment(TimestampedPosition firstPosition) {
         this.transportType = TransportType.STATIC;
         this.positions = new LinkedList<>();
         this.positions.add(firstPosition);
     }
 
+
+    //Methods---------------------------------------------------------------------------------------
     /**
-     * Method which calculates the total distance of the TripSegment
-     * @return an integer corresponding to the total distance in m
+     * Method which calculates the sum of the distance between all the TimestampedPositions in LinkedList<TimestampedPosition>
+     * @return a double corresponding to the total distance travelled
      */
     public double calculateTotalDistance() {
         double totalDistance = 0;
@@ -79,18 +103,9 @@ public class TripSegment implements Savable {
         return totalDistance;
     }
 
-
-    public TransportType getTransportType() {
-        return transportType;
-    }
-
-    public LinkedList<TimestampedPosition> getPositionList() {
-        return positions;
-    }
-
     /**
      * Method which enables to calculate the CO2 emission of a TripSegment
-     * @return an integer corresponding to the value of the CO2 emission
+     * @return a double corresponding to the value of the CO2 emission of the TripSegment
      */
     public double calculateCO2footprint()  {
         float transportTypeCO2Parameter = transportType.getCO2param();
@@ -98,14 +113,14 @@ public class TripSegment implements Savable {
     }
 
     /**
-     * Defines the right TransportType for the TripSegment
+     * Sets the right TransportType for the TripSegment
      */
     public void computeTransportType() throws Exception{
         if (this.positions ==null){
-            throw new NullPointerException(String.valueOf("Le TripSegment n'a pas été initialisé."));}
+            throw new NullPointerException("Le TripSegment n'a pas été initialisé.");}
         if(this.positions.size()>=2){
             int listSize = this.positions.size();
-            double lastTwoPointsVelocity=0;
+            double lastTwoPointsVelocity;
             double meanVelocity = this.calculateMeanVelocity()*3.6; //convert to km/h
             lastTwoPointsVelocity= positions.get(listSize-1).calculateVelocityBetweenTwoPoints(positions.get(listSize-2));
             if(lastTwoPointsVelocity*3.6>2){
@@ -119,29 +134,8 @@ public class TripSegment implements Savable {
         }}
     }}
 
-    //TODO régler les problèmes d'indice(dépassements)
     /**
-    Calculates the mean of the last 10 points
-     */
-    public double calculateRollingVelocity() throws Exception {
-        int listSize = this.positions.size();
-        double velocityMean=0;
-        if(listSize>=10){
-            int i=0;
-            double sum=0;
-            for(i=0;i<9;i++){
-                sum+= positions.get(listSize-i-1).calculateVelocityBetweenTwoPoints(positions.get(listSize-i-2));
-            }
-            velocityMean=sum/10;
-            return velocityMean;
-
-        }
-        return velocityMean;
-    }
-
-
-    /**
-     * method which allows to save all the TripSegment of User in a JSON file
+     * Method which allows to save all the TripSegment of User in a JSON file
      * @return the JSON file of the backup
      */
     @Override
@@ -160,23 +154,24 @@ public class TripSegment implements Savable {
         }
         return JSONTripSegment;
     }
+
     /**
      * Returns the mean velocity of the TripSegment, doesn't take into account velocities inferior to 2 km/h
-     * @return
-     * @throws Exception
+     * @return a double that is the mean velocity of the user during the TripSegment
+     * @throws Exception if the size of the list is not long enough
      */
     public double calculateMeanVelocity() throws Exception {
         int listSize = this.positions.size();
         double velocityMean=0;
         if(listSize>=2){
-            int i=0;
+            int i;
             double sum=0;
             for(i=0;i<listSize-1;i++){
-                double velocityBetweenTwoPoints=0;
+                double velocityBetweenTwoPoints;
                 velocityBetweenTwoPoints = positions.get(i+1).calculateVelocityBetweenTwoPoints(positions.get(i));
                 if(velocityBetweenTwoPoints>0.55){
                     sum+=velocityBetweenTwoPoints;
-                };
+                }
             }
             velocityMean=sum/listSize;
             return velocityMean;
@@ -186,10 +181,18 @@ public class TripSegment implements Savable {
     }
 
 
+    /**
+     * Method that gives the size of the LinkedList<TimestampedPosition>
+     * @return an integer that is the size of the LinkedList<TimestampedPosition>
+     */
     public int getNumberOfPositions() {
         return positions.size();
     }
 
+    /**
+     * Method that adds to the LinkedList<TimestampedPosition> a new TimestampedPosition
+     * @param newPosition, a new TimestampedPosition
+     */
     public void addPosition(TimestampedPosition newPosition) {
         //We store the position in the list, making sure to copy it to avoid any reference issues
         positions.add(new TimestampedPosition(newPosition));
@@ -203,6 +206,10 @@ public class TripSegment implements Savable {
         }
     }
 
+    /**
+     * Method that merges two LinkedList<TimestampedPosition> of two TripSegments
+     * @param source, another TripSegment
+     */
     public void mergeWithSegment(TripSegment source) {
         this.positions.addAll(source.getPositionList());
     }
