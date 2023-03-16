@@ -1,19 +1,23 @@
 package com.centrale.smartmove;
-import com.centrale.smartmove.R;
+
 import com.centrale.smartmove.models.Challenge;
 import com.centrale.smartmove.models.GoalType;
 
 import java.util.Random;
-import java.util.Date;
 
 public class ChallengeGenerator {
 
-    public ChallengeGenerator() {
-    }
+    //Constructors----------------------------------------------------------------------------------
 
     /**
-     * Get a random challenge.
-     * @return A random challenge.
+     * Constructor that takes no parameter
+     */
+    public ChallengeGenerator(){}
+
+    //Methods---------------------------------------------------------------------------------------
+    /**
+     * Method that picks a random challenge.
+     * @return Challenge challenge
      */
     public Challenge getRandomChallenge(){
         Challenge challenge = new Challenge();
@@ -40,6 +44,8 @@ public class ChallengeGenerator {
 
         return challenge;
     }
+
+    //----------------------------------------------------------------------------------------------
 }
 
 
