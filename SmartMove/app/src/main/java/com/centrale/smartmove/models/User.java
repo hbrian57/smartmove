@@ -152,7 +152,7 @@ public class User implements Savable {
     //The method should check if the user is in a trip or not (based on lastpositionobtained timestamp) (5min with no position = end of trip)
     //If the user is in a trip, it should add the new position to the trip
     //If the user is not in a trip, it should create a new trip and add the new position to it
-    public void newPositionObtained(TimestampedPosition newPosition) {
+    public void newPositionObtained(TimestampedPosition newPosition) throws Exception {
         //If the user is in a trip
         if (lastPositionObtained != null && currentTrip != null && !forceNewTrip) {
             //If the user is still in the same trip

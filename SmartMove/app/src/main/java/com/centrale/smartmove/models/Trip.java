@@ -115,12 +115,15 @@ public class Trip  implements Savable {
     //Method that adds a position to the current trip segment if it exists
     //if not, it creates a new trip segment and adds the position to it
     //if the current trip segments contains more than 60 positions, it creates a new trip segment and marks it as finished
-    public void addPosition(TimestampedPosition newPosition) {
+    public void addPosition(TimestampedPosition newPosition) throws Exception {
         if (currentTripSegment == null) {
             currentTripSegment = new TripSegment(newPosition);
             segmentsOfTrip.add(currentTripSegment);
+            if(currentTripSegment.getNumberOfPositions() >=3) {
+                currentTripSegment.computeTransportType();
+            }
         } else {
-            if (currentTripSegment.getNumberOfPositions() > 60) {
+            if (currentTripSegment.getNumberOfPositions() >= 60) {
                 currentTripSegment.setFinished();
                 currentTripSegment = new TripSegment(newPosition);
                 segmentsOfTrip.add(currentTripSegment);
