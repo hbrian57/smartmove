@@ -40,13 +40,6 @@ public class TripSegment implements Savable {
     }
 
     /**
-     * Sets the boolean isFinished
-     */
-    public void setFinished() {
-        this.isFinished = true;
-    }
-
-    /**
      * Getter
      * @return TransportType transportType
      */
@@ -221,4 +214,12 @@ public class TripSegment implements Savable {
     public void mergeWithSegment(TripSegment source) {
         this.positions.addAll(source.getPositionList());
     }
+
+    /**
+     * Method that sets the boolean isFinished on true
+     */
+    public void setFinished() {
+        this.isFinished = true;
+    }
+
 }
