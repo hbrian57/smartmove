@@ -81,11 +81,11 @@ public class GeolocpvtUserTracker extends UserTracker{
         options.setDualFrequencyEnabled(false);
         options.setIonofreeEnabled(false);
         options.setPppEnabled(false);
-        options.setMonoFrequencyEnabled(false);
-        options.setSppEnabled(false);
-        options.setCutoffAngle(5);
-        options.setCutoffNoise(0.1f);
-        options.setDynamicMode(false);
+        options.setMonoFrequencyEnabled(true);
+        options.setSppEnabled(true);
+        options.setCutoffAngle(0);
+        options.setCutoffNoise(0f);
+        options.setDynamicMode(true);
         options.setIonoCorrEnabled(false);
 
         Vector<Integer> systemsEnabled = new Vector<>();
