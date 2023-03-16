@@ -222,4 +222,5 @@ public class TripSegment implements Savable {
         this.isFinished = true;
     }
 
+    //----------------------------------------------------------------------------------------------
 }

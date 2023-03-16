@@ -247,4 +247,6 @@ public class User implements Savable {
     public void forceNewTrip() {
         forceNewTrip = true;
     }
+
+    //----------------------------------------------------------------------------------------------
 }

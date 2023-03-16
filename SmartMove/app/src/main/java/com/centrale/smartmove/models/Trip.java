@@ -207,5 +207,5 @@ public class Trip  implements Savable {
         return totalCarbonFootprint;
     }
 
-
+    //----------------------------------------------------------------------------------------------
 }

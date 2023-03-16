@@ -45,7 +45,7 @@ public class TimestampedPosition implements Savable {
      * Getter
      * @return Timestamp timestamp
      */
-    public Timestamp getTimeStamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
@@ -69,7 +69,7 @@ public class TimestampedPosition implements Savable {
      */
     public TimestampedPosition(TimestampedPosition newPosition) {
         this.geoCoordinates = newPosition.geoCoordinates;
-        this.timestamp = newPosition.getTimeStamp();
+        this.timestamp = newPosition.getTimestamp();
     }
 
     /**
@@ -142,5 +142,5 @@ public class TimestampedPosition implements Savable {
         }
         return JSONTimestampedPosition;
     }
-
+    //----------------------------------------------------------------------------------------------
 }
