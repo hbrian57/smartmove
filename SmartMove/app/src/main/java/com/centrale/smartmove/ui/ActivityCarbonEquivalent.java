@@ -59,6 +59,9 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
      * This method randomly selects a picture that corresponds to a carbon equivalent.
      */
     public void getListImage() {
+        if(listCarbonEquivalent.size()!=0) {
+            return;
+        }
         Resources res = getResources();
         try {
             InputStream locationdesimages = res.openRawResource(R.raw.equivalentscarbone);
