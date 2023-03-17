@@ -26,8 +26,6 @@
 package org.gogpsproject.ephemeris;
 
 import android.location.GnssNavigationMessage;
-import android.util.Log;
-import java.util.Arrays;
 import java.math.BigInteger;
 
 public class BeidouNavigationMessage {

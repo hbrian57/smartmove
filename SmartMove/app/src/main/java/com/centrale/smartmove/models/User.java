@@ -17,14 +17,70 @@ import java.util.Observer;
 
 
 public class User implements Savable {
+
+    //Attributes------------------------------------------------------------------------------------
+    /**
+     * ArrayList<Week> with all the weeks contained in the User
+     */
     private final ArrayList<Week> weeks;
+
+    /**
+     * ChallengeGenerator
+     */
     private final ChallengeGenerator coach;
+
+    /**
+     * ArrayList<Challenge> that contains all the ongoing challenges
+     */
     private final ArrayList<Challenge> onGoingChallenge;
+
+    /**
+     * ArrayList<Trip> that contains all the Trips the User made
+     */
     private final ArrayList<Trip> userTrips;
+
+    /**
+     * Trip, the last Trip
+     */
     private Trip currentTrip;
+
+    /**
+     * TimestampedPosition that is the last position obtained
+     */
     private TimestampedPosition lastPositionObtained;
+
+    /**
+     * Boolean to determine the forcing of a creation of a new Trip
+     */
     private boolean forceNewTrip = false;
 
+    //Getters and Setters---------------------------------------------------------------------------
+
+    /**
+     * Getter
+     * @return ArrayList<Week> weeks
+     */
+    public ArrayList<Week> getWeeks() {
+        return weeks;
+    }
+
+    /**
+     * Getter
+     * @return Trip currentTrip
+     */
+    public Trip getCurrentTrip() {
+        return currentTrip;
+    }
+
+    /**
+     * Getter
+     * @return ArrayList<Challenge> onGoingChallenge
+     */
+    public ArrayList<Challenge> getOnGoingChallenge() {
+        return onGoingChallenge;
+    }
+
+    //Constructors----------------------------------------------------------------------------------
     /**
      * Constructor of a User with nothing in parameters
      */
@@ -51,11 +107,7 @@ public class User implements Savable {
         currentTrip = null;
     }
 
-
-    public ArrayList<Week> getWeeks() {
-        return weeks;
-    }
-
+    //Methods---------------------------------------------------------------------------------------
     /**
      * Method that is called once a trip is finished that updates the challenges
      */
@@ -67,7 +119,7 @@ public class User implements Savable {
 
     /**
      * Method that adds a trip to the list of the trip, and which updates the challenge according to the new trip
-     * @param trip
+     * @param trip, a Trip
      */
     public void addNewTrip(Trip trip)  {
         userTrips.add(trip);
@@ -82,7 +134,7 @@ public class User implements Savable {
 
 
     /**
-     * method which allows to save all the Week of User in a JSON file
+     * Method which allows to save all the Week of User in a JSON file
      * @return the JSON file of the backup
      */
     @Override
@@ -101,20 +153,12 @@ public class User implements Savable {
     }
 
     /**
-     * Give a new challenge to the User.
+     * Method that gives a new challenge to the User
      */
     public void getNewChallenge(){
         Challenge challenge;
         challenge = coach.getRandomChallenge();
         onGoingChallenge.add(challenge);
-    }
-
-    /**
-     * Methode to get all the onGoing challenges.
-     * @return theArrayList of the ongoing challenges
-     */
-    public ArrayList<Challenge> getOnGoingChallenge() {
-        return onGoingChallenge;
     }
 
     /**
@@ -125,9 +169,8 @@ public class User implements Savable {
         return userTrips;
     }
 
-
     /**
-     * method that returns the current week, if there is no current week, it creates a new one and adds it to the list of weeks
+     * Method that returns the current week, if there is no current week, it creates a new one and adds it to the list of weeks
      * @return the current week
      */
     public Week getCurrentWeek() {
@@ -147,12 +190,13 @@ public class User implements Savable {
         return newWeek;
     }
 
-
-    //Create a method that will be launched each time we get a new position
-    //The method should check if the user is in a trip or not (based on lastpositionobtained timestamp) (5min with no position = end of trip)
-    //If the user is in a trip, it should add the new position to the trip
-    //If the user is not in a trip, it should create a new trip and add the new position to it
-    public void newPositionObtained(TimestampedPosition newPosition) {
+    /**
+     * Method that will be launched each time we get a new position
+     * The method should check if the user is in a trip or not (based on lastpositionobtained timestamp) (5min with no position = end of trip)
+     * If the user is in a trip, it should add the new position to the trip
+     * If the user is not in a trip, it should create a new trip and add the new position to it
+     */
+    public void newPositionObtained(TimestampedPosition newPosition) throws Exception {
         //If the user is in a trip
         if (lastPositionObtained != null && currentTrip != null && !forceNewTrip) {
             //If the user is still in the same trip
@@ -186,6 +230,10 @@ public class User implements Savable {
         lastPositionObtained = newPosition;
     }
 
+    /**
+     * Method that adds the information of the last Trip to User, to update the CO2 footprint and the challenges
+     * @param currentTrip, a Trip
+     */
     private void onTripFinished(Trip currentTrip) {
         //Update the challenges
         updateOnGoingChallenge(currentTrip);
@@ -193,11 +241,12 @@ public class User implements Savable {
         currentTrip.getWeek().addCarbonFootprint(currentTrip.getTotalCarbonFootprint());
     }
 
-    public Trip getCurrentTrip() {
-        return currentTrip;
-    }
-
+    /**
+     * Method that sets boolean forceNewTrip on true
+     */
     public void forceNewTrip() {
         forceNewTrip = true;
     }
+
+    //----------------------------------------------------------------------------------------------
 }

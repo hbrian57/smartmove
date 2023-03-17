@@ -15,10 +15,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 public class AndroidUserTracker extends UserTracker implements LocationListener {
-    private double longitude;
-    private double latitude;
-    private double altitude;
 
+    //Attributes------------------------------------------------------------------------------------
+    /**
+     * double
+     */
+    private double longitude;
+
+    /**
+     * double
+     */
+    private double latitude;
+
+    //Getters and Setters---------------------------------------------------------------------------
+
+    /**
+     * Getter
+     * @return double longitude
+     */
+    @Override
+    public double getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * Getter
+     * @return double latitude
+     */
+    @Override
+    public double getLatitude() {
+        return latitude;
+    }
+
+    //Methods---------------------------------------------------------------------------------------
     @SuppressLint("MissingPermission")
     public AndroidUserTracker(AppCompatActivity activity) {
         //Initialisation des variables
@@ -45,7 +74,6 @@ public class AndroidUserTracker extends UserTracker implements LocationListener 
     public void onLocationChanged(@NonNull Location location) {
         longitude = location.getLongitude();
         latitude = location.getLatitude();
-        altitude = location.getAltitude();
     }
 
     @Override
@@ -73,13 +101,5 @@ public class AndroidUserTracker extends UserTracker implements LocationListener 
         LocationListener.super.onProviderDisabled(provider);
     }
 
-    @Override
-    public double getLongitude() {
-        return longitude;
-    }
-
-    @Override
-    public double getLatitude() {
-        return latitude;
-    }
+    //----------------------------------------------------------------------------------------------
 }

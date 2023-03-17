@@ -219,7 +219,11 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
                 addPositionOnMap(trackerClock.getLatitude(), trackerClock.getLongitude());
 
             }
-            user.newPositionObtained(trackerClock.getPosition());
+            try {
+                user.newPositionObtained(trackerClock.getPosition());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             addNewPointToPolyline(trackerClock.getLatitude(), trackerClock.getLongitude());
             //Run the method on the UI thread
             runOnUiThread(this::updateInfosFromUserChange);
@@ -233,6 +237,12 @@ public class DebugUS4 extends AppCompatActivity implements Observer {
         numberOfPositionsInSegment.setText(String.valueOf(user.getCurrentTrip().getCurrentSegment().getNumberOfPositions()));
         TextView transportType = findViewById(R.id.computedTransportType);
         transportType.setText(user.getCurrentTrip().getCurrentSegment().getTransportType().toString());
+        TextView speed = findViewById(R.id.computedSpeed);
+        try {
+            speed.setText(String.valueOf(user.getCurrentTrip().getCurrentSegment().calculateMeanVelocity()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void displayCurrentTripOnMap() {

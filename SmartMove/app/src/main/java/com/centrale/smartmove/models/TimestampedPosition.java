@@ -13,42 +13,67 @@ import java.time.ZoneId;
 
 public class TimestampedPosition implements Savable {
 
+    //Attributes------------------------------------------------------------------------------------
     /**
-     * Double corresponding to the latitude
+     * GeoPoint that contains the geographical coordinates
      */
     private GeoPoint geoCoordinates;
 
     /**
-     * Date corresponding to exact moment the position is taken
+     * Timestamp corresponding to exact moment the position is taken
      */
     private Timestamp timestamp;
 
-
-    public TimestampedPosition(TimestampedPosition newPosition) {
-        this.geoCoordinates = newPosition.geoCoordinates;
-        this.timestamp = newPosition.getTimeStamp();
-    }
-
-    private double getAltitude() {
-        return geoCoordinates.getAltitude();
-    }
-
+    //Getters and Setters---------------------------------------------------------------------------
+    /**
+     * Getter
+     * @return double corresponding to the latitude
+     */
     public double getLatitude() {
         return geoCoordinates.getLatitude();
     }
 
+    /**
+     * Getter
+     * @return double corresponding to the longitude
+     */
     public double getLongitude() {
         return geoCoordinates.getLongitude();
     }
 
-
-    public Timestamp getTimeStamp() {
+    /**
+     * Getter
+     * @return Timestamp timestamp
+     */
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
+    /**
+     * Sets the parameters of the GeoPoint geoCoordinates
+     * @param latitude, a double
+     * @param longitude, a double
+     */
+    public void set(double latitude, double longitude) {
+        this.geoCoordinates.setCoords(latitude,longitude);
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+
+    }
+
+
+
+    //Constructors----------------------------------------------------------------------------------
+    /**
+     * Constructor that takes into parameter a TimestampedPosition
+     * @param newPosition, a new TimestampedPosition
+     */
+    public TimestampedPosition(TimestampedPosition newPosition) {
+        this.geoCoordinates = newPosition.geoCoordinates;
+        this.timestamp = newPosition.getTimestamp();
+    }
 
     /**
-     * Constructor of a timestampedposition with the latitude, longitude, altitude
+     * Constructor of a TimestampedPosition with the latitude and the longitude
       * @param lati latitude
      * @param longi longitude
      */
@@ -58,34 +83,35 @@ public class TimestampedPosition implements Savable {
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
+    /**
+     * Constructor of a TimestampedPosition with the latitude, the longitude and the date
+     * @param lati latitude
+     * @param longi longitude
+     * @param date date
+     */
     public TimestampedPosition(double lati, double longi, Timestamp date) {
         GeoPoint geoPoint = new GeoPoint(lati,longi);
         this.geoCoordinates= geoPoint;
         this.timestamp = date;
     }
 
+
+    //Methods-------------------------------------------------------------------------------------
     /**
-     * Fonction calculant la distance entre deux positions
-     * @param targetPosition la position avec laquelle on veut calculer la distance
-     * @return une distance en mètre
-     * @throws Exception si la latitude est supérieure à 180°
-     * @throws Exception si la longitude est inférieure à -90°
-     * @throws Exception si la longitude est supérieure à 90°
-     * @throws Exception si la latitude est inférieure à -180°
-     * @throws Exception si une des coordonnées est vide
+     * Method that calculates the distance between two TimestampedPositions
+     * @param targetPosition, a TimestampedPosition with which we want to know the distance to
+     * @return a double that corresponds to the distance between the points
      */
-    public double getDistanceToPosition(TimestampedPosition targetPosition) throws Exception {
+    public double getDistanceToPosition(TimestampedPosition targetPosition){
         return this.geoCoordinates.distanceToAsDouble(targetPosition.geoCoordinates);
     }
 
     /**
      * Calculates the velocity between two TimestampedPosition
-     * @param secondPosition
-     * @return
-     * @throws Exception
+     * @param secondPosition, the other TimestampedPosition we want to know the velocity between
+     * @return a double, the velocity between the two points
      */
-
-    public double calculateVelocityBetweenTwoPoints(TimestampedPosition secondPosition) throws Exception{
+    public double calculateVelocityBetweenTwoPoints(TimestampedPosition secondPosition){
         double velocity=0;
         LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestamp.toInstant(), ZoneId.systemDefault());
         LocalDateTime dateTime2 = LocalDateTime.ofInstant(secondPosition.timestamp.toInstant(), ZoneId.systemDefault());
@@ -96,15 +122,10 @@ public class TimestampedPosition implements Savable {
         return velocity;
     }
 
-    public void set(double latitude, double longitude) {
-        this.geoCoordinates.setCoords(latitude,longitude);
-        this.timestamp = new Timestamp(System.currentTimeMillis());
-
-    }
 
     @Override
     /**
-     * method which allows to save all the TimeStampedPosition of User in a JSON file
+     * Method that allows to save all the TimeStampedPosition of User in a JSON file
      * @return the JSON file of the backup
      */
     @SuppressWarnings("lint:HardCodedStringLiteral")
@@ -121,13 +142,5 @@ public class TimestampedPosition implements Savable {
         }
         return JSONTimestampedPosition;
     }
-
-    /**
-     * Get the date of the TimeStampedPosition object.
-     * @return the date.
-     */
-    public Timestamp getTimestamp() {
-        return this.timestamp;
-    }
-
+    //----------------------------------------------------------------------------------------------
 }
