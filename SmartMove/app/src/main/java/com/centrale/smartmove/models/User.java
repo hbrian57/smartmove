@@ -1,7 +1,7 @@
 package com.centrale.smartmove.models;
 
 import com.centrale.smartmove.ChallengeGenerator;
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 import com.centrale.smartmove.Savable;
 
 import org.json.JSONArray;

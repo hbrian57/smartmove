@@ -16,7 +16,7 @@ import android.content.res.Resources;
 
 
 import com.centrale.smartmove.models.Equivalent;
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
