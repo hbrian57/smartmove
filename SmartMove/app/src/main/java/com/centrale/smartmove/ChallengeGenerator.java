@@ -1,10 +1,10 @@
 package com.centrale.smartmove;
-import com.centrale.smartmove.R;
+
 import com.centrale.smartmove.models.Challenge;
 import com.centrale.smartmove.models.GoalType;
 
-import java.util.Random;
 import java.util.Date;
+import java.util.Random;
 
 public class ChallengeGenerator {
 

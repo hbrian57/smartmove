@@ -106,8 +106,9 @@ public class DashboardActivity extends AppCompatActivity  {
         textView.setText(displayedCarbonFootprint + getString(R.string.display_message_after_CO2footprint));
     }
 
-    public void onTileClicked(){
+    public void onTileClicked(View v){
         Intent intent = new Intent(this, ChallengeDescriptionActivity.class);
         startActivity(intent);
     }
+
 }

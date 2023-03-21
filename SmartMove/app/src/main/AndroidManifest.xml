@@ -54,6 +54,14 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".ui.ChallengeDescriptionActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SmartMove.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
     </application>
 
 </manifest>
