@@ -34,8 +34,6 @@ public class Challenge {
      */
     private Double progression;
 
-    private Context context;
-
     /**
      *ChallengeGoal t
      */
@@ -194,6 +192,10 @@ public class Challenge {
             default:
                 break;
         }
+        boolean challengeAccomplished = isCompleted();
+        if (challengeAccomplished) {
+            notifyUser();
+        }
     }
 
     public boolean isCompleted() {
@@ -205,9 +207,9 @@ public class Challenge {
 
     public void notifyUser() {
         boolean challengeAccomplished = isCompleted();
-        //Context context = getAppContext();
+        Context context = MainActivity.getContext();
         if (challengeAccomplished) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "My Notification");
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, context.getString(R.string.ChannelID));
             builder.setContentTitle(context.getString(R.string.notification_accomplishedchall));
             builder.setContentText(context.getString(R.string.notification_congratulations));
             builder.setAutoCancel(true);

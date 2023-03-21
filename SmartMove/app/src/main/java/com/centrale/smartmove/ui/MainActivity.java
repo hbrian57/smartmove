@@ -21,6 +21,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> permissions = new ArrayList<>();
     private Context context;
+
+    public static Context getContext() {
+        return context;
+    }
+
     /**
      * Method that displays the application's menu view or the CGU view if it has never been accepted.
      * @param savedInstanceState
