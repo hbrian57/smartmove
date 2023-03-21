@@ -93,7 +93,7 @@ public class DashboardActivity extends AppCompatActivity  {
     public void clickOpenCarbonEquivalentPage(View v){
         Intent intent = new Intent(this, ActivityCarbonEquivalent.class);
         intent.putExtra(getString(R.string.displayed_carbon_footprint), displayedCarbonFootprint);
-        startActivity(intent);;
+        startActivity(intent);
     }
 
     /**
@@ -104,5 +104,10 @@ public class DashboardActivity extends AppCompatActivity  {
         displayedCarbonFootprint = 3.0;
         TextView textView = findViewById(R.id.impactTextDashboard);
         textView.setText(displayedCarbonFootprint + getString(R.string.display_message_after_CO2footprint));
+    }
+
+    public void onTileClicked(){
+        Intent intent = new Intent(this, ChallengeDescriptionActivity.class);
+        startActivity(intent);
     }
 }
