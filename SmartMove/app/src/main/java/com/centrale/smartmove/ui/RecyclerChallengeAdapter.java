@@ -71,7 +71,6 @@ public class RecyclerChallengeAdapter extends RecyclerView.Adapter<RecyclerChall
             description = parent.findViewById(R.id.challengeDescription);
             progressionBar = parent.findViewById(R.id.challengeProgressBar);
             progressionString = parent.findViewById(R.id.challengeProgressionString);
-
         }
     }
 }

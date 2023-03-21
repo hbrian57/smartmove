@@ -171,7 +171,7 @@ public class Coordinates implements Streamable{
 	}
 
 	/**
-	 * @param origin
+	 * @param target coordinates
 	 * @return Local (ENU) coordinates
 	 */
 	public void computeLocal(Coordinates target) {

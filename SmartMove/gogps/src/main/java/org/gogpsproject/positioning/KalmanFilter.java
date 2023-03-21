@@ -61,14 +61,9 @@ public abstract class KalmanFilter extends LS_DD_code {
   abstract void checkSatelliteConfiguration( Observations roverObs, Observations masterObs, Coordinates masterPos );
 
 
-  /**
-   * Gets the st dev code.
-   *
-   * @param roverObsSet the rover observation set
-   * @param masterObsSet the master observation set
-   * @param i the selected GPS frequency
-   * @return the stDevCode
-   */
+
+
+
   public double getStDevCode( ObservationSet obsSet, int i) {
     return obsSet.isPseudorangeP(i)?stDevCodeP[i]:stDevCodeC;
   }

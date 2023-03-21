@@ -1,11 +1,8 @@
 package com.centrale.smartmove.models;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
@@ -13,100 +10,161 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.StringRes;
-
 import com.centrale.smartmove.R;
+import com.centrale.smartmove.ui.MainActivity;
 
-import java.util.Date;
 import java.util.HashMap;
 
 
 public class Challenge {
-    @StringRes int title;
-    @StringRes int description;
-    Double progression;
-    ChallengeGoal goal;
-    Date challengeBeginning;
-    @DrawableRes int icon;
 
+    //Attributes------------------------------------------------------------------------------------
     /**
-     * Challenge constructor.
-     * @param title Challenge title
-     * @param description Challenge description
-     * @param progression Challenge Progression
-     * @param goal Challenge Goal
-     * @param challengeBeginning Challenge Beginning
-     * @param icon Challenge icon
+     *Int corresponding to the identification of the title of the Challenge
      */
-    public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, Date challengeBeginning, int icon) {
-        this.title = title;
-        this.description = description;
-        this.progression = progression;
-        this.goal = goal;
-        this.challengeBeginning = challengeBeginning;
-        this.icon = icon;
-    }
+    private @StringRes int title;
 
     /**
-     * Empty challenge constructor.
+     *Int corresponding to the identification of the description of the Challenge
      */
-    public Challenge() {
-        this.title = R.string.challenge_title;
-        this.description = R.string.challenge_description;
-        this.progression = 0.0;
-        this.goal = new ChallengeGoal();
-        this.challengeBeginning = new Date();
-        this.icon = R.drawable.travel;
-    }
+    private @StringRes int description;
 
     /**
-     * Set challenge beginning.
-     * @param challengeBeginning Challenge Beginning
+     *Double corresponding to the completion of a Challenge
      */
-    public void setChallengeBeginning(Date challengeBeginning) {
-        this.challengeBeginning = challengeBeginning;
-    }
+    private Double progression;
+
+    private Context context;
 
     /**
-     * Set Title
-     * @param title Challenge Title
+     *ChallengeGoal t
      */
-    public void setTitle(@StringRes int title) {
-        this.title = title;
-    }
+    private ChallengeGoal goal;
 
     /**
-     * Set Description
-     * @param description Challenge Description
+     *Int corresponding to the identification of the equivalent image
      */
-    public void setDescription(@StringRes int description) {
-        this.description = description;
-    }
+    private @DrawableRes int icon;
+
+    //Getters and Setters---------------------------------------------------------------------------
 
     /**
-     * Set Progression
-     * @param progression Challenge progression
+     * Setter
      */
     public void setProgression(Double progression) {
         this.progression = progression;
     }
 
     /**
-     * Set Goal.
-     * @param goal Challenge Goal
+     * Getter
+     * @return int title
+     */
+    public @StringRes int getTitle() {
+        return title;
+    }
+
+    /**
+     * Getter
+     * @return int description
+     */
+    public @StringRes int getDescription() {
+        return description;
+    }
+
+    /**
+     * Getter
+     * @return Double progression
+     */
+    public Double getProgression() {
+        return progression;
+    }
+
+    /**
+     * Getter
+     * @return ChallengeGoal goal
+     */
+    public ChallengeGoal getGoal() {
+        return goal;
+    }
+
+    /**
+     * Getter
+     * @return int icon
+     */
+    public @DrawableRes int getIcon() {
+        return icon;
+    }
+
+    /**
+     * Get the progression in a double.
+     * @return the progression
+     */
+    public Double getProgressionDouble() {
+        return progression;
+    }
+
+    /**
+     * Seter
+     * @param title the title of the challenge
+     */
+    public void setTitle(@StringRes int title) {
+        this.title = title;
+    }
+
+    /**
+     * Setter
+     * @param description the description of the challenge
+     */
+    public void setDescription(@StringRes int description) {
+        this.description = description;
+    }
+
+    /**
+     * Setter
+     * @param goal the goal of the challenge
      */
     public void setGoal(ChallengeGoal goal) {
         this.goal = goal;
     }
 
+
+    //Constructors----------------------------------------------------------------------------------
+
     /**
-     * Get the progression in a string
-     * @return the progression
+     * Challenge constructor.
+     * @param title the title of the challenge
+     * @param description the description of the challenge
+     * @param progression the progression of the challenge
+     * @param goal the goal of the challenge
+     * @param icon the icon of the challenge (resource id)
+     */
+    public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, int icon) {
+        this.title = title;
+        this.description = description;
+        this.progression = progression;
+        this.goal = goal;
+        this.icon = icon;
+    }
+
+    /**
+     * Constructor with no parameter
+     */
+    public Challenge() {
+        this.title = R.string.challenge_title;
+        this.description = R.string.challenge_description;
+        this.progression = 0.0;
+        this.goal = new ChallengeGoal();
+        this.icon = R.drawable.travel;
+    }
+    //Methods---------------------------------------------------------------------------------------
+
+    /**
+     * Method that gets the progression in a string, like a toString() method
+     * @return a String corresponding to the progression
      */
     public String getProgressionString() {
         //depending on the goalType, the progression is displayed differently
-        Double progressionReality = progression/100*goal.getGoalFinal();
+        Double progressionReality = progression / 100 * goal.getGoalFinal();
         switch (goal.getType()) {
             case NUMBER_OF_TRIPS:
                 return progressionReality.intValue() + "/" + goal.getGoalFinal().intValue() + "trips";
@@ -118,39 +176,53 @@ public class Challenge {
     }
 
     /**
-     * Get the progression in a double.
-     * @return the progression
+     * Method that updates the progression of the challenge based on the new trip done
+     * @param newTripDone, a Trip
      */
-    public Double getProgressionDouble() {
-        return progression;
+    public void updateProgression(Trip newTripDone) {
+        //depending on the goalType, the progression is updated differently
+        TransportType transportTypeNeededForChallenge = goal.getTransportType();
+        switch (goal.getType()) {
+            case NUMBER_OF_TRIPS:
+                HashMap<TransportType, Integer> numberOfTripSegmentsPerTransportType = newTripDone.getTripTransportTypeUsage();
+                progression += goal.calculateProgressionIncrementNumberOfTrips(numberOfTripSegmentsPerTransportType.get(transportTypeNeededForChallenge));
+                break;
+            case DISTANCE_COVERED:
+                HashMap<TransportType, Double> distanceCoveredByTransportType = newTripDone.getTripDistanceDonePerTransportType();
+                progression += goal.calculateProgressionIncrementDistanceCovered(distanceCoveredByTransportType.get(transportTypeNeededForChallenge));
+                break;
+            default:
+                break;
+        }
     }
 
     public boolean isCompleted() {
+
+
         return false;
     }
 
-        public @StringRes int getTitle () {
-            return title;
+
+    public void notifyUser() {
+        boolean challengeAccomplished = isCompleted();
+        //Context context = getAppContext();
+        if (challengeAccomplished) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "My Notification");
+            builder.setContentTitle(context.getString(R.string.notification_accomplishedchall));
+            builder.setContentText(context.getString(R.string.notification_congratulations));
+            builder.setAutoCancel(true);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                notificationManager.notify(1, builder.build());
+            }
         }
-
-        public @StringRes int getDescription () {
-            return description;
-        }
-
-        public Double getProgression () {
-            return progression;
-        }
-
-        public ChallengeGoal getGoal () {
-            return goal;
-        }
-
-
-    public @DrawableRes int getIcon() {
-        return icon;
     }
-//
-//    /**
+
+
+
+    //----------------------------------------------------------------------------------------------//    /**
+//     /**
 //     * Creation of the notification channel.
 //     * @param context the context of the app.
 //     */
@@ -189,25 +261,4 @@ public class Challenge {
 //        }
 //
 //    }
-
-    /**
-     * Updates the progression of the challenge based on the new trip done
-     * @param newTripDone New trip done
-     */
-    public void updateProgression(Trip newTripDone) {
-        //depending on the goalType, the progression is updated differently
-        TransportType transportTypeNeededForChallenge = goal.getTransportType();
-        switch (goal.getType()) {
-            case NUMBER_OF_TRIPS:
-                HashMap<TransportType, Integer> numberOfTripSegmentsPerTransportType = newTripDone.getTripTransportTypeUsage();
-                progression += goal.calculateProgressionIncrementNumberOfTrips(numberOfTripSegmentsPerTransportType.get(transportTypeNeededForChallenge));
-                break;
-            case DISTANCE_COVERED:
-                HashMap<TransportType,Double> distanceCoveredByTransportType = newTripDone.getTripDistanceDonePerTransportType();
-                progression += goal.calculateProgressionIncrementDistanceCovered(distanceCoveredByTransportType.get(transportTypeNeededForChallenge));
-                break;
-            default:
-                break;
-        }
-    }
 }
