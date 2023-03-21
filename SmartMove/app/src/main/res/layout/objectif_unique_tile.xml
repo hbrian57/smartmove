@@ -85,6 +85,15 @@
                 android:text="@string/explication_defi"
                 android:textAppearance="@style/DefiSubtitle" />
 
+            <ImageView
+                android:id="@+id/imageViewNavToCarbonEquivalent"
+                android:layout_width="wrap_content"
+                android:clickable="true"
+                android:onClick="clickOpenCarbonEquivalentPage"
+                android:layout_height="20dip"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/info" />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
