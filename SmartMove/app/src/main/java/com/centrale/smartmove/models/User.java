@@ -248,5 +248,27 @@ public class User implements Savable {
         forceNewTrip = true;
     }
 
+    public void removeDefi(Challenge DefiYouWantToRemove){
+        int title = DefiYouWantToRemove.getTitle();
+        for(Challenge defi : onGoingChallenge){
+            if(defi.getTitle() == title){
+                onGoingChallenge.remove(DefiYouWantToRemove);
+            }
+        }
+    }
+
+    public void addNewDefi(){
+        Challenge newDefi = new ChallengeGenerator().getRandomChallenge();
+        onGoingChallenge.add(newDefi);
+    }
+
+    public void defiCompletedThenReplace(Challenge challenge){
+        if(challenge.isCompleted()){
+            removeDefi(challenge);
+            addNewDefi();
+            //faire appelle à la methode de lucas pour faire une notif quand challenge est complete
+        }
+    }
+
     //----------------------------------------------------------------------------------------------
 }

@@ -197,6 +197,14 @@ public class Challenge {
         }
     }
 
+    public boolean isCompleted(){
+        if(this.progression<100){
+            return false;
+        }else{return true;}
+    }
+
+
+
     //----------------------------------------------------------------------------------------------
     //    /**
 //     * Creation of the notification channel.
