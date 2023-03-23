@@ -211,6 +211,9 @@ public class Challenge {
         }
     }
 
+
+
+
     public boolean defiIsCompleted(){
         if(this.progression<100){
             return false;
