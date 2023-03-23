@@ -1,34 +1,60 @@
 package com.centrale.smartmove.models;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.os.Build;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+
 import com.centrale.smartmove.R;
 import com.centrale.smartmove.ui.MainActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.runner.manipulation.Ordering;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 
 public class Challenge {
 
     //Attributes------------------------------------------------------------------------------------
     /**
-     *Int corresponding to the identification of the title of the Challenge
+     *String corresponding to the identification of the title of the Challenge
      */
-    private @StringRes int title;
+    private String title;
 
     /**
-     *Int corresponding to the identification of the description of the Challenge
+     *String corresponding to the identification of the short description of the Challenge
      */
-    private @StringRes int description;
+    private String short_description;
 
+    /**
+     *string corresponding to the identification of the long description of the Challenge
+     */
+    private String long_description;
     /**
      *Double corresponding to the completion of a Challenge
      */
@@ -45,7 +71,6 @@ public class Challenge {
     private @DrawableRes int icon;
 
     //Getters and Setters---------------------------------------------------------------------------
-
     /**
      * Setter
      */
@@ -53,27 +78,35 @@ public class Challenge {
         this.progression = progression;
     }
 
-    /**
-     * Getter
-     * @return int title
-     */
-    public @StringRes int getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    /**
-     * Getter
-     * @return int description
-     */
-    public @StringRes int getDescription() {
-        return description;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getShort_description() {
+        return short_description;
+    }
+
+    public String getLong_description() {
+        return long_description;
+    }
+
+    public void setLong_description(String long_description) {
+        this.long_description = long_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
     }
 
     /**
      * Getter
      * @return Double progression
      */
-    public Double getProgression() {
+    public Double getProgression () {
         return progression;
     }
 
@@ -81,7 +114,7 @@ public class Challenge {
      * Getter
      * @return ChallengeGoal goal
      */
-    public ChallengeGoal getGoal() {
+    public ChallengeGoal getGoal () {
         return goal;
     }
 
@@ -101,21 +134,6 @@ public class Challenge {
         return progression;
     }
 
-    /**
-     * Seter
-     * @param title the title of the challenge
-     */
-    public void setTitle(@StringRes int title) {
-        this.title = title;
-    }
-
-    /**
-     * Setter
-     * @param description the description of the challenge
-     */
-    public void setDescription(@StringRes int description) {
-        this.description = description;
-    }
 
     /**
      * Setter
@@ -127,33 +145,47 @@ public class Challenge {
 
 
     //Constructors----------------------------------------------------------------------------------
-
     /**
      * Challenge constructor.
      * @param title the title of the challenge
-     * @param description the description of the challenge
+     * @param short_descrip the short description of the challenge
+     * @param long_descrip the long description of the challenge
      * @param progression the progression of the challenge
      * @param goal the goal of the challenge
      * @param icon the icon of the challenge (resource id)
      */
-    public Challenge(@StringRes int title, @StringRes int description, Double progression, ChallengeGoal goal, int icon) {
+    public Challenge( String title, String short_descrip, String long_descrip, Double progression, ChallengeGoal goal, int icon) {
         this.title = title;
-        this.description = description;
+        this.short_description = short_descrip;
+        this.long_description = long_descrip;
         this.progression = progression;
         this.goal = goal;
         this.icon = icon;
     }
 
     /**
+     * Challenge constructor.
+     * @param title the title of the challenge
+     * @param short_descrip the short description of the challenge
+     * @param long_descrip the long description of the challenge
+     */
+    public Challenge( String title, String short_descrip, String long_descrip) {
+        this.title = title;
+        this.short_description = short_descrip;
+        this.long_description = long_descrip;
+    }
+
+    /**
      * Constructor with no parameter
      */
     public Challenge() {
-        this.title = R.string.challenge_title;
-        this.description = R.string.challenge_description;
+        this.title = "Challenge";
+        this.short_description = "Challenge description";
         this.progression = 0.0;
         this.goal = new ChallengeGoal();
         this.icon = R.drawable.travel;
     }
+    //
     //Methods---------------------------------------------------------------------------------------
 
     /**
@@ -222,11 +254,51 @@ public class Challenge {
         }
     }
 
+    /**
+     * method that returns a list of the challenges stocked in JSON
+     * @return
+     */
+    public ArrayList<Challenge> creationOfTheChallengeList(){
+        ArrayList<Challenge> challengeList = new ArrayList<>();
+        Resources res = Resources.getSystem();
+
+        //lecture des lignes
+        try {
+            InputStream locationdeschallenges = res.openRawResource(R.raw.listechallenges);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(locationdeschallenges));
+            StringBuilder jsonStringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonStringBuilder.append(line);
+            }
+            reader.close();
+            locationdeschallenges.close();
+
+            //creation de l'arraylist de chakllenge
+            JSONObject json = new JSONObject(jsonStringBuilder.toString());
+            JSONArray challenges = json.getJSONArray("challenges");
+
+            for (int i = 0; i < challenges.length(); i++) {
+                JSONObject currentchall = challenges.getJSONObject(i);
+                Challenge challenge = new Challenge(
+                        currentchall.getString("title"), currentchall.getString("short_text"), currentchall.getString("long_text")
+                );
+                challengeList.add(challenge);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return challengeList;
+    }
+
+
+}
 
 
 
 
-    //----------------------------------------------------------------------------------------------//    /**
+
+//----------------------------------------------------------------------------------------------//    /**
 //     /**
 //     * Creation of the notification channel.
 //     * @param context the context of the app.
@@ -266,4 +338,4 @@ public class Challenge {
 //        }
 //
 //    }
-}
+
