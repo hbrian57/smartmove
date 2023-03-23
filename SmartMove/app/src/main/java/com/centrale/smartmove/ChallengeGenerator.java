@@ -1,23 +1,19 @@
 package com.centrale.smartmove;
-
+import com.centrale.smartmove.R;
 import com.centrale.smartmove.models.Challenge;
 import com.centrale.smartmove.models.GoalType;
 
 import java.util.Random;
+import java.util.Date;
 
 public class ChallengeGenerator {
 
-    //Constructors----------------------------------------------------------------------------------
+    public ChallengeGenerator() {
+    }
 
     /**
-     * Constructor that takes no parameter
-     */
-    public ChallengeGenerator(){}
-
-    //Methods---------------------------------------------------------------------------------------
-    /**
-     * Method that picks a random challenge.
-     * @return Challenge challenge
+     * Get a random challenge.
+     * @return A random challenge.
      */
     public Challenge getRandomChallenge(){
         Challenge challenge = new Challenge();
@@ -35,6 +31,9 @@ public class ChallengeGenerator {
         challenge.getGoal().setGoalFinal(5.0);// A VERIFIER
         // progression
         challenge.setProgression(70.0);
+        // Date
+        Date today = new Date();
+        challenge.setChallengeBeginning(today);
 
         // Title A FAIRE EN FONCTION DES DEFIS
         challenge.setTitle(R.string.challenge_title);
@@ -44,8 +43,6 @@ public class ChallengeGenerator {
 
         return challenge;
     }
-
-    //----------------------------------------------------------------------------------------------
 }
 
 

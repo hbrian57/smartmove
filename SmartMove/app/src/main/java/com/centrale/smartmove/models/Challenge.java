@@ -1,11 +1,8 @@
 package com.centrale.smartmove.models;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
@@ -13,12 +10,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.StringRes;
-
 import com.centrale.smartmove.R;
+import com.centrale.smartmove.ui.MainActivity;
 
-import java.util.Date;
 import java.util.HashMap;
 
 
@@ -51,6 +45,7 @@ public class Challenge {
     private @DrawableRes int icon;
 
     //Getters and Setters---------------------------------------------------------------------------
+
     /**
      * Setter
      */
@@ -62,7 +57,7 @@ public class Challenge {
      * Getter
      * @return int title
      */
-    public @StringRes int getTitle () {
+    public @StringRes int getTitle() {
         return title;
     }
 
@@ -70,7 +65,7 @@ public class Challenge {
      * Getter
      * @return int description
      */
-    public @StringRes int getDescription () {
+    public @StringRes int getDescription() {
         return description;
     }
 
@@ -78,7 +73,7 @@ public class Challenge {
      * Getter
      * @return Double progression
      */
-    public Double getProgression () {
+    public Double getProgression() {
         return progression;
     }
 
@@ -86,7 +81,7 @@ public class Challenge {
      * Getter
      * @return ChallengeGoal goal
      */
-    public ChallengeGoal getGoal () {
+    public ChallengeGoal getGoal() {
         return goal;
     }
 
@@ -132,6 +127,7 @@ public class Challenge {
 
 
     //Constructors----------------------------------------------------------------------------------
+
     /**
      * Challenge constructor.
      * @param title the title of the challenge
@@ -159,13 +155,14 @@ public class Challenge {
         this.icon = R.drawable.travel;
     }
     //Methods---------------------------------------------------------------------------------------
+
     /**
      * Method that gets the progression in a string, like a toString() method
      * @return a String corresponding to the progression
      */
     public String getProgressionString() {
         //depending on the goalType, the progression is displayed differently
-        Double progressionReality = progression/100*goal.getGoalFinal();
+        Double progressionReality = progression / 100 * goal.getGoalFinal();
         switch (goal.getType()) {
             case NUMBER_OF_TRIPS:
                 return progressionReality.intValue() + "/" + goal.getGoalFinal().intValue() + "trips";
@@ -189,11 +186,15 @@ public class Challenge {
                 progression += goal.calculateProgressionIncrementNumberOfTrips(numberOfTripSegmentsPerTransportType.get(transportTypeNeededForChallenge));
                 break;
             case DISTANCE_COVERED:
-                HashMap<TransportType,Double> distanceCoveredByTransportType = newTripDone.getTripDistanceDonePerTransportType();
+                HashMap<TransportType, Double> distanceCoveredByTransportType = newTripDone.getTripDistanceDonePerTransportType();
                 progression += goal.calculateProgressionIncrementDistanceCovered(distanceCoveredByTransportType.get(transportTypeNeededForChallenge));
                 break;
             default:
                 break;
+        }
+        boolean challengeAccomplished = isCompleted();
+        if (challengeAccomplished) {
+            notifyUser();
         }
     }
 
@@ -205,8 +206,28 @@ public class Challenge {
 
 
 
-    //----------------------------------------------------------------------------------------------
-    //    /**
+    public void notifyUser() {
+        boolean challengeAccomplished = isCompleted();
+        Context context = MainActivity.getContext();
+        if (challengeAccomplished) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, context.getString(R.string.ChannelID));
+            builder.setContentTitle(context.getString(R.string.notification_accomplishedchall));
+            builder.setContentText(context.getString(R.string.notification_congratulations));
+            builder.setAutoCancel(true);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                notificationManager.notify(1, builder.build());
+            }
+        }
+    }
+
+
+
+
+
+    //----------------------------------------------------------------------------------------------//    /**
+//     /**
 //     * Creation of the notification channel.
 //     * @param context the context of the app.
 //     */
