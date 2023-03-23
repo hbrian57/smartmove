@@ -31,7 +31,7 @@ public class ChallengeGenerator {
      * Method that picks a random challenge.
      * @return Challenge challenge
      */
-    public Challenge getRandomChallenge(){
+   /** public Challenge getRandomChallenge(){
 
         //Sélection du challenge
         Challenge challenge = new Challenge();
@@ -40,9 +40,10 @@ public class ChallengeGenerator {
         int index = rand.nextInt(challenges.size());
         return (Challenge) challenges.get(index);
 
-// goal type dans le json et transport ausis. Faire la boucle if
+
     // Goal
-        if (int result ==0){
+        int result = rand.nextInt(2); // BOUND A CHANGER EN FONCTION DU NBR DES DEFIS
+        if (result ==0){
             GoalType goalType = GoalType.NUMBER_OF_TRIPS;// A CHANGER EN FONCTION DES DEFIS
             challenge.getGoal().setType(goalType);
         }
@@ -50,11 +51,10 @@ public class ChallengeGenerator {
             GoalType goalType2 =GoalType.DISTANCE_COVERED;// A CHANGER EN FONCTION DES DEFIS
             challenge.getGoal().setType(goalType2);
         }
-
-        //en foinction du type et d transport type, faire des fourchettes d'objectifs.
         challenge.getGoal().setGoalFinal(5.0);// A VERIFIER
         // progression
         challenge.setProgression(70.0);
+
 
         // Title A FAIRE EN FONCTION DES DEFIS
         challenge.setTitle(challenge.getTitle());
@@ -63,14 +63,14 @@ public class ChallengeGenerator {
         challenge.setShort_description(challenge.getShort_description());
 
         //Description A FAIRE EN FONCTION DES DEFIS
-        challenge.setLong_description(challenge.getLong_description());
+        challenge.setLong_description("long_description");
 
-        return challenge;
+        return challenge;**/
     }
 
 
 
     //----------------------------------------------------------------------------------------------
-}
+//}
 
 
