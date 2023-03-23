@@ -29,7 +29,6 @@
         <activity
             android:name=".debugus4.DebugUS4"
             android:exported="false"
-            android:label="@string/title_activity_debug_us4"
             android:theme="@style/Theme.SmartMove.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
