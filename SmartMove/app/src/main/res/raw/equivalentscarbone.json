@@ -1,0 +1,55 @@
+{
+  "equivalents" : [
+
+    {
+      "sentence": "repas végétariens",
+      "ratio" : 1.961,
+      "imageId" : "@drawable/repavege"
+    },
+    {
+      "sentence": "kms en TGV",
+      "ratio" : 578.035,
+      "imageId" : "@drawable/tgv"
+    },
+    {
+      "sentence": "t-shirts en coton",
+      "ratio" : 0.192,
+      "imageId" : "@drawable/tee"
+    },
+    {
+      "sentence": "feuilles de papier",
+      "ratio" : 218.141,
+      "imageId" : "@drawable/feuille"
+    },
+    {
+      "sentence": "bouteilles d'eau produites",
+      "ratio" : 2.208,
+      "imageId" : "@drawable/bouteille"
+    },
+    {
+      "sentence": "kilos de volaille",
+      "ratio" : 1,
+      "imageId" : "@drawable/prodvol"
+    },
+    {
+      "sentence": "kilos de pommes de terre",
+      "ratio" : 4.7,
+      "imageId" : "@drawable/prodpatate"
+    },
+    {
+      "sentence": "kilos de pain",
+      "ratio" : 1.2,
+      "imageId" : "@drawable/prodpain"
+    },
+    {
+      "sentence": "kWh d'électricité",
+      "ratio" : 1.2,
+      "imageId" : "@drawable/consoelec"
+    },
+    {
+      "sentence": "gobelets de café",
+      "ratio" : 8.8,
+      "imageId" : "@drawable/gobcafe"
+    }
+  ]
+}
