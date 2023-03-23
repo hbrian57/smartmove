@@ -266,7 +266,7 @@ public class User implements Savable {
         if(challenge.isCompleted()){
             removeDefi(challenge);
             addNewDefi();
-            //faire appelle à la methode de lucas pour faire une notif quand challenge est complete
+            challenge.notifyUser();
         }
     }
 

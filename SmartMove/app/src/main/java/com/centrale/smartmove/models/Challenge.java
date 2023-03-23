@@ -239,18 +239,15 @@ public class Challenge {
 
 
     public void notifyUser() {
-        boolean challengeAccomplished = isCompleted();
         Context context = MainActivity.getContext();
-        if (challengeAccomplished) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, context.getString(R.string.ChannelID));
-            builder.setContentTitle(context.getString(R.string.notification_accomplishedchall));
-            builder.setContentText(context.getString(R.string.notification_congratulations));
-            builder.setAutoCancel(true);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, context.getString(R.string.ChannelID));
+        builder.setContentTitle(context.getString(R.string.notification_accomplishedchall));
+        builder.setContentText(context.getString(R.string.notification_congratulations));
+        builder.setAutoCancel(true);
 
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                notificationManager.notify(1, builder.build());
-            }
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            notificationManager.notify(1, builder.build());
         }
     }
 
