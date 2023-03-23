@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> permissions = new ArrayList<>();
     private Context context;
 
-    public Context getContext() {
+    public static Context getContext() {
         return context;
     }
 

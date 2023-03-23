@@ -134,7 +134,7 @@ public class User implements Savable {
     }
 
     public void defiCompletedThenReplace(Challenge challenge){
-        if(challenge.defiIsCompleted()){
+        if(challenge.isCompleted()){
             removeDefi(challenge);
             addNewDefi();
             //faire appelle à la methode de lucas pour faire une notif quand challenge est complete

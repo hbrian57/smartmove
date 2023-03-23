@@ -198,11 +198,12 @@ public class Challenge {
         }
     }
 
-    public boolean isCompleted() {
-
-
-        return false;
+    public boolean isCompleted(){
+        if(this.progression<100){
+            return false;
+        }else{return true;}
     }
+
 
 
     public void notifyUser() {
@@ -220,6 +221,8 @@ public class Challenge {
             }
         }
     }
+
+
 
 
 
