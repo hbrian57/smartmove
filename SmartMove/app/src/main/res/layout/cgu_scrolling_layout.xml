@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/smartloc_light"
-    tools:context=".CGUActivity">
+    tools:context=".ui.CGUActivity">
 
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".CGUActivity"
+        tools:context=".ui.CGUActivity"
         tools:showIn="@layout/cgu_scrolling_layout"
         android:orientation="vertical">
 
@@ -46,7 +46,7 @@
                 android:layout_height="95dp"
                 android:checked="false"
                 android:onClick="onCheckBoxClicked"
-                android:text="@string/cbaccept"
+                android:text="@string/cgu_acceptation_text"
                 android:textSize="24sp"
                 android:textColor="@color/smartloc_darkblue"
                 app:checkedState="unchecked"
@@ -60,7 +60,7 @@
                 android:backgroundTint="@color/smartloc_lightblue"
                 android:contextClickable="false"
                 android:onClick="onButtonClicked"
-                android:text="@string/btvalidate"
+                android:text="@string/validate_button_text"
 
                 android:textColor="@color/smartloc_light"
                 android:textSize="16sp"

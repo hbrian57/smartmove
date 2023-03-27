@@ -38,7 +38,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/name_defis"
+                android:text="@string/name_defi_data"
                 android:textAppearance="@style/DefiTitle" />
 
             <LinearLayout
@@ -82,7 +82,7 @@
                 android:layout_width="700dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/explication_defis"
+                android:text="@string/explication_defi"
                 android:textAppearance="@style/DefiSubtitle" />
 
         </LinearLayout>

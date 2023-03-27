@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Just for OpenStreetMap-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"  />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- For the whole SMARTLOC App-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -11,23 +18,32 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:usesCleartextTraffic="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/application_name_mintext"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartMove"
-        android:name=".App"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityCarbonEquivalent"
+            android:name=".debugus4.DebugUS4"
+            android:exported="false"
+            android:label="@string/title_activity_debug_us4"
+            android:theme="@style/Theme.SmartMove.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ActivityCarbonEquivalent"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +56,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ui.DashboardActivity"
             android:exported="false"
             android:theme="@style/Theme.SmartMove.NoActionBar">
             <meta-data
@@ -48,7 +64,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CGUActivity"
+            android:name=".ui.CGUActivity"
             android:exported="true"
             android:theme="@style/Theme.SmartMove.NoActionBar">
             <meta-data
