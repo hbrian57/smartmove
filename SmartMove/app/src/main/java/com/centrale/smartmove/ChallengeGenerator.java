@@ -27,7 +27,12 @@ public class ChallengeGenerator {
      */
    /** public Challenge getRandomChallenge(){
 
-        //Sélection du challenge
+    //Methods---------------------------------------------------------------------------------------
+    /**
+     * Method that picks a random challenge.
+     * @return Challenge challeng
+     */
+    public Challenge getRandomChallenge(){
         Challenge challenge = new Challenge();
         ArrayList challenges = challenge.creationOfTheChallengeList();
         Random rand = new Random();

@@ -2,7 +2,7 @@ package com.centrale.smartmove.models;
 
 import androidx.annotation.StringRes;
 
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 
 public enum TransportType {
 

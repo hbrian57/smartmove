@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.centrale.smartmove.models.Challenge;
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 
 import java.util.ArrayList;
 

@@ -18,7 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 import com.centrale.smartmove.tracker.GeolocpvtUserTracker;
 import com.centrale.smartmove.tracker.TrackerClock;
 import com.centrale.smartmove.models.User;

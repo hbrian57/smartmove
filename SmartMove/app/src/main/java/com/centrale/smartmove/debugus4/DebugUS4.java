@@ -20,7 +20,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import android.Manifest;
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 import com.centrale.smartmove.models.TimestampedPosition;
 import com.centrale.smartmove.models.Trip;
 import com.centrale.smartmove.models.TripSegment;
