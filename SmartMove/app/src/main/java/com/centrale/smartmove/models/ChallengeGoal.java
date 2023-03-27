@@ -1,38 +1,29 @@
 package com.centrale.smartmove.models;
 
 public class ChallengeGoal {
-    GoalType type;
-    Double goalFinal;
-    TransportType transportType;
+
+    //Attributes------------------------------------------------------------------------------------
+    /**
+     * GoalType
+     */
+    private GoalType type;
 
     /**
-     * Challenge Goal Constructor.
-     * @param type Type
-     * @param goalFinal Final Goal
-     * @param transportType Type of transport
+     * Double that is associated with the objective of the ChallengeGoal
      */
-    public ChallengeGoal(GoalType type, Double goalFinal, TransportType transportType) {
-        this.type = type;
-        this.goalFinal = goalFinal;
-        this.transportType = transportType;
-    }
+    private Double goalFinal;
 
     /**
-     * Empty challenge Goal Constructor.
+     * TransportType that is associated with the objective of the ChallengeGoal
      */
-    public ChallengeGoal() {
-        this.type = GoalType.NUMBER_OF_TRIPS;
-        this.goalFinal = 0.0;
-        this.transportType = TransportType.WALKING;
-    }
+    private TransportType transportType;
 
+    //Getters and Setters---------------------------------------------------------------------------
     /**
-     * Get the type.
-     * @return The Goal Type
+     * Getter
+     * @return GoalType type
      */
-    public GoalType getType() {
-        return type;
-    }
+    public GoalType getType() {return type;}
 
     /**
      * Get the final Goal.
@@ -43,16 +34,16 @@ public class ChallengeGoal {
     }
 
     /**
-     * Set the type.
-     * @param type Type
+     * Setter
+     * @param type, a GoalType
      */
     public void setType(GoalType type) {
         this.type = type;
     }
 
     /**
-     * Set the final goal.
-     * @param goalFinal Final Goal
+     * Setter
+     * @param goalFinal, a Double
      */
     public void setGoalFinal(Double goalFinal) {
         this.goalFinal = goalFinal;
@@ -67,16 +58,26 @@ public class ChallengeGoal {
     }
 
     /**
-     * Set the transport Type
-     * @param transportType the transport Type
+     * Setter
+     * @param transportType, a TransportType
      */
     public void setTransportType(TransportType transportType) {
         this.transportType = transportType;
     }
-
+    //Constructors----------------------------------------------------------------------------------
     /**
-     * Method which calculates the progression of the challenge that corresponds to the number of trips input
-     * @param numberOfCorrespondingTrips number of trips corresponding to the goal
+     * Constructor with no parameter
+     */
+    public ChallengeGoal() {
+        this.type = GoalType.NUMBER_OF_TRIPS;
+        this.goalFinal = 0.0;
+        this.transportType = TransportType.WALKING;
+    }
+
+    //Methods---------------------------------------------------------------------------------------
+    /**
+     * Method that calculates the progression of the challenge that corresponds to the number of trips input
+     * @param numberOfCorrespondingTrips, an int that corresponds to the number of trips corresponding to the goal
      * @return a double corresponding to the progression increment of the challenge
      */
     public Double calculateProgressionIncrementNumberOfTrips(Integer numberOfCorrespondingTrips) {
@@ -84,12 +85,14 @@ public class ChallengeGoal {
     }
 
     /**
-     *
-     * Method which calculates the progression of the challenge that corresponds to distance covered
-     * @param distanceCovered distance covered corresponding to the goal.
+     * Method that calculates the progression of the challenge that corresponds to distance covered
+     * @param distanceCovered, a Double that corresponds to the distance covered in link with to the goal.
      * @return a double corresponding to the progression increment of the challenge
      */
     public Double calculateProgressionIncrementDistanceCovered(Double distanceCovered) {
         return distanceCovered/goalFinal*100;
     }
+
+    //----------------------------------------------------------------------------------------------
+
 }

@@ -7,53 +7,67 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Week implements Savable {
 
+    //Attributes------------------------------------------------------------------------------------
     /**
      * Calendar object to compute Date & Time transformations.
      */
-    Calendar calendar;
+    private Calendar calendar;
 
     /**
-     * Vector with all the trips of that week
+     * Double that corresponds to the total of CO2 produced in Week
      */
-    ArrayList<Trip> tripList;
+    private double carbonFootprint;
 
-    /** Constructor that creates a week based on a new trip
-     * @param trip first trip of the new week
+    //Getters and Setters---------------------------------------------------------------------------
+
+    /**
+     * Getter
+     * @return double carbonFootprint
      */
-    public Week(Trip trip) throws Exception {
-        Date firstDate = trip.getFirstSegment().getFirstPosition().getDatePos();
-        calendar.setTime(firstDate);
-        tripList.add(trip);
+    public double getCarbonFootprint() {
+        return carbonFootprint;
     }
 
     /**
-     * Constructor that creates a week based on a list of trips
-     * @param trips the list of trips
+     * Sets double carbonFootprint on the parameter
+     * @param carbonFootprint, a double
      */
-    public Week(ArrayList<Trip> trips){
-        this.tripList=trips;
+    public void setCarbonFootprint(double carbonFootprint) {
+        this.carbonFootprint = carbonFootprint;
+    }
+
+
+    //Constructors----------------------------------------------------------------------------------
+    /** Constructor that creates a week based on a date of a day in the week.
+     * @param dayInWeek, a Timestamp
+     */
+    public Week(Timestamp dayInWeek) {
+
+   calendar = Calendar.getInstance();
+   calendar.setTimeInMillis(dayInWeek.getTime());
+        //set the calendar to the first day of the week
+    calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+    }
+
+
+    //Methods---------------------------------------------------------------------------------------
+    /**
+     * Method that adds the parameter to the total of carbonFootprint
+     * @param newCarbonFootprintToAdd, a double
+     */
+    public void addCarbonFootprint(double newCarbonFootprintToAdd) {
+        this.carbonFootprint += newCarbonFootprintToAdd;
     }
 
     /**
-     * method which enables to obtain the CO2 footprint of a whole trip
-     * @return a double corresponding to the CO2 footprint
-     */
-    public double getTotalCO2Footprint() {
-        double sumCO2Footprint = 0;
-        for (Trip trip : tripList) {
-            sumCO2Footprint += trip.getTripCO2Footprint();
-        }
-        return sumCO2Footprint;
-    }
-
-    /**
-     * method that allows to give an id to a week with the number of the week in the year
+     * Method that allows to give an id to a week with the number of the week in the year
      * and the current year
      * @return a string with the id of the week
      */
@@ -61,31 +75,34 @@ public class Week implements Savable {
         return calendar.get(Calendar.WEEK_OF_YEAR) + ":" + calendar.get(Calendar.YEAR);
     }
 
-    /**
-     * allows you to add a Trip object to the tripList
-     * @param t is the Trip object we want to add
-     */
-    public void addNewTrip(Trip t){
-        this.tripList.add(t);
-    }
 
     /**
-     * allows to save in JSON format directly on the device all the Trip in tripList
-     * @return the JSON file of the backup
+     * Method that allows to know if a date is in the week
+     * @param date the date to check
+     * @return a boolean which is true if the date is in the week
+     */
+    public boolean isInWeek(Date date){
+        //get the number of days between the date and the first day of the week
+        int daysBetween = (int) ((date.getTime() - calendar.getTime().getTime()) / (1000 * 60 * 60 * 24));
+        //if the number of days is between 0 and 6, the date is in the week
+        return daysBetween >= 0 && daysBetween <= 6;
+    }
+
+
+    /**
+     * Method that allows to save in JSON format
+     * @return the JSON file of the week
      */
     @Override
     public JSONObject getSaveFormat() {
         JSONObject JSONWeek = new JSONObject();
-        JSONArray JSONTrips = new JSONArray();
-        for (Trip trip : tripList) {
-            JSONTrips.put(trip.getSaveFormat());
-        }
         try {
-            JSONWeek.put(String.valueOf(R.string.weekTrips), JSONTrips);
             JSONWeek.put(String.valueOf(R.string.weekWeekID), getWeekID());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return JSONWeek;
     }
+
+    //----------------------------------------------------------------------------------------------
 }

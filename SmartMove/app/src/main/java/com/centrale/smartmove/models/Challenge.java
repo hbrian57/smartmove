@@ -239,19 +239,53 @@ public class Challenge {
 
 
     public void notifyUser() {
-        boolean challengeAccomplished = isCompleted();
         Context context = MainActivity.getContext();
-        if (challengeAccomplished) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, context.getString(R.string.ChannelID));
-            builder.setContentTitle(context.getString(R.string.notification_accomplishedchall));
-            builder.setContentText(context.getString(R.string.notification_congratulations));
-            builder.setAutoCancel(true);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, context.getString(R.string.ChannelID));
+        builder.setContentTitle(context.getString(R.string.notification_accomplishedchall));
+        builder.setContentText(context.getString(R.string.notification_congratulations));
+        builder.setAutoCancel(true);
 
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                notificationManager.notify(1, builder.build());
-            }
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            notificationManager.notify(1, builder.build());
         }
+    }
+
+    /**
+     * method that returns a list of the challenges stocked in JSON
+     * @return
+     */
+    public ArrayList<Challenge> creationOfTheChallengeList(){
+        ArrayList<Challenge> challengeList = new ArrayList<>();
+        Resources res = Resources.getSystem();
+
+        //lecture des lignes
+        try {
+            InputStream locationdeschallenges = res.openRawResource(R.raw.listechallenges);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(locationdeschallenges));
+            StringBuilder jsonStringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonStringBuilder.append(line);
+            }
+            reader.close();
+            locationdeschallenges.close();
+
+            //creation de l'arraylist de chakllenge
+            JSONObject json = new JSONObject(jsonStringBuilder.toString());
+            JSONArray challenges = json.getJSONArray("challenges");
+
+            for (int i = 0; i < challenges.length(); i++) {
+                JSONObject currentchall = challenges.getJSONObject(i);
+                Challenge challenge = new Challenge(
+                        currentchall.getString("title"), currentchall.getString("short_text"), currentchall.getString("long_text")
+                );
+                challengeList.add(challenge);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return challengeList;
     }
 
     /**
@@ -295,10 +329,13 @@ public class Challenge {
 }
 
 
+}
 
 
 
-    //----------------------------------------------------------------------------------------------//    /**
+
+
+//----------------------------------------------------------------------------------------------//    /**
 //     /**
 //     * Creation of the notification channel.
 //     * @param context the context of the app.

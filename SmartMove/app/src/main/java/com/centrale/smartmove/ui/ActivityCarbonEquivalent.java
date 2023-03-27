@@ -18,6 +18,14 @@ import android.content.res.Resources;
 import com.centrale.smartmove.models.Equivalent;
 import com.centrale.smartmove.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -51,29 +59,35 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
      * This method randomly selects a picture that corresponds to a carbon equivalent.
      */
     public void getListImage() {
+        if(listCarbonEquivalent.size()!=0) {
+            return;
+        }
         Resources res = getResources();
-        if (listCarbonEquivalent == null) {
-            this.listCarbonEquivalent = new ArrayList<>();
-            Equivalent e2 = new Equivalent(getString(R.string.repas_vege),parseDouble(getString(R.string.repavege_ratio)), R.drawable.repavege);
-            this.listCarbonEquivalent.add(e2);
-            Equivalent e3 = new Equivalent(getString(R.string.kms_en_tgv), parseDouble(getString(R.string.tgv_ratio)), R.drawable.tgv);
-            this.listCarbonEquivalent.add(e3);
-            Equivalent e4 = new Equivalent(getString(R.string.tshirt_en_coton), parseDouble(getString(R.string.tee_ratio)), R.drawable.tee);
-            this.listCarbonEquivalent.add(e4);
-            Equivalent e5 = new Equivalent(getString(R.string.feuilles_de_papier), parseDouble(getString(R.string.feuille_ratio)), R.drawable.feuille);
-            this.listCarbonEquivalent.add(e5);
-            Equivalent e6 = new Equivalent(getString(R.string.bouteilles_d_eau), parseDouble(getString(R.string.bouteille_ratio)), R.drawable.bouteille);
-            this.listCarbonEquivalent.add(e6);
-            Equivalent e7 = new Equivalent(getString(R.string.kilos_de_volaille), parseDouble(getString(R.string.prodvol_ratio)), R.drawable.prodvol);
-            this.listCarbonEquivalent.add(e7);
-            Equivalent e8 = new Equivalent(getString(R.string.pomme2terre), parseDouble(getString(R.string.prodpatate_ratio)),  R.drawable.prodpatate);
-            this.listCarbonEquivalent.add(e8);
-            Equivalent e9 = new Equivalent(getString(R.string.kg_2_pain), parseDouble(getString(R.string.prodpain_ratio)), R.drawable.prodpain);
-            this.listCarbonEquivalent.add(e9);
-            Equivalent e10 = new Equivalent(getString(R.string.kwh_elec), parseDouble(getString(R.string.consoelec_ratio)),  R.drawable.consoelec);
-            this.listCarbonEquivalent.add(e10);
-            Equivalent e11 = new Equivalent(getString(R.string.gobelets_cafe),parseDouble(getString(R.string.gobcafe_ratio)),R.drawable.gobcafe);
-            this.listCarbonEquivalent.add(e11);
+        try {
+            InputStream locationdesimages = res.openRawResource(R.raw.equivalentscarbone);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(locationdesimages));
+            StringBuilder jsonStringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonStringBuilder.append(line);
+            }
+            reader.close();
+            locationdesimages.close();
+
+            JSONObject json = new JSONObject(jsonStringBuilder.toString());
+            JSONArray equivalents = json.getJSONArray("equivalents");
+
+            for (int i = 0; i < equivalents.length(); i++) {
+                JSONObject equivalent = equivalents.getJSONObject(i);
+                Equivalent carbonEquivalent = new Equivalent(
+                        equivalent.getString("sentence"),
+                        equivalent.getDouble("ratio"),
+                        equivalent.getInt("imageID")
+                );
+                listCarbonEquivalent.add(carbonEquivalent);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
     }
 

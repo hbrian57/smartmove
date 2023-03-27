@@ -1,7 +1,5 @@
 package com.centrale.smartmove;
-
-import android.content.res.Resources;
-
+import com.centrale.smartmove.R;
 import com.centrale.smartmove.models.Challenge;
 import com.centrale.smartmove.models.Equivalent;
 import com.centrale.smartmove.models.GoalType;
@@ -16,20 +14,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Date;
 
 public class ChallengeGenerator {
 
-    //Constructors----------------------------------------------------------------------------------
+    public ChallengeGenerator() {
+    }
 
     /**
-     * Constructor that takes no parameter
-     */
-    public ChallengeGenerator(){}
-
-    //Methods---------------------------------------------------------------------------------------
-    /**
-     * Method that picks a random challenge.
-     * @return Challenge challenge
+     * Get a random challenge.
+     * @return A random challenge.
      */
    /** public Challenge getRandomChallenge(){
 
@@ -54,6 +48,8 @@ public class ChallengeGenerator {
         challenge.getGoal().setGoalFinal(5.0);// A VERIFIER
         // progression
         challenge.setProgression(70.0);
+        // Date
+        Date today = new Date();
 
 
         // Title A FAIRE EN FONCTION DES DEFIS
@@ -67,10 +63,6 @@ public class ChallengeGenerator {
 
         return challenge;**/
     }
-
-
-
-    //----------------------------------------------------------------------------------------------
-//}
+}
 
 

@@ -1,145 +1,146 @@
 package com.centrale.smartmove.models;
 
-import com.centrale.smartmove.R;
 import com.centrale.smartmove.Savable;
-
+import org.osmdroid.util.GeoPoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 
 
 public class TimestampedPosition implements Savable {
 
+    //Attributes------------------------------------------------------------------------------------
     /**
-     * Double corresponding to the latitude
+     * GeoPoint that contains the geographical coordinates
      */
-    private double latitude;
-
-    /**
-     * Double corresponding to the longitude
-     */
-    private double longitude;
+    private GeoPoint geoCoordinates;
 
     /**
-     * Double corresponding to the altitude
+     * Timestamp corresponding to exact moment the position is taken
      */
+    private Timestamp timestamp;
 
-    private double altitude;
+    //Getters and Setters---------------------------------------------------------------------------
+    /**
+     * Getter
+     * @return double corresponding to the latitude
+     */
+    public double getLatitude() {
+        return geoCoordinates.getLatitude();
+    }
 
     /**
-     * Date corresponding to exact moment the position is taken
+     * Getter
+     * @return double corresponding to the longitude
      */
-    Date dateOfCapture;
+    public double getLongitude() {
+        return geoCoordinates.getLongitude();
+    }
 
-    public Date getDateOfCapture() {
-        return dateOfCapture;
+    /**
+     * Getter
+     * @return Timestamp timestamp
+     */
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    /**
+     * Sets the parameters of the GeoPoint geoCoordinates
+     * @param latitude, a double
+     * @param longitude, a double
+     */
+    public void set(double latitude, double longitude) {
+        this.geoCoordinates.setCoords(latitude,longitude);
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+
     }
 
 
+
+    //Constructors----------------------------------------------------------------------------------
     /**
-     * Constructor of a timestampedposition with the latitude, longitude, altitude
+     * Constructor that takes into parameter a TimestampedPosition
+     * @param newPosition, a new TimestampedPosition
+     */
+    public TimestampedPosition(TimestampedPosition newPosition) {
+        this.geoCoordinates = newPosition.geoCoordinates;
+        this.timestamp = newPosition.getTimestamp();
+    }
+
+    /**
+     * Constructor of a TimestampedPosition with the latitude and the longitude
       * @param lati latitude
      * @param longi longitude
-     * @param alti altidude
      */
-    public TimestampedPosition(double lati, double longi, double alti) {
-        this.altitude = alti;
-        this.longitude = longi;
-        this.latitude = lati;
-        this.dateOfCapture = new Date();
-    }
-
-    public void setDateOfCapture(Date dateOfCapture) {
-        this.dateOfCapture = dateOfCapture;
+    public TimestampedPosition(double lati, double longi) {
+        GeoPoint geoPoint = new GeoPoint(lati,longi);
+        this.geoCoordinates= geoPoint;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     /**
-     * Fonction calculant la distance entre deux positions
-     * @param targetPosition la position avec laquelle on veut calculer la distance
-     * @return une distance en mètre
-     * @throws Exception si la latitude est supérieure à 180°
-     * @throws Exception si la longitude est inférieure à -90°
-     * @throws Exception si la longitude est supérieure à 90°
-     * @throws Exception si la latitude est inférieure à -180°
-     * @throws Exception si une des coordonnées est vide
+     * Constructor of a TimestampedPosition with the latitude, the longitude and the date
+     * @param lati latitude
+     * @param longi longitude
+     * @param date date
      */
-    public double calculateDistance(TimestampedPosition targetPosition) throws Exception {
-        if((targetPosition.latitude>90) || (this.latitude>90))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException90deg));}
-        if((targetPosition.longitude>180) || (this.longitude>180))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException180));}
-        if((targetPosition.latitude<-90) || (this.latitude<-90))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException90Moins));}
-        if((targetPosition.longitude<-180) || (this.longitude<-180))
-        {throw new IllegalArgumentException(String.valueOf(R.string.positionException180Moins));}
+    public TimestampedPosition(double lati, double longi, Timestamp date) {
+        GeoPoint geoPoint = new GeoPoint(lati,longi);
+        this.geoCoordinates= geoPoint;
+        this.timestamp = date;
+    }
 
-        final int R = 6371000; // Radius of the earth
-        double deltaLatitude = Math.toRadians(targetPosition.latitude - this.latitude);
-        double deltaLongitude = Math.toRadians(targetPosition.longitude - this.longitude);
-        double a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2)
-            + Math.cos(Math.toRadians(this.latitude)) * Math.cos(Math.toRadians(targetPosition.latitude))
-            * Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c;
-        double deltaAltitude = this.altitude - targetPosition.altitude;
-        distance = Math.pow(distance, 2) + Math.pow(deltaAltitude, 2);
-        return Math.sqrt(distance);
+
+    //Methods-------------------------------------------------------------------------------------
+    /**
+     * Method that calculates the distance between two TimestampedPositions
+     * @param targetPosition, a TimestampedPosition with which we want to know the distance to
+     * @return a double that corresponds to the distance between the points
+     */
+    public double getDistanceToPosition(TimestampedPosition targetPosition){
+        return this.geoCoordinates.distanceToAsDouble(targetPosition.geoCoordinates);
     }
 
     /**
      * Calculates the velocity between two TimestampedPosition
-     * @param secondPosition Second Position
-     * @return The velocity
-     * @throws Exception nul
+     * @param secondPosition, the other TimestampedPosition we want to know the velocity between
+     * @return a double, the velocity between the two points
      */
-
-    public double calculateVelocityBetweenTwoPoints(TimestampedPosition secondPosition) throws Exception{
+    public double calculateVelocityBetweenTwoPoints(TimestampedPosition secondPosition){
         double velocity=0;
-        LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.dateOfCapture.toInstant(), ZoneId.systemDefault());
-        LocalDateTime dateTime2 = LocalDateTime.ofInstant(secondPosition.dateOfCapture.toInstant(), ZoneId.systemDefault());
+        LocalDateTime dateTime1 = LocalDateTime.ofInstant(this.timestamp.toInstant(), ZoneId.systemDefault());
+        LocalDateTime dateTime2 = LocalDateTime.ofInstant(secondPosition.timestamp.toInstant(), ZoneId.systemDefault());
         Duration duration = Duration.between(dateTime1, dateTime2);
         long timeBetweenPoints = duration.getSeconds();
-        double distanceBetweenPoints = this.calculateDistance(secondPosition);
+        double distanceBetweenPoints = this.getDistanceToPosition(secondPosition);
         velocity=distanceBetweenPoints/timeBetweenPoints;
         return velocity;
     }
-    public void set(double latitude, double longitude, double altitude) {
-        this.dateOfCapture = new Date();
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.altitude = altitude;
-    }
+
 
     @Override
     /**
-     * method which allows to save all the TimeStampedPosition of User in a JSON file
+     * Method that allows to save all the TimeStampedPosition of User in a JSON file
      * @return the JSON file of the backup
      */
     @SuppressWarnings("lint:HardCodedStringLiteral")
     public JSONObject getSaveFormat() {
         JSONObject JSONTimestampedPosition = new JSONObject();
         try {
-            JSONTimestampedPosition.put("timestamp", dateOfCapture);
+            JSONTimestampedPosition.put("timestamp", timestamp);
             JSONObject JSONPosition = new JSONObject();
-            JSONPosition.put("latitude", latitude);
-            JSONPosition.put("longitude", longitude);
-            JSONPosition.put("altitude", altitude);
+            JSONPosition.put("latitude", this.geoCoordinates.getLatitude());
+            JSONPosition.put("longitude", this.geoCoordinates.getLongitude());
             JSONTimestampedPosition.put("position", JSONPosition);
         } catch (JSONException e) {
             e.printStackTrace(); //TODO : Handle the exception properly
         }
         return JSONTimestampedPosition;
     }
-
-    /**
-     * Get the date of the TimeStampedPosition object.
-     * @return the date.
-     */
-    public Date getDatePos() {
-        return this.dateOfCapture;
-    }
+    //----------------------------------------------------------------------------------------------
 }

@@ -1,19 +1,13 @@
 package com.centrale.smartmove.tracker;
 
-import static android.content.Context.LOCATION_SERVICE;
-
 import android.annotation.SuppressLint;
-import android.location.Criteria;
 import android.location.GnssMeasurementsEvent;
 import android.location.GnssNavigationMessage;
 import android.location.GnssStatus;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.OnNmeaMessageListener;
-import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,9 +21,7 @@ import org.gogpsproject.ephemeris.GlonassEphemeris;
 import org.gogpsproject.ephemeris.GpsEphemeris;
 import org.gogpsproject.ephemeris.KeplerianEphemeris;
 
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -39,10 +31,10 @@ import fr.ifsttar.geoloc.geoloclib.Options;
 import fr.ifsttar.geoloc.geoloclib.computations.GNSSPositioning;
 
 public class GeolocpvtUserTracker extends UserTracker{
-    double longitude;
-    double latitude;
-    double altitude;
-    GNSSPositioning positionTracker;
+    private double longitude;
+    private double latitude;
+    private double altitude;
+    private GNSSPositioning positionTracker;
     private Map<Integer, Map<Integer, Map<Integer,GnssNavigationMessage>>> mMapMessages;
     private GnssMeasurementsEvent.Callback mGnssMeasurementsEventCallback;
     private GnssNavigationMessage.Callback mGnssNavigationMessageCallback;
@@ -74,21 +66,18 @@ public class GeolocpvtUserTracker extends UserTracker{
     public double getLatitude() {
         return latitude;
     }
-    @Override
-    public double getAltitude() {
-        return altitude;
-    }
+
 
     private Options getProcessingOptions() {
         Options options = new Options();
         options.setDualFrequencyEnabled(false);
         options.setIonofreeEnabled(false);
         options.setPppEnabled(false);
-        options.setMonoFrequencyEnabled(false);
-        options.setSppEnabled(false);
-        options.setCutoffAngle(5);
-        options.setCutoffNoise(0.1f);
-        options.setDynamicMode(false);
+        options.setMonoFrequencyEnabled(true);
+        options.setSppEnabled(true);
+        options.setCutoffAngle(0);
+        options.setCutoffNoise(0f);
+        options.setDynamicMode(true);
         options.setIonoCorrEnabled(false);
 
         Vector<Integer> systemsEnabled = new Vector<>();

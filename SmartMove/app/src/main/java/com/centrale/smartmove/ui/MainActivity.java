@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> permissions = new ArrayList<>();
-    private Context context;
+    private static Context context;
 
     public static Context getContext() {
         return context;
