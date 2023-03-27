@@ -21,6 +21,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import com.centrale.smartmove.R;
+import com.centrale.smartmove.Savable;
 import com.centrale.smartmove.ui.MainActivity;
 
 import org.json.JSONArray;
@@ -38,7 +39,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 
-public class Challenge {
+public class Challenge implements Savable {
 
     //Attributes------------------------------------------------------------------------------------
     /**
@@ -170,9 +171,11 @@ public class Challenge {
      * @param long_descrip the long description of the challenge
      */
     public Challenge( String title, String short_descrip, String long_descrip) {
+        this();
         this.title = title;
         this.short_description = short_descrip;
         this.long_description = long_descrip;
+
     }
 
     /**
@@ -197,7 +200,7 @@ public class Challenge {
         Double progressionReality = progression / 100 * goal.getGoalFinal();
         switch (goal.getType()) {
             case NUMBER_OF_TRIPS:
-                return progressionReality.intValue() + "/" + goal.getGoalFinal().intValue() + "trips";
+                return progressionReality.intValue() + "/" + goal.getGoalFinal().intValue() + " trajets";
             case DISTANCE_COVERED:
                 return progressionReality + "/" + goal.getGoalFinal() + "km";
             default:
@@ -251,128 +254,46 @@ public class Challenge {
         }
     }
 
-    /**
-     * method that returns a list of the challenges stocked in JSON
-     * @return
-     */
-    public ArrayList<Challenge> creationOfTheChallengeList(){
-        ArrayList<Challenge> challengeList = new ArrayList<>();
-        Resources res = Resources.getSystem();
-
-        //lecture des lignes
+    @Override
+    public JSONObject getSaveFormat() {
+        JSONObject JSONChallenge = new JSONObject();
         try {
-            InputStream locationdeschallenges = res.openRawResource(R.raw.listechallenges);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(locationdeschallenges));
-            StringBuilder jsonStringBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonStringBuilder.append(line);
-            }
-            reader.close();
-            locationdeschallenges.close();
-
-            //creation de l'arraylist de chakllenge
-            JSONObject json = new JSONObject(jsonStringBuilder.toString());
-            JSONArray challenges = json.getJSONArray("challenges");
-
-            for (int i = 0; i < challenges.length(); i++) {
-                JSONObject currentchall = challenges.getJSONObject(i);
-                Challenge challenge = new Challenge(
-                        currentchall.getString("title"), currentchall.getString("short_text"), currentchall.getString("long_text")
-                );
-                challengeList.add(challenge);
-            }
-        } catch (IOException | JSONException e) {
+            JSONChallenge.put("title", title);
+            JSONChallenge.put("short_description", short_description);
+            JSONChallenge.put("long_description", long_description);
+            JSONChallenge.put("progression", progression);
+            JSONChallenge.put("goal", goal.getSaveFormat());
+            JSONChallenge.put("icon", icon);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        return challengeList;
+        return JSONChallenge;
     }
 
-    /**
-     * method that returns a list of the challenges stocked in JSON
-     * @return
-     */
-    public ArrayList<Challenge> creationOfTheChallengeList(){
-        ArrayList<Challenge> challengeList = new ArrayList<>();
-        Resources res = Resources.getSystem();
-
-        //lecture des lignes
+    @Override
+    public void loadFromSave(JSONObject saveFormat) {
         try {
-            InputStream locationdeschallenges = res.openRawResource(R.raw.listechallenges);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(locationdeschallenges));
-            StringBuilder jsonStringBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonStringBuilder.append(line);
-            }
-            reader.close();
-            locationdeschallenges.close();
-
-            //creation de l'arraylist de chakllenge
-            JSONObject json = new JSONObject(jsonStringBuilder.toString());
-            JSONArray challenges = json.getJSONArray("challenges");
-
-            for (int i = 0; i < challenges.length(); i++) {
-                JSONObject currentchall = challenges.getJSONObject(i);
-                Challenge challenge = new Challenge(
-                        currentchall.getString("title"), currentchall.getString("short_text"), currentchall.getString("long_text")
-                );
-                challengeList.add(challenge);
-            }
-        } catch (IOException | JSONException e) {
+            this.title = saveFormat.getString("title");
+            this.short_description = saveFormat.getString("short_description");
+            this.long_description = saveFormat.getString("long_description");
+            this.progression = saveFormat.getDouble("progression");
+            this.goal = new ChallengeGoal();
+            this.goal.loadFromSave(saveFormat.getJSONObject("goal"));
+            this.icon = saveFormat.getInt("icon");
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        return challengeList;
     }
 
+    public void setGoalType(GoalType goalType) {
+        this.goal.setType(goalType);
+    }
 
+    public void setTransportType(TransportType transportType) {
+        this.goal.setTransportType(transportType);
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
 }
-
-
-}
-
-
-
-
-
-//----------------------------------------------------------------------------------------------//    /**
-//     /**
-//     * Creation of the notification channel.
-//     * @param context the context of the app.
-//     */
-//    // A METTRE DANS LE ONCREATE avec this comme context
-//    private void createNotificationChannel(Context context) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            CharSequence name = getAppContext().getString(R.string.notif_mychannel);
-//            String description = getAppContext().getString(R.string.notif_notifchannel);
-//            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-//            NotificationChannel channel = new NotificationChannel(getAppContext().getString(R.string.idchannel), name, importance);
-//            channel.setDescription(description);
-//
-//            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-//            notificationManager.createNotificationChannel(channel);
-//        }
-//    }
-//
-//    /**
-//     * Send a notification when a challenge is accomplished.
-//     */
-//    public void notifyUser() {
-//        boolean challengeAccomplished = isCompleted();
-//        Context context = getAppContext();
-//        if (challengeAccomplished) {
-//            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, getAppContext().getString(R.string.idchannel))
-//                    .setContentTitle(context.getString(R.string.notification_accomplishedchall))
-//                    .setContentText(context.getString(R.string.notification_congratulations))
-//                    //.setSmallIcon(Ressource.Drawable.ic_notification); If an icon is needed
-//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-//            //.setAutoCancel(true);
-//            Notification notification = builder.build();
-//            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-//            int notificationID = 0;
-//            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {return;}
-//            notificationManager.notify(notificationID, notification);
-//        }
-//
-//    }
-

@@ -9,4 +9,5 @@ public interface Savable {
      * @return JSONObject
      */
     public JSONObject getSaveFormat();
+    public void loadFromSave(JSONObject saveFormat);
 }

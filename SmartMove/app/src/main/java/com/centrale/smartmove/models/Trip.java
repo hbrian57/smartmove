@@ -47,6 +47,10 @@ public class Trip  implements Savable {
         this.listOfTripSegments = listSegments;
     }
 
+    public Trip() {
+        listOfTripSegments = new ArrayList<>();
+    }
+
     //Getters and Setters---------------------------------------------------------------------------
 
     /**
@@ -111,6 +115,26 @@ public class Trip  implements Savable {
             e.printStackTrace();
         }
         return JSONTrip;
+    }
+
+    @Override
+    public void loadFromSave(JSONObject saveFormat) {
+        JSONArray JSONSegments = null;
+        try {
+            JSONSegments = saveFormat.getJSONArray("tripSegments");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < JSONSegments.length(); i++) {
+            try {
+                JSONObject JSONSegment = JSONSegments.getJSONObject(i);
+                TripSegment segment = new TripSegment();
+                segment.loadFromSave(JSONSegment);
+                listOfTripSegments.add(segment);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //Returns the number of trips of each type

@@ -47,6 +47,7 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_equivalent);
+        listCarbonEquivalent = new ArrayList<>();
         ImageView navToHere = findViewById(R.id.imageViewNavToCarbonEquivalent);
         navToHere.setVisibility(View.INVISIBLE);
         carbonFootprintDisplayed = getIntent().getDoubleExtra(getString(R.string.carbonFootprintDisplayed), 0);
@@ -79,10 +80,12 @@ public class ActivityCarbonEquivalent extends AppCompatActivity {
 
             for (int i = 0; i < equivalents.length(); i++) {
                 JSONObject equivalent = equivalents.getJSONObject(i);
+                String drawableString = equivalent.getString("imageID");
+                int imageID = res.getIdentifier(drawableString, "drawable", getPackageName());
                 Equivalent carbonEquivalent = new Equivalent(
                         equivalent.getString("sentence"),
                         equivalent.getDouble("ratio"),
-                        equivalent.getInt("imageID")
+                        imageID
                 );
                 listCarbonEquivalent.add(carbonEquivalent);
             }

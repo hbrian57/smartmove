@@ -24,6 +24,11 @@ public class TimestampedPosition implements Savable {
      */
     private Timestamp timestamp;
 
+    public TimestampedPosition() {
+        this.geoCoordinates = new GeoPoint(0,0);
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
     //Getters and Setters---------------------------------------------------------------------------
     /**
      * Getter
@@ -132,7 +137,7 @@ public class TimestampedPosition implements Savable {
     public JSONObject getSaveFormat() {
         JSONObject JSONTimestampedPosition = new JSONObject();
         try {
-            JSONTimestampedPosition.put("timestamp", timestamp);
+            JSONTimestampedPosition.put("timestamp", timestamp.toInstant().toEpochMilli());
             JSONObject JSONPosition = new JSONObject();
             JSONPosition.put("latitude", this.geoCoordinates.getLatitude());
             JSONPosition.put("longitude", this.geoCoordinates.getLongitude());
@@ -141,6 +146,17 @@ public class TimestampedPosition implements Savable {
             e.printStackTrace(); //TODO : Handle the exception properly
         }
         return JSONTimestampedPosition;
+    }
+
+    @Override
+    public void loadFromSave(JSONObject saveFormat) {
+        try {
+            this.timestamp = new Timestamp(saveFormat.getLong("timestamp"));
+            JSONObject JSONPosition = saveFormat.getJSONObject("position");
+            this.geoCoordinates = new GeoPoint(JSONPosition.getDouble("latitude"), JSONPosition.getDouble("longitude"));
+        } catch (JSONException e) {
+            e.printStackTrace(); //TODO : Handle the exception properly
+        }
     }
     //----------------------------------------------------------------------------------------------
 }

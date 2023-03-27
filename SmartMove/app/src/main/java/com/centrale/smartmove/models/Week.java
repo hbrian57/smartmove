@@ -25,6 +25,10 @@ public class Week implements Savable {
      */
     private double carbonFootprint;
 
+    public Week() {
+        this.carbonFootprint = 0;
+    }
+
     //Getters and Setters---------------------------------------------------------------------------
 
     /**
@@ -104,5 +108,17 @@ public class Week implements Savable {
         return JSONWeek;
     }
 
-    //----------------------------------------------------------------------------------------------
+    @Override
+    public void loadFromSave(JSONObject saveFormat) {
+        //get the week id
+        String weekID = saveFormat.optString(String.valueOf(R.string.weekWeekID));
+        //split the week id to get the week number and the year
+        String[] weekIDSplit = weekID.split(":");
+        //generate the date based on this information
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.WEEK_OF_YEAR, Integer.parseInt(weekIDSplit[0]));
+        calendar.set(Calendar.YEAR, Integer.parseInt(weekIDSplit[1]));
+        //set the calendar to the first day of the week
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+    }
 }

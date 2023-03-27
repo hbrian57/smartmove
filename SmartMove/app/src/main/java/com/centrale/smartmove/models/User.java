@@ -27,7 +27,7 @@ public class User implements Savable {
     /**
      * ChallengeGenerator
      */
-    private final ChallengeGenerator coach;
+    private ChallengeGenerator coach;
 
     /**
      * ArrayList<Challenge> that contains all the ongoing challenges
@@ -86,7 +86,7 @@ public class User implements Savable {
      */
     public User() {
         weeks = new ArrayList<>();
-        coach = new ChallengeGenerator();
+        coach = new ChallengeGenerator(null);
         onGoingChallenge = new ArrayList<>();
         userTrips = new ArrayList<>();
         lastPositionObtained = null;
@@ -105,6 +105,10 @@ public class User implements Savable {
         this.onGoingChallenge=o;
         this.userTrips=u;
         currentTrip = null;
+    }
+
+    public void setChallengeListOfCoach(ArrayList<Challenge> challengeList) {
+        coach = new ChallengeGenerator(challengeList);
     }
 
     //Methods---------------------------------------------------------------------------------------
@@ -141,15 +145,48 @@ public class User implements Savable {
     public JSONObject getSaveFormat() {
         JSONObject JSONUser = new JSONObject();
         JSONArray JSONWeeks = new JSONArray();
+        JSONArray JSONTrips = new JSONArray();
+        JSONArray JSONChallenges = new JSONArray();
         for (Week week : weeks) {
             JSONWeeks.put(week.getSaveFormat());
         }
+        for (Trip trip : userTrips) {
+            JSONTrips.put(trip.getSaveFormat());
+        }
+        for (Challenge challenge : onGoingChallenge) {
+            JSONChallenges.put(challenge.getSaveFormat());
+        }
         try {
             JSONUser.put(String.valueOf(R.string.userWeeks), JSONWeeks);
+            JSONUser.put(String.valueOf(R.string.userTrips), JSONTrips);
+            JSONUser.put(String.valueOf(R.string.userChallenges), JSONChallenges);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return JSONUser;
+    }
+
+    @Override
+    public void loadFromSave(JSONObject saveFormat) {
+        JSONArray JSONWeeks = saveFormat.optJSONArray(String.valueOf(R.string.userWeeks));
+        for (int i = 0; i < JSONWeeks.length(); i++) {
+            Week week = new Week();
+            week.loadFromSave(JSONWeeks.optJSONObject(i));
+            weeks.add(week);
+        }
+        //load the trips
+        JSONArray JSONTrips = saveFormat.optJSONArray(String.valueOf(R.string.userTrips));
+        for (int i = 0; i < JSONTrips.length(); i++) {
+            Trip trip = new Trip();
+            trip.loadFromSave(JSONTrips.optJSONObject(i));
+            userTrips.add(trip);
+        }
+        JSONArray JSONChallenges = saveFormat.optJSONArray(String.valueOf(R.string.userChallenges));
+        for (int i = 0; i < JSONChallenges.length(); i++) {
+            Challenge challenge = new Challenge();
+            challenge.loadFromSave(JSONChallenges.optJSONObject(i));
+            onGoingChallenge.add(challenge);
+        }
     }
 
     /**
@@ -249,7 +286,7 @@ public class User implements Savable {
     }
 
     public void removeDefi(Challenge DefiYouWantToRemove){
-        int title = DefiYouWantToRemove.getTitle();
+        String title = DefiYouWantToRemove.getTitle();
         for(Challenge defi : onGoingChallenge){
             if(defi.getTitle() == title){
                 onGoingChallenge.remove(DefiYouWantToRemove);
@@ -258,7 +295,7 @@ public class User implements Savable {
     }
 
     public void addNewDefi(){
-        Challenge newDefi = new ChallengeGenerator().getRandomChallenge();
+        Challenge newDefi = coach.getRandomChallenge();
         onGoingChallenge.add(newDefi);
     }
 

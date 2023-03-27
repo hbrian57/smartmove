@@ -90,6 +90,11 @@
     <string name="gobcafe_ratio">8.8</string>
     <string name="explication_defi_long"> Le défi de marcher un certain nombre de kilomètres chaque semaine  peut sembler simple, mais il peut avoir un impact significatif sur la planète et sur  votre santé. En marchant au lieu de prendre la voiture ou les transports en commun,  vous réduisez votre empreinte carbone en émettant moins de CO2 dans  l\'atmosphère. Cela contribue à préserver l\'environnement en réduisant la pollution  de l\'air et en préservant les ressources naturelles. En outre, marcher est bénéfique pour vous ! Cela peut aider à réduire le risque de  maladies cardiovasculaires, de diabète et d\'obésité. Marcher régulièrement peut  également améliorer l\'humeur, réduire le stress et améliorer la qualité du sommeil. En acceptant ce défi, vous pouvez contribuer à faire une différence positive pour  l\'environnement et pour votre santé. Suivez l’objectif fixé et utilisez notre application  pour suivre vos progrès. Vous pouvez également rejoindre une communauté de  marcheurs pour vous motiver mutuellement et partager vos réussites. Alors, êtes-vous prêt à relever le défi ?</string>
     <string name="ChannelID">My Notification</string>
+    <string name="userSave">SerializedUser</string>
+    <string name="SMARTMOVE_PREFS">SMARTMOVE</string>
+    <string name="SMARTMOVE_USER">SerializedUser</string>
+    <string name="userTrips">trips</string>
+    <string name="userChallenges">user_ongoing_challenges</string>
 
 
     >>>>>>> 2469e7494c4d36efa9a0479b908e884c12bbbefc

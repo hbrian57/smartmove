@@ -29,6 +29,11 @@ public class TripSegment implements Savable {
      */
     private boolean isFinished = false;
 
+    public TripSegment() {
+        this.transportType = TransportType.STATIC;
+        this.positions = new LinkedList<>();
+    }
+
 
     //Getters and Setters---------------------------------------------------------------------------
     /**
@@ -154,6 +159,21 @@ public class TripSegment implements Savable {
             e.printStackTrace();
         }
         return JSONTripSegment;
+    }
+
+    @Override
+    public void loadFromSave(JSONObject saveFormat) {
+        try {
+            this.transportType = TransportType.valueOf(saveFormat.getString(String.valueOf(R.string.tripSegmentTransportType)));
+            JSONArray JSONPositionList = saveFormat.getJSONArray(String.valueOf(R.string.TripSegmentPosition));
+            for (int i = 0; i < JSONPositionList.length(); i++) {
+                TimestampedPosition pos = new TimestampedPosition();
+                pos.loadFromSave(JSONPositionList.getJSONObject(i));
+                this.positions.add(pos);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

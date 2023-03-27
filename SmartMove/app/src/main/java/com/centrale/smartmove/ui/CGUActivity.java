@@ -72,7 +72,7 @@ public class CGUActivity extends AppCompatActivity {
      */
     public void onButtonClicked(View view) {
         Log.d(LOG_TAG, "Validé");
-        SharedPreferences sharedPref = getSharedPreferences("SMARTMOVE",Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.SMARTMOVE_PREFS),Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("acceptedGCU", 1);
         editor.apply();

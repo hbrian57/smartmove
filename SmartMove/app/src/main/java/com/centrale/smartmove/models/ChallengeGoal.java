@@ -1,6 +1,10 @@
 package com.centrale.smartmove.models;
 
-public class ChallengeGoal {
+import com.centrale.smartmove.Savable;
+
+import org.json.JSONObject;
+
+public class ChallengeGoal implements Savable {
 
     //Attributes------------------------------------------------------------------------------------
     /**
@@ -73,6 +77,11 @@ public class ChallengeGoal {
         this.goalFinal = 0.0;
         this.transportType = TransportType.WALKING;
     }
+    public ChallengeGoal(GoalType type, TransportType transportType) {
+        super();
+        this.type = type;
+        this.transportType = transportType;
+    }
 
     //Methods---------------------------------------------------------------------------------------
     /**
@@ -91,6 +100,30 @@ public class ChallengeGoal {
      */
     public Double calculateProgressionIncrementDistanceCovered(Double distanceCovered) {
         return distanceCovered/goalFinal*100;
+    }
+
+    @Override
+    public JSONObject getSaveFormat() {
+        JSONObject JSONGoal = new JSONObject();
+        try {
+            JSONGoal.put("type", type.toString());
+            JSONGoal.put("goalFinal", goalFinal);
+            JSONGoal.put("transportType", transportType.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return JSONGoal;
+    }
+
+    @Override
+    public void loadFromSave(JSONObject saveFormat) {
+        try {
+            type = GoalType.valueOf(saveFormat.getString("type"));
+            goalFinal = saveFormat.getDouble("goalFinal");
+            transportType = TransportType.valueOf(saveFormat.getString("transportType"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //----------------------------------------------------------------------------------------------

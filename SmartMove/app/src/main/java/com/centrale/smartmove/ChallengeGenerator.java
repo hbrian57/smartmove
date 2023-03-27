@@ -1,6 +1,9 @@
 package com.centrale.smartmove;
+import android.content.res.Resources;
+
 import com.centrale.smartmove.R;
 import com.centrale.smartmove.models.Challenge;
+import com.centrale.smartmove.models.ChallengeGoal;
 import com.centrale.smartmove.models.Equivalent;
 import com.centrale.smartmove.models.GoalType;
 
@@ -17,9 +20,13 @@ import java.util.Random;
 import java.util.Date;
 
 public class ChallengeGenerator {
+    ArrayList<Challenge> availableChallenges;
 
-    public ChallengeGenerator() {
+    public ChallengeGenerator(ArrayList<Challenge> challengeList) {
+       availableChallenges = challengeList;
     }
+
+
 
     /**
      * Get a random challenge.
@@ -33,40 +40,14 @@ public class ChallengeGenerator {
      * @return Challenge challeng
      */
     public Challenge getRandomChallenge(){
-        Challenge challenge = new Challenge();
-        ArrayList challenges = challenge.creationOfTheChallengeList();
         Random rand = new Random();
-        int index = rand.nextInt(challenges.size());
-        return (Challenge) challenges.get(index);
-
-
-    // Goal
-        int result = rand.nextInt(2); // BOUND A CHANGER EN FONCTION DU NBR DES DEFIS
-        if (result ==0){
-            GoalType goalType = GoalType.NUMBER_OF_TRIPS;// A CHANGER EN FONCTION DES DEFIS
-            challenge.getGoal().setType(goalType);
+        if (availableChallenges.size() == 0) {
+            return new Challenge();
         }
-        else {
-            GoalType goalType2 =GoalType.DISTANCE_COVERED;// A CHANGER EN FONCTION DES DEFIS
-            challenge.getGoal().setType(goalType2);
-        }
-        challenge.getGoal().setGoalFinal(5.0);// A VERIFIER
-        // progression
-        challenge.setProgression(70.0);
-        // Date
-        Date today = new Date();
-
-
-        // Title A FAIRE EN FONCTION DES DEFIS
-        challenge.setTitle(challenge.getTitle());
-
-        //Description A FAIRE EN FONCTION DES DEFIS
-        challenge.setShort_description(challenge.getShort_description());
-
-        //Description A FAIRE EN FONCTION DES DEFIS
-        challenge.setLong_description("long_description");
-
-        return challenge;**/
+        int index = rand.nextInt(availableChallenges.size());
+        Challenge newChallenge = availableChallenges.get(index);
+        newChallenge.getGoal().setGoalFinal(5.0); //à automatiser pour s'adapter à l'utilisateur, ici 5 peut correspondre à 5 km ou 5 trips
+        return newChallenge;
     }
 }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,11 +42,15 @@ public class RecyclerChallengeAdapter extends RecyclerView.Adapter<RecyclerChall
     public void onBindViewHolder(@NonNull RecyclerChallengeAdapter.RecyclerChallengeVueHolder holder, int position) {
         //Set the data for each row based on the position
         holder.title.setText(challenges.get(position).getTitle());
-        holder.description.setText(challenges.get(position).getDescription());
+        holder.description.setText(challenges.get(position).getShort_description());
         holder.progressionBar.setProgress(challenges.get(position).getProgressionDouble().intValue());
         holder.progressionString.setText(challenges.get(position).getProgressionString());
         holder.image.setImageResource(challenges.get(position).getIcon());
-
+        holder.layout.setOnClickListener(v -> {
+                Intent intent = new Intent(context, ChallengeDescriptionActivity.class);
+                intent.putExtra("challenge", challenges.get(position).getSaveFormat().toString());
+                context.startActivity(intent);
+            });
     }
 
     @Override
@@ -62,10 +67,11 @@ public class RecyclerChallengeAdapter extends RecyclerView.Adapter<RecyclerChall
         TextView description;
         ProgressBar progressionBar;
         TextView progressionString;
-
+        LinearLayout layout;
 
         public RecyclerChallengeVueHolder(@NonNull ViewGroup parent) {
             super(parent);
+            layout = parent.findViewById(R.id.challengeLayout);
             image = parent.findViewById(R.id.challengeIcon);
             title = parent.findViewById(R.id.challengeTitle);
             description = parent.findViewById(R.id.challengeDescription);

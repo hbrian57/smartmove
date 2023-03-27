@@ -1,35 +1,37 @@
 {
   "challenges" : [
-
     {
-      "titre": "Marche pour la planète et ta santé !",
+      "title": "Marche pour la planète et ta santé !",
       "short_text" : "Relevez le défi de marcher des kilomètres chaque semaine.",
       "long_text" : "Le défi de marcher un certain nombre de kilomètres chaque semaine peut sembler simple, mais il peut avoir un impact significatif sur la planète et sur votre santé. En marchant au lieu de prendre la voiture ou les transports en commun, vous réduisez votre empreinte carbone en émettant moins de CO2 dans l'atmosphère. Cela contribue à préserver l'environnement en réduisant la pollution de l'air et en préservant les ressources naturelles.\nEn outre, marcher est bénéfique pour vous ! Cela peut aider à réduire le risque de maladies cardiovasculaires, de diabète et d'obésité. Marcher régulièrement peut également améliorer l'humeur, réduire le stress et améliorer la qualité du sommeil. En acceptant ce défi, vous pouvez contribuer à faire une différence positive pour l'environnement et pour votre santé. Suivez l’objectif fixé et utilisez notre application pour suivre vos progrès. Vous pouvez également rejoindre une communauté de marcheurs pour vous motiver mutuellement et partager vos réussites. Alors, êtes- vous prêt à relever le défi ?\n",
       "goal_type": 0,
-      "transport_type": "foot"
+      "transport_type": "foot",
+      "icon": "walking"
     },
     {
-      "titre": "Pédalez pour un mode de vie plus vert et plus sain !",
+      "title": "Pédalez pour un mode de vie plus vert et plus sain !",
       "short_text" : "Relevez le défi de faire plusieurs trajets à vélo cette semaine.",
       "long_text" : "Le défi de faire un certain nombre de trajets à vélo chaque semaine peut sembler difficile, mais il peut avoir un impact significatif sur l'environnement et sur votre santé. En utilisant votre vélo plutôt que votre voiture, vous réduisez votre empreinte carbone en émettant moins de CO2 dans l'atmosphère. Cela contribue à préserver l'environnement en réduisant la pollution de l'air et en préservant les ressources naturelles.\nDe plus, faire du vélo régulièrement est bénéfique pour la santé. Cela peut aider à améliorer l'endurance cardiovasculaire, la force musculaire et la flexibilité. En outre, cela peut réduire le risque de maladies cardiovasculaires, d'obésité et de diabète. Faire du vélo peut également aider à améliorer l'humeur et à réduire le stress.\nEn relevant le défi de faire un certain nombre de trajets à vélo chaque semaine, vous pouvez contribuer à faire une différence positive pour l'environnement et pour votre santé : les cyclistes du tour de France gagnent en moyenne 6.3 années d’espérance de vie par rapport aux français moyens, à votre tour ! PS : on vous met au défi de nous envoyer une photo du plus bel endroit où vous serez passés avec votre vélo cette semaine !",
       "goal_type": 1,
-      "transport_type": "bike"
+      "transport_type": "bike",
+      "icon": "bike"
 
     },
     {
-      "titre": "Pedale pour la planète et ta santé !",
+      "title": "Pedale pour la planète et ta santé !",
       "short_text" : "Relevez le défi de faire des kilomètres en vélo cette semaine.",
       "long_text" : "Le défi de faire à vélo un certain nombre de kilomètres chaque semaine peut sembler simple, mais il peut avoir un impact significatif sur la planète et sur votre santé.",
       "goal_type": 0,
-      "transport_type": "bike"
-
+      "transport_type": "bike",
+      "icon": "bike"
     },
     {
-      "titre": "Marchez pour un mode de vie plus vert et plus sain !",
+      "title": "Marchez pour un mode de vie plus vert et plus sain !",
       "short_text" : "Relevez le défi de faire plusieurs trajets à pied cette semaine.",
       "long_text" : "Le défi de faire un certain nombre de trajets à pied chaque semaine peut sembler difficile, mais il peut avoir un impact significatif sur l'environnement et sur votre santé. En utilisant votre vélo plutôt que votre voiture, vous réduisez votre empreinte carbone en émettant moins de CO2 dans l'atmosphère. Cela contribue à préserver l'environnement en réduisant la pollution de l'air et en préservant les ressources naturelles. ",
       "goal_type": 1,
-      "transport_type": "foot"
+      "transport_type": "foot",
+      "icon": "walking"
     }
   ]
 }
