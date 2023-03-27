@@ -288,6 +288,46 @@ public class Challenge {
         return challengeList;
     }
 
+    /**
+     * method that returns a list of the challenges stocked in JSON
+     * @return
+     */
+    public ArrayList<Challenge> creationOfTheChallengeList(){
+        ArrayList<Challenge> challengeList = new ArrayList<>();
+        Resources res = Resources.getSystem();
+
+        //lecture des lignes
+        try {
+            InputStream locationdeschallenges = res.openRawResource(R.raw.listechallenges);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(locationdeschallenges));
+            StringBuilder jsonStringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonStringBuilder.append(line);
+            }
+            reader.close();
+            locationdeschallenges.close();
+
+            //creation de l'arraylist de chakllenge
+            JSONObject json = new JSONObject(jsonStringBuilder.toString());
+            JSONArray challenges = json.getJSONArray("challenges");
+
+            for (int i = 0; i < challenges.length(); i++) {
+                JSONObject currentchall = challenges.getJSONObject(i);
+                Challenge challenge = new Challenge(
+                        currentchall.getString("title"), currentchall.getString("short_text"), currentchall.getString("long_text")
+                );
+                challengeList.add(challenge);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return challengeList;
+    }
+
+
+}
+
 
 }
 
