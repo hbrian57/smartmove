@@ -11,7 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 import com.centrale.smartmove.debugus4.DebugUS4;
 
 import java.util.ArrayList;

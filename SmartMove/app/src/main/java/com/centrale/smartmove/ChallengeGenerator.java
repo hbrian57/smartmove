@@ -17,7 +17,7 @@ public class ChallengeGenerator {
     //Methods---------------------------------------------------------------------------------------
     /**
      * Method that picks a random challenge.
-     * @return Challenge challenge
+     * @return Challenge challeng
      */
     public Challenge getRandomChallenge(){
         Challenge challenge = new Challenge();

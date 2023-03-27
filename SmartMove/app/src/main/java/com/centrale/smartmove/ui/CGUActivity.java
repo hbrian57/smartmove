@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 import com.centrale.smartmove.databinding.CguScrollingLayoutBinding;
 
 

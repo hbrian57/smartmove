@@ -5,7 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.centrale.smartmove.R;
+import com.centrale.smartmove.*;
 import com.centrale.smartmove.Savable;
 
 import java.util.LinkedList;
