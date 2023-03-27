@@ -1,7 +1,9 @@
 package com.centrale.smartmove.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -69,7 +71,6 @@ public class RecyclerChallengeAdapter extends RecyclerView.Adapter<RecyclerChall
             description = parent.findViewById(R.id.challengeDescription);
             progressionBar = parent.findViewById(R.id.challengeProgressBar);
             progressionString = parent.findViewById(R.id.challengeProgressionString);
-
         }
     }
 }

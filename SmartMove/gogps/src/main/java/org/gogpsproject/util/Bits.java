@@ -183,7 +183,7 @@ public class Bits {
 	/**
 	 * convert a byte to bits
 	 *
-	 * @param in
+	 * @param b
 	 *            byte to convert
 	 * @param length
 	 *            how many bits to use, must be between 1 and 32

@@ -648,7 +648,7 @@ public class GoGPS implements Runnable{
   /**
    * Run code standalone.
    *
-   * @param getNthPosition the get nth position
+   * @param stopAtDopThreshold the get nth position
    * @return the coordinates
    * @throws Exception
    */

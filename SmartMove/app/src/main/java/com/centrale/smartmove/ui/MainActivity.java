@@ -1,9 +1,8 @@
 package com.centrale.smartmove.ui;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,13 +10,22 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.centrale.smartmove.*;
-import com.centrale.smartmove.debugus4.DebugUS4;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.centrale.smartmove.R;
+//import com.centrale.smartmove.debugus4.DebugUS4;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> permissions = new ArrayList<>();
+    private static Context context;
+
+    public static Context getContext() {
+        return context;
+    }
+
     /**
      * Method that displays the application's menu view or the CGU view if it has never been accepted.
      * @param savedInstanceState
@@ -53,14 +61,20 @@ public class MainActivity extends AppCompatActivity {
         if (CGU_accepted == 0) {
             Intent intent = new Intent(this, CGUActivity.class);
             startActivity(intent);
-        } else {
-            if (DEBUG_SCREEN) {
+        } /*else {
+            /*if (DEBUG_SCREEN) {
                 Intent intent = new Intent(this, DebugUS4.class);
                 startActivity(intent);
                 return;
-            }
+            }*/
             Intent intent = new Intent(this,DashboardActivity.class);
             startActivity(intent);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("My Notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 

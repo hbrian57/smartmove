@@ -145,7 +145,7 @@ public class LS_SA_code extends Core {
   /**
    * Run code standalone.
    *
-   * @param getNthPosition the get nth position
+   * @param stopAtDopThreshold the get nth position
    * @return the coordinates
    * @throws Exception
    */

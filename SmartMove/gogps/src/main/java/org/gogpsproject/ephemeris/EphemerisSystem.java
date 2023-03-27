@@ -40,13 +40,7 @@ import org.ejml.simple.SimpleMatrix;
 
 public abstract class EphemerisSystem {
 
-	/**
-	 * @param time
-	 *            (GPS time in seconds)
-	 * @param satID
-	 * @param range
-	 * @param approxPos
-	 */
+
 	
 //	double[] pos ;
 	
@@ -572,9 +566,7 @@ public abstract class EphemerisSystem {
 		return time;
 	}
 
-	/**
-	 * @param traveltime
-	 */
+
 	protected SimpleMatrix computeEarthRotationCorrection(long unixTime, double receiverClockError, double transmissionTime) {
 
 		// Computation of signal travel time
@@ -609,10 +601,7 @@ public abstract class EphemerisSystem {
 
 	}
 
-	/**
-	 * @param eph
-	 * @return Clock-corrected GPS transmission time
-	 */
+
 	protected double computeClockCorrectedTransmissionTime(long unixTime, double satelliteClockError, double obsPseudorange) {
 
 		double gpsTime = (new Time(unixTime)).getGpsTime();
